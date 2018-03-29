@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="kongweb:war">
+    <output-path>$PROJECT_DIR$/kongweb/target</output-path>
+    <root id="archive" name="kong-web-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="kongweb:war exploded" />
+    </root>
+  </artifact>
+</component>

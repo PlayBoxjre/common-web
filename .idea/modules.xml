@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/idea_sw.iml" filepath="$PROJECT_DIR$/idea_sw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kongweb/kongweb.iml" filepath="$PROJECT_DIR$/kongweb/kongweb.iml" />
     </modules>
   </component>
 </project>
