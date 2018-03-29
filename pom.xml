@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.kong</groupId>
+    <artifactId>common-web</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>java web</name>
+    <description>java web common settings</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <java.version>1.8</java.version>
+        <slf4j.version>1.8.0-alpha1</slf4j.version>
+        <log4j.verson>1.2.17</log4j.verson>
+        <spring.version>5.0.2.RELEASE</spring.version>
+        <mysql.version>5.1.40</mysql.version>
+        <jackson.version>2.9.4</jackson.version>
+        <java.inject.version>1</java.inject.version>
+
+    </properties>
+    <!-- 依赖 -->
+    <dependencyManagement>
+        <dependencies>
+
+            <!--dependency>
+                <groupId>jdk.tools</groupId>
+                <artifactId>jdk.tools</artifactId>
+                <version>1.8</version>
+                <scope>system</scope>
+                <systemPath>${java.home}/lib/tools.jar</systemPath>
+            </dependency-->
+            <!-- java jsp tag-->
+
+
+
+            <!-- ==================== hibernate ====================== -->
+            <!-- persistence layer Hibernate & mysql -->
+            <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>5.2.12.Final</version>
+            </dependency>
+
+            <!-- ==================== java ext package ====================== -->
+
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>${java.inject.version}</version>
+            </dependency>
+            <!--==================== odbc =======================-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- =================javax ===================-->
+            <dependency>
+                <groupId>javax.servlet.jsp.jstl</groupId>
+                <artifactId>jstl-api</artifactId>
+                <version>1.2</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet.jsp</groupId>
+                        <artifactId>jsp-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>jstl-impl</artifactId>
+                <version>1.2</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet.jsp</groupId>
+                        <artifactId>jsp-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet.jsp.jstl</groupId>
+                        <artifactId>jstl-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>4.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>javax.servlet.jsp-api</artifactId>
+                <version>2.3.2-b02</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- ==================== Springframework ======================== -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.session</groupId>
+                <artifactId>spring-session</artifactId>
+                <version>${spring-session.version}</version>
+            </dependency>
+            <!-- ==================== Slf4j ================================== -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.verson}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- ==================== Fasterxml jackson ====================== -->
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20180130</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- ==================== test ====================== -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!-- 强制设置JDK编译版本为1.8 -->
+        <pluginManagement>
+            <plugins>
+                <!-- jetty server -->
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <configuration> <!-- 指定访问端口，最好是使用-Djetty.port=8080参数指定 --> <!--<httpConnector> <port>8080</port> </httpConnector>--> <!-- 间隔x秒扫描一次,实现热部署 -->
+                        <scanIntervalSeconds>1</scanIntervalSeconds> <!-- 编写类文件之后，是否自动重启jetty；可选后面两个值[manual|automatic] -->
+                        <reload>automatic</reload>
+                        <!-- 指定关闭端口 --> <!--<stopPort>65535</stopPort>--> <!--<stopKey>stop-jetty-for-it</stopKey>-->
+                        <webApp>
+                            <contextPath>/</contextPath>
+                            <!-- 更改jetty默认webdefault.xml文件，主要修改了useFileMappedBuffer属性为false，使其不锁定静态文件 --> <!-- 此文件在C盘\用户目录\.m2\repository\org\eclipse\jetty\jetty-webapp\xxxVersion\找到jar包，打开jar包目录org\eclipse\jetty\webapp\目录中 --> <!--<defaultsDescriptor>webdefault.xml</defaultsDescriptor>-->
+                        </webApp>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <!-- 子模块集成插件 -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerVersion>1.8</compilerVersion>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>UTF-8</encoding><!-- 指定编码格式，否则在DOS下运行mvn命令时当发生文件资源copy时将使用系统默认使用GBK编码 -->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <forkMode>once</forkMode>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>
