@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/cache
+            http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName">
+    <context:component-scan base-package="com.kong.datas.impls"/>
+
+    <context:property-placeholder location="classpath*:config/*.properties" file-encoding="UTF-8"
+                                  ignore-resource-not-found="true"
+    />
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          p:driverClass="${db.driver}"
+          p:user="${db.user}"
+          p:password="${db.password}"
+          p:jdbcUrl="${db.url}"
+          p:initialPoolSize="10"
+          p:checkoutTimeout="3000"
+          p:loginTimeout="3000"
+          p:maxIdleTime="30"
+          p:maxPoolSize="100"
+          p:minPoolSize="10"
+          p:maxStatements="200"
+    />
+
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="singleton">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+
+</beans>
