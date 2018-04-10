@@ -1,14 +1,12 @@
 package com.kong.support;
 
-import com.sun.istack.internal.NotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
 
-    public static String unixTime2FormatString(long unixTime, @NotNull String format) {
+    public static String unixTime2FormatString(long unixTime, String format) {
         unixTime *= 1000;
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(unixTime);

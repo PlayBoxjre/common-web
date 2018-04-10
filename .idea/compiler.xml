@@ -7,6 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="kong-datas" />
+        <module name="kong-supports" />
+        <module name="kong-web" />
         <module name="kongsupports" />
         <module name="kongweb" />
       </profile>
@@ -15,6 +17,8 @@
       <module name="common-web" target="1.8" />
       <module name="idea_sw" target="1.8" />
       <module name="kong-datas" target="1.8" />
+      <module name="kong-supports" target="1.8" />
+      <module name="kong-web" target="1.8" />
       <module name="kongsupports" target="1.8" />
       <module name="kongweb" target="1.8" />
     </bytecodeTargetLevel>
