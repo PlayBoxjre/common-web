@@ -4,6 +4,7 @@ import com.kong.support.resources.defines.ByteLoader;
 import com.kong.support.resources.defines.LoadSelector;
 import com.kong.support.resources.defines.RealByteLoader;
 
+import java.io.File;
 import java.net.URI;
 import java.util.Objects;
 
@@ -31,8 +32,13 @@ public class DefaultByteLoader implements ByteLoader<URI> {
     @Override
     public byte[] byteLoading(URI uri) {
         RealByteLoader realByteLoader = null;
+        String scheme = uri.getScheme();
+        if (scheme == null){
+            scheme = "default";
+            uri = new File(uri.toASCIIString()).toURI();
+        }
         try {
-            realByteLoader = getLoadSelector().selectLoadMethod(uri);
+            realByteLoader = getLoadSelector().selectLoadMethod(scheme);
         } catch (Exception e) {
             e.printStackTrace();
         }

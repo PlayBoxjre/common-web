@@ -1,4 +1,4 @@
-package com.kong.support.tools;
+package com.kong.support.toolboxes;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

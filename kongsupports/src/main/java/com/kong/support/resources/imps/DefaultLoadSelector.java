@@ -2,12 +2,9 @@ package com.kong.support.resources.imps;
 
 import com.kong.support.resources.defines.LoadSelector;
 import com.kong.support.resources.defines.RealByteLoader;
-import com.kong.support.tools.ReflectTool;
+import com.kong.support.toolboxes.ReflectTool;
 
-
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Properties;
 
 /**
@@ -34,13 +31,13 @@ public class DefaultLoadSelector implements LoadSelector {
     }
 
     @Override
-    public RealByteLoader selectLoadMethod(URI uri) throws Exception {
-        String scheme = uri.getScheme();
-        if (scheme == null)
-            scheme = "default";
+    public RealByteLoader selectLoadMethod(String scheme ) throws Exception {
+
         String classPath = schemaLoaderMapper.getProperty(scheme);
         if (classPath == null) {
-            classPath = DefaultRealByteLoader.class.getCanonicalName();
+            classPath = schemaLoaderMapper.getProperty("default");
+            if (classPath==null)
+                classPath = DefaultRealByteLoader.class.getName();
         }
         return (RealByteLoader) ReflectTool.createInstance(classPath, getClass().getClassLoader());
     }

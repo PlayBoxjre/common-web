@@ -1,7 +1,5 @@
 package com.kong.support.resources.defines;
 
-import java.net.URI;
-
 /**
  * 加载选择器，选择加载资源的方式
  * PROJECT     :   commonweb
@@ -11,5 +9,5 @@ import java.net.URI;
  * DESCRIPTION :
  */
 public interface LoadSelector {
-    public RealByteLoader selectLoadMethod(URI uri) throws Exception;
+    public RealByteLoader selectLoadMethod(String  scheme) throws Exception;
 }

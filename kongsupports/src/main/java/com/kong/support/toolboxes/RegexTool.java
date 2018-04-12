@@ -1,4 +1,4 @@
-package com.kong.support.toolbox;
+package com.kong.support.toolboxes;
 
 public interface RegexTool {
 

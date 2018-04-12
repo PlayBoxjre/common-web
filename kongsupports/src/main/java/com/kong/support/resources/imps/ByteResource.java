@@ -4,7 +4,6 @@ import com.kong.support.resources.defines.ByteLoader;
 import com.kong.support.resources.defines.Resource;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -46,7 +45,7 @@ public class ByteResource implements Resource {
 
     public ByteResource(String path, ByteLoader<URI> byteLoader) {
         this.location = path;
-        this.uri = new File(path).toURI();
+        this.uri = URI.create(path);
         this.byteLoader = byteLoader;
         openInputStream();
     }

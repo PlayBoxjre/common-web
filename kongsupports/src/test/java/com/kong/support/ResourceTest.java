@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.net.URI;
 import java.nio.charset.Charset;
 
@@ -22,10 +21,18 @@ public class ResourceTest {
 
     @Test
     public void test() {
-        Resource resource = new ByteResource("src/main/resources/log4j.properties");
+        String path = "src/main/resources/log4j.properties";
+        String path1 = "http://www..com";
+        Resource resource = new ByteResource(path1);
         URI uri = resource.getURI();
         byte[] bytes = resource.getBytes();
         String ret = new String(bytes, Charset.forName("ISO-8859-1"));
+
+        logger.info("ret {}", ret);
+        Resource local = new ByteResource(path);
+         uri = local.getURI();
+         bytes = local.getBytes();
+         ret = new String(bytes, Charset.forName("ISO-8859-1"));
 
 
         logger.info("ret {}", ret);

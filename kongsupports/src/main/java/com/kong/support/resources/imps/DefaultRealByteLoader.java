@@ -1,13 +1,12 @@
 package com.kong.support.resources.imps;
 
 import com.kong.support.resources.defines.RealByteLoader;
-import com.kong.support.tools.StreamTool;
+import com.kong.support.toolboxes.StreamTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StreamTokenizer;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
