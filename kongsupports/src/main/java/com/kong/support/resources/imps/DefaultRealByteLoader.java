@@ -7,9 +7,7 @@ import com.kong.support.toolboxes.StreamTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -40,10 +38,8 @@ public class DefaultRealByteLoader implements RealByteLoader {
 
                 });
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+           throw new ResourceAccessException(10000,e.getMessage());
         }
         return null;
     }
