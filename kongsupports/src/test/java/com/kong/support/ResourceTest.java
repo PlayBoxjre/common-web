@@ -1,7 +1,10 @@
 package com.kong.support;
 
+import com.kong.support.exceptions.ResourceAccessException;
 import com.kong.support.resources.defines.Resource;
+import com.kong.support.resources.defines.ResourceBundle;
 import com.kong.support.resources.imps.ByteResource;
+import com.kong.support.resources.imps.ResourceBundleImp;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,5 +39,19 @@ public class ResourceTest {
 
 
         logger.info("ret {}", ret);
+    }
+
+    @Test
+    public void resourceBundleTest() throws ResourceAccessException {
+        String path = "src/main/resources/log4j.properties";
+        String path1 = "http://www.konvigne.com";
+        ResourceBundle resourceBundle = new ResourceBundleImp();
+        Resource resource = resourceBundle.getResource(path);
+        byte[] bytes = resource.getBytes();
+        if (bytes!=null) {
+            String ret = new String(bytes, Charset.forName("UTF-8"));
+
+            logger.info("ret {}", ret);
+        }
     }
 }

@@ -1,5 +1,8 @@
 package com.kong.support.resources.defines;
 
+import com.kong.support.exceptions.BaseException;
+import com.kong.support.exceptions.ResourceAccessException;
+
 import java.io.Closeable;
 import java.io.InputStream;
 import java.net.URI;
@@ -14,7 +17,7 @@ import java.net.URI;
  */
 public interface Resource extends Closeable {
 
-    public byte[] getBytes();
+    public byte[] getBytes() ;
 
     public String getLocaiton();
 
@@ -26,6 +29,18 @@ public interface Resource extends Closeable {
 
     public int size();
 
-    public InputStream openInputStream();
+    public InputStream openInputStream() throws ResourceAccessException;
+
+
+    public interface OnResourceAccessListener{
+
+        public void onPreResourceAccess(URI uri);
+
+        public byte[] onResourceAccessing(URI uri,int length,int total);
+
+        public byte[] onResourceAccessFinish(Resource resource);
+
+        public void onResourceAccessFailed(BaseException ex);
+    }
 
 }

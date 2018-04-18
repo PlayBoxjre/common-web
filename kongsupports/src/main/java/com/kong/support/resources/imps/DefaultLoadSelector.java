@@ -4,7 +4,6 @@ import com.kong.support.resources.defines.LoadSelector;
 import com.kong.support.resources.defines.RealByteLoader;
 import com.kong.support.toolboxes.ReflectTool;
 
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -19,11 +18,6 @@ public class DefaultLoadSelector implements LoadSelector {
 
     public DefaultLoadSelector() {
         schemaLoaderMapper = new Properties();
-        try {
-            schemaLoaderMapper.load(ClassLoader.getSystemResourceAsStream("config.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public DefaultLoadSelector(Properties schemaLoaderMapper) {

@@ -1,19 +1,19 @@
 package com.kong.support.resources.imps;
 
+import com.kong.support.exceptions.ResourceAccessException;
 import com.kong.support.resources.defines.RealByteLoader;
+import com.kong.support.resources.defines.Resource;
 import com.kong.support.toolboxes.StreamTool;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
 public class DefaultHttpReadByteLoader implements RealByteLoader
 {
     @Override
-    public byte[] readBytes(URI uri) {
+    public byte[] readBytes(URI uri, Resource.OnResourceAccessListener listener) throws ResourceAccessException {
         try {
             URL url = uri.toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -22,19 +22,17 @@ public class DefaultHttpReadByteLoader implements RealByteLoader
             conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded;charset=utf8");
             conn.setConnectTimeout(50000);
             conn.setReadTimeout(30000);
-
+            int contentLength = conn.getContentLength();
             conn.connect();
 
             InputStream inputStream = conn.getInputStream();
-            byte[] bytes = StreamTool.readByteFromInputStream(inputStream);
+            byte[] bytes = StreamTool.readByteFromInputStreamForProcess(inputStream,(current)->{
+                if (listener!=null)
+                    listener.onResourceAccessing(uri,current,contentLength);
+            });
             return bytes;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new ResourceAccessException(10000,"网络资源获取失败");
         }
-
-
-        return new byte[0];
     }
 }

@@ -1,7 +1,6 @@
 package com.kong.support.resources.defines;
 
-import java.io.InputStream;
-import java.net.URI;
+import com.kong.support.exceptions.ResourceAccessException;
 
 /**
  * 字节加载器
@@ -13,5 +12,5 @@ import java.net.URI;
  * DESCRIPTION :
  */
 public interface ByteLoader<T> {
-    public byte[] byteLoading(T uri);
+    public byte[] byteLoading(T uri, Resource.OnResourceAccessListener listener) throws ResourceAccessException;
 }
