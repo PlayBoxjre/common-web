@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class CryptoToolTest {
@@ -20,7 +20,7 @@ public class CryptoToolTest {
     }
     @Test
     public void base64Test() throws IOException {
-        String src = "œœ®®†¥";
+        String src = "-";
         String encode = CryptoTool.base64Encoding(src.getBytes(Charset.forName("UTF-8")));
         logger.info("{} encode [{}] " ,src, encode);
         byte[] bytes = CryptoTool.base64Decoding(encode);
@@ -56,13 +56,34 @@ public class CryptoToolTest {
     }
 
     @Test
-    public void hmacTest() throws NoSuchAlgorithmException, InvalidKeyException {
+    public void hmacTest() throws Exception {
         String src = "我是你哥哥";
-        String key = "1234551";
-        String s = CryptoTool.HmacMD5(src.getBytes(), key.getBytes());
-        logger.info("hamc : {} key【{}】\n\t{}\n\tsize {}",src,key,s,s.length());
+        String key = "12345d51";
+        String s = CryptoTool.HmacSHA1(src.getBytes(), key.getBytes());
+        logger.info("hamc : {} key【{}】\n\t{}\n\tsize {}",src,key,s.toUpperCase(),s.length());
 
     }
 
+    @Test
+    public void generateKeyTest() throws Exception {
+        String src = "我是你哥哥";
+        String key = "12341234af";
+        SecretKey s = (SecretKey) CryptoTool.generateSecretKey("1567877787".getBytes(),"AES");
+        logger.info(" : {} key【{}】\n\t{}\n\tsize {}", src, key, s.getEncoded(), s.getFormat());
 
-}
+        byte[] bytes = CryptoTool.AESEncrypt(src.getBytes(), key);
+        logger.info("des 加密 {}",CryptoTool.base64Encoding(bytes));
+        byte[] bytes1 = CryptoTool.AESDecrypt(bytes, key);
+        logger.info("src {} == {} ",src,new String(bytes1));
+
+        assert src.equals(new String(bytes1));
+
+        byte[] bytes2 = CryptoTool.AESEncrypt(src.getBytes(), key);
+        logger.info("des 加密 {}",CryptoTool.base64Encoding(bytes2));
+        byte[] bytes3 = CryptoTool.AESDecrypt(bytes, key);
+        logger.info("src {} == {} ",src,new String(bytes3));
+
+        assert src.equals(new String(bytes3));
+    }
+
+    }
