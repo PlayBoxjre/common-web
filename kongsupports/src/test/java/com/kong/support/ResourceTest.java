@@ -46,7 +46,7 @@ public class ResourceTest {
         String path = "src/main/resources/log4j.properties";
         String path1 = "http://www.konvigne.com";
         ResourceBundle resourceBundle = new ResourceBundleImp();
-        Resource resource = resourceBundle.getResource(path1);
+        Resource resource = resourceBundle.getResource(path);
         byte[] bytes = resource.getBytes();
         if (bytes!=null) {
             String ret = new String(bytes, Charset.forName("UTF-8"));

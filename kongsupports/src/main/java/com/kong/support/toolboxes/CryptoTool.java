@@ -1,5 +1,6 @@
 package com.kong.support.toolboxes;
 
+import com.kong.support.exceptions.CryptoExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
@@ -11,6 +12,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Objects;
@@ -44,6 +47,9 @@ import java.util.Objects;
  *      ECC(Elliptic Curves Cryptography，椭圆曲线密码编码学)</pre>
  */
 public class CryptoTool {
+
+    private static final String PUBLIC_KEY = "public_key";
+    private static final String PRIVATE_KEY = "private_key";
 
     static Logger logger = LoggerFactory.getLogger(CryptoTool.class);
 
@@ -212,6 +218,17 @@ public class CryptoTool {
     }
 
 
+    public static RSA RSA() {
+        return new RSA();
+    }
+
+
+
+
+
+
+
+    // private
     private static byte[] decrypt(byte[] data,String key,String algorithm) throws NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
         Key des = generateSecretKey(key.getBytes(), algorithm);
         Cipher cipher = Cipher.getInstance(algorithm);
@@ -225,7 +242,9 @@ public class CryptoTool {
         cipher.init(Cipher.ENCRYPT_MODE,des);
         return cipher.doFinal(data);
     }
-    // private
+
+
+
 
     private static String  messageDigest(byte[] origin,String algorithm) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance(algorithm);
@@ -252,5 +271,264 @@ public class CryptoTool {
         }
         return new SecretKeySpec(bs, "AES");
     }
+// inner class
+    public static class RSA{
 
+    public RSA() {
+    }
+
+
+
+    public  RSA initRSAKey() throws NoSuchAlgorithmException {
+        KeyPairGenerator kpGenerator = KeyPairGenerator.getInstance("RSA");
+        kpGenerator.initialize(2048);
+
+        KeyPair keyPair = kpGenerator.generateKeyPair();
+        // 存储公钥
+        publicKey= keyPair.getPublic();
+        // 存储密钥
+        privateKey = keyPair.getPrivate();
+        return this;
+    }
+
+    private PublicKey publicKey;
+    private PrivateKey privateKey;
+
+    public String getPublicKey() {
+        return base64Encoding(publicKey.getEncoded());
+    }
+
+    public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    /**
+     * 生成的是base64编码字符串
+     * @return
+     */
+    public String getPrivateKey() {
+        return base64Encoding(privateKey.getEncoded());
+    }
+
+    public void setPrivateKey(PrivateKey privateKey) {
+        this.privateKey = privateKey;
+    }
+    /**
+     * 通过字符串生成私钥
+     */
+    PrivateKey getPrivateKey(String privateKeyData) throws CryptoExceptions {
+        PrivateKey privateKey = null;
+        try {
+            byte[] decodeKey = base64Decoding(privateKeyData); //将字符串Base64解码
+            PKCS8EncodedKeySpec x509= new PKCS8EncodedKeySpec(decodeKey);//创建x509证书封装类
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");//指定RSA
+            privateKey = keyFactory.generatePrivate(x509);//生成私钥
+        } catch (Exception e) {
+            String mes = "rsa 生成私钥失败";
+            throw new CryptoExceptions(mes.hashCode(),mes);
+        }
+        return  privateKey;
+    }
+
+
+
+    /**
+     * 通过字符串生成公钥
+     */
+    PublicKey getPublicKey(String publicKeyData) throws CryptoExceptions {
+        PublicKey publicKey = null;
+        try {
+            byte[] decodeKey = base64Decoding(publicKeyData);
+            X509EncodedKeySpec x509 = new X509EncodedKeySpec(decodeKey);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            publicKey =  keyFactory.generatePublic(x509);
+        } catch (Exception e) {
+            String mes = "rsa 生成公钥失败";
+            throw new CryptoExceptions(mes.hashCode(),mes);
+        }
+        return publicKey;
+    }
+    /**
+     * 公钥加密
+     *
+     * @param data
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public  String encryptByPublicKey(String data, String  key) throws CryptoExceptions {
+       PublicKey publicKey = getPublicKey(key);
+        try {
+
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            // 模长
+            return base64Encoding(cipher.doFinal(data.getBytes()));
+        }catch(Exception e){
+                 e.printStackTrace();
+                 String mesg = "rsa public 加密失败";
+                 throw new CryptoExceptions(mesg.hashCode(),mesg);
+                 }
+
+    }
+
+
+
+    /**
+     * 私钥加密
+     *
+     * @param data
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public  String encryptByPrivateKey(String data,
+                                             String  key) throws CryptoExceptions {
+        PrivateKey privateKey =   getPrivateKey(key);
+    try {
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+        // 模长
+        return base64Encoding(cipher.doFinal(data.getBytes()));
+    }catch (Exception e){
+        e.printStackTrace();
+        String mesg = "rsa private 加密失败";
+        throw new CryptoExceptions(mesg.hashCode(),mesg);
+
+    }
+    }
+    /**
+     * 私钥解密
+     *
+     * @param data
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public byte[] decryptByPrivateKey(String data,
+                                      String   key) throws Exception {
+        PrivateKey privateKey = getPrivateKey(key);
+        try {
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            // 模长
+            return cipher.doFinal(base64Decoding(data));
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            String mesg = "rsa 解密失败";
+            throw new CryptoExceptions(mesg.hashCode(), mesg);
+        }
+    }
+
+    /**
+     * 公钥解密
+     *
+     * @param data
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public byte[] decryptBypublicKey(String data,
+                                     String   key) throws Exception {
+       PublicKey publicKey =   getPublicKey(key);
+        try {
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.DECRYPT_MODE, publicKey);
+            return cipher.doFinal(base64Decoding(data));
+        }catch (Exception e) {
+            e.printStackTrace();
+            String mesg = "rsa public 解密失败";
+            throw new CryptoExceptions(mesg.hashCode(), mesg);
+        }
+    }
+
+    /**
+     * 拆分数组
+     */
+    private  byte[][] splitArray(byte[] data, int len) {
+        int x = data.length / len;
+        int y = data.length % len;
+        int z = 0;
+        if (y != 0) {
+            z = 1;
+        }
+        byte[][] arrays = new byte[x + z][];
+        byte[] arr;
+        for (int i = 0; i < x + z; i++) {
+            arr = new byte[len];
+            if (i == x + z - 1 && y != 0) {
+                System.arraycopy(data, i * len, arr, 0, y);
+            } else {
+                System.arraycopy(data, i * len, arr, 0, len);
+            }
+            arrays[i] = arr;
+        }
+        return arrays;
+    }
+    /**
+     * BCD转字符串
+     */
+    private  String bcd2Str(byte[] bytes) {
+        char temp[] = new char[bytes.length * 2], val;
+
+        for (int i = 0; i < bytes.length; i++) {
+            val = (char) (((bytes[i] & 0xf0) >> 4) & 0x0f);
+            temp[i * 2] = (char) (val > 9 ? val + 'A' - 10 : val + '0');
+
+            val = (char) (bytes[i] & 0x0f);
+            temp[i * 2 + 1] = (char) (val > 9 ? val + 'A' - 10 : val + '0');
+        }
+        return new String(temp);
+    }
+    /**
+     * 拆分字符串
+     */
+    private  String[] splitString(String string, int len) {
+        int x = string.length() / len;
+        int y = string.length() % len;
+        int z = 0;
+        if (y != 0) {
+            z = 1;
+        }
+        String[] strings = new String[x + z];
+        String str = "";
+        for (int i = 0; i < x + z; i++) {
+            if (i == x + z - 1 && y != 0) {
+                str = string.substring(i * len, i * len + y);
+            } else {
+                str = string.substring(i * len, i * len + len);
+            }
+            strings[i] = str;
+        }
+        return strings;
+    }
+    /**
+     * ASCII码转BCD码
+     *
+     */
+    private  byte[] ASCII_To_BCD(byte[] ascii, int asc_len) {
+        byte[] bcd = new byte[asc_len / 2];
+        int j = 0;
+        for (int i = 0; i < (asc_len + 1) / 2; i++) {
+            bcd[i] = asc_to_bcd(ascii[j++]);
+            bcd[i] = (byte) (((j >= asc_len) ? 0x00 : asc_to_bcd(ascii[j++])) + (bcd[i] << 4));
+        }
+        return bcd;
+    }
+
+    private  byte asc_to_bcd(byte asc) {
+        byte bcd;
+
+        if ((asc >= '0') && (asc <= '9'))
+            bcd = (byte) (asc - '0');
+        else if ((asc >= 'A') && (asc <= 'F'))
+            bcd = (byte) (asc - 'A' + 10);
+        else if ((asc >= 'a') && (asc <= 'f'))
+            bcd = (byte) (asc - 'a' + 10);
+        else
+            bcd = (byte) (asc - 48);
+        return bcd;
+    }
+}
 }

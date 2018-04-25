@@ -1,7 +1,9 @@
 package com.kong.support.toolbox;
 
 
+import com.kong.support.exceptions.CryptoExceptions;
 import com.kong.support.toolboxes.CryptoTool;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,11 +81,51 @@ public class CryptoToolTest {
         assert src.equals(new String(bytes1));
 
         byte[] bytes2 = CryptoTool.AESEncrypt(src.getBytes(), key);
-        logger.info("des 加密 {}",CryptoTool.base64Encoding(bytes2));
+        logger.info("aes 加密 {}",CryptoTool.base64Encoding(bytes2));
         byte[] bytes3 = CryptoTool.AESDecrypt(bytes, key);
         logger.info("src {} == {} ",src,new String(bytes3));
 
         assert src.equals(new String(bytes3));
+
+
+    }
+
+
+
+    @Test
+    public void rsaTest() throws NoSuchAlgorithmException {
+        CryptoTool.RSA rsa = CryptoTool.RSA().initRSAKey();
+        String privateKey = rsa.getPrivateKey();
+        String publicKey = rsa.getPublicKey();
+       // logger.info("public : {}",publicKey);
+        //logger.info("private : {}",privateKey);
+
+
+        String data = "hello ~ world !!! 我交孔翔";
+        try {
+            //公钥加密，私钥解密
+            String publicEn = rsa.encryptByPublicKey(data, publicKey);
+            logger.info("en pul: {}",publicEn);
+            byte[] rsult = rsa.decryptByPrivateKey(publicEn, privateKey);
+            logger.info("r {}",new String(rsult));
+
+
+            Assert.assertEquals(new String(rsult),data);
+            // 私钥加密 公钥解密
+            String privateEn = rsa.encryptByPrivateKey(data,privateKey);
+            logger.info("en pri {}",privateEn);
+            byte[] bypublicKey = rsa.decryptBypublicKey(privateEn, publicKey);
+
+            Assert.assertEquals(new String(bypublicKey),data);
+
+
+        } catch (CryptoExceptions cryptoExceptions) {
+            cryptoExceptions.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     }
