@@ -1,9 +1,6 @@
 package com.kong.support.annotations.documents;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Repeatable;
+import java.lang.annotation.*;
 import java.util.Date;
 
 /**
@@ -13,7 +10,8 @@ import java.util.Date;
  * EMAIL       :   playboxjre@Gmail.com
  * DESCRIPTION :   作者注解，用来注释一个 类、方法、字段，（通常是一个类）的作者
  */
-
+@Documented
+@Inherited
 @Repeatable(Authors.class)
 public @interface Author {
 

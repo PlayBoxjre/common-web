@@ -1,14 +1,14 @@
 /**
- * @Description <pre>
+ * @description <pre>
  *     This is resource abstracting package. Make all resource to be simply abstraction.
  *     这是将资源进行抽象概括，形成简单的结构去取代资源的复杂性。总结资源的相同属性，扩展资源不同部分。
  *     完成对资源访问时的简单化和有效化。
  * </pre>
  *
- * @Author kong xiang
- * @Since 1.0
- * @Date 2018/04/08
- * @Email playboxjre@Gmail.com
+ * @author kong xiang
+ * @since 1.0
+ * @date 2018/04/08
+ * @email playboxjre@Gmail.com
  */
 package com.kong.support.resources;
 /*
