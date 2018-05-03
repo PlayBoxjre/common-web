@@ -1,5 +1,7 @@
 package com.kong.support.resources.defines;
 
+import com.kong.support.exceptions.ResourceAccessException;
+
 import java.net.URI;
 
 /**
@@ -11,5 +13,5 @@ import java.net.URI;
  * DESCRIPTION :
  */
 public interface RealByteLoader {
-    public byte[] readBytes(URI url);
+    public byte[] readBytes(URI url, Resource.OnResourceAccessListener listener) throws ResourceAccessException;
 }

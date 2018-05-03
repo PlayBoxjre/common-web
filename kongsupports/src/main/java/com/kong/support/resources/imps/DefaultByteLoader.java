@@ -1,8 +1,10 @@
 package com.kong.support.resources.imps;
 
+import com.kong.support.exceptions.ResourceAccessException;
 import com.kong.support.resources.defines.ByteLoader;
 import com.kong.support.resources.defines.LoadSelector;
 import com.kong.support.resources.defines.RealByteLoader;
+import com.kong.support.resources.defines.Resource;
 
 import java.io.File;
 import java.net.URI;
@@ -30,7 +32,7 @@ public class DefaultByteLoader implements ByteLoader<URI> {
     }
 
     @Override
-    public byte[] byteLoading(URI uri) {
+    public byte[] byteLoading(URI uri, Resource.OnResourceAccessListener listener) throws ResourceAccessException {
         RealByteLoader realByteLoader = null;
         String scheme = uri.getScheme();
         if (scheme == null){
@@ -42,8 +44,10 @@ public class DefaultByteLoader implements ByteLoader<URI> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (listener!=null)
+           listener.onPreResourceAccess(uri);
         Objects.requireNonNull(realByteLoader, "not find RealByteLoader subclass");
-        return realByteLoader.readBytes(uri);
+        return realByteLoader.readBytes(uri,listener);
     }
 
     public LoadSelector getLoadSelector() {

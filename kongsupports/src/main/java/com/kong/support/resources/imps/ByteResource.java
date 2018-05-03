@@ -1,5 +1,6 @@
 package com.kong.support.resources.imps;
 
+import com.kong.support.exceptions.ResourceAccessException;
 import com.kong.support.resources.defines.ByteLoader;
 import com.kong.support.resources.defines.Resource;
 
@@ -18,6 +19,7 @@ import java.net.URI;
  */
 public class ByteResource implements Resource {
 
+    private OnResourceAccessListener listener;
     private ByteLoader<URI> byteLoader;
     private String location;
     private URI uri;
@@ -25,8 +27,6 @@ public class ByteResource implements Resource {
     private boolean isClose;
 
 
-    public ByteResource() {
-    }
 
     public ByteResource(String path) {
         this(path, new DefaultByteLoader());
@@ -40,23 +40,39 @@ public class ByteResource implements Resource {
         this.location = uri.toASCIIString();
         this.uri = uri;
         this.byteLoader = byteLoader;
-        openInputStream();
     }
 
     public ByteResource(String path, ByteLoader<URI> byteLoader) {
         this.location = path;
         this.uri = URI.create(path);
         this.byteLoader = byteLoader;
-        openInputStream();
+    }
+
+    public ByteResource(URI uri, OnResourceAccessListener listener) {
+         this(uri);
+         this.listener = listener;
+    }
+
+    public ByteResource(String path, OnResourceAccessListener listener) {
+        this(path);
+        this.listener = listener;
+    }
+
+    public ByteResource(URI uri, ByteLoader<URI> byteLoader, OnResourceAccessListener listener) {
+        this(uri,byteLoader);
+        this.listener = listener;
     }
 
     @Override
-    public byte[] getBytes() {
-
+    public byte[] getBytes()  {
         if (data != null)
             return data;
-        return byteLoader.byteLoading(getURI());
-
+        try {
+            return byteLoader.byteLoading(getURI(),listener);
+        } catch (ResourceAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -88,9 +104,14 @@ public class ByteResource implements Resource {
     }
 
     @Override
-    public InputStream openInputStream() {
-        if (data == null)
-            data = this.byteLoader.byteLoading(uri);
+    public InputStream openInputStream()   {
+        if (data == null) {
+            try {
+                data = this.byteLoader.byteLoading(uri,listener);
+            } catch (ResourceAccessException e) {
+                e.printStackTrace();
+            }
+        }
         return data == null ? null : new ByteArrayInputStream(data);
     }
 
@@ -106,5 +127,13 @@ public class ByteResource implements Resource {
 
     public void setByteLoader(ByteLoader<URI> byteLoader) {
         this.byteLoader = byteLoader;
+    }
+
+    public OnResourceAccessListener getListener() {
+        return listener;
+    }
+
+    public void setListener(OnResourceAccessListener listener) {
+        this.listener = listener;
     }
 }
