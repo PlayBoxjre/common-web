@@ -11,5 +11,11 @@
         <module name="kong-web" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common-web" target="1.8" />
+      <module name="kong-datas" target="1.8" />
+      <module name="kong-supports" target="1.8" />
+      <module name="kong-web" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
