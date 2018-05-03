@@ -617,7 +617,7 @@
       <workItem from="1523368933242" duration="13088000" />
       <workItem from="1523539473552" duration="1054000" />
       <workItem from="1525353754392" duration="4787000" />
-      <workItem from="1525358628495" duration="6264000" />
+      <workItem from="1525358628495" duration="6575000" />
     </task>
     <task id="LOCAL-00001" summary="feat : 添加完成资源接口的功能&#10;&#10;目前只能对本地文件的资源访问，并且只提供bytes资源的能力">
       <created>1523381458514</created>
@@ -637,9 +637,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AnnotationTest_testInher - 2018.05.04 at 00h 22m 01s.xml">
-      <configuration name="AnnotationTest.testInher" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="AnnotationTest_testInher - 2018.05.04 at 00h 22m 22s.xml">
       <configuration name="AnnotationTest.testInher" configurationId="JUnit" />
     </history-entry>
@@ -667,13 +664,15 @@
     <history-entry file="AnnotationTest_testInher - 2018.05.04 at 00h 34m 09s.xml">
       <configuration name="AnnotationTest.testInher" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="AnnotationTest_testInher - 2018.05.04 at 00h 34m 40s.xml">
+      <configuration name="AnnotationTest.testInher" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25193000" />
+    <option name="totallyTimeSpent" value="25504000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7176339" sideWeight="0.2595949" order="7" side_tool="true" content_ui="tabs" />
@@ -694,9 +693,9 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4575893" sideWeight="0.74040514" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4575893" sideWeight="0.74040514" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24888393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24888393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1881663" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
