@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/common-web.iml" filepath="$PROJECT_DIR$/common-web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common-web.iml" filepath="$PROJECT_DIR$/common-web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kong-datas/kong-datas.iml" filepath="$PROJECT_DIR$/kong-datas/kong-datas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kong-datas/kong-datas.iml" filepath="$PROJECT_DIR$/kong-datas/kong-datas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kongsupports/kong-supports.iml" filepath="$PROJECT_DIR$/kongsupports/kong-supports.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kongweb/kong-web.iml" filepath="$PROJECT_DIR$/kongweb/kong-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/kongsupports/kongsupports.iml" filepath="$PROJECT_DIR$/kongsupports/kongsupports.iml" />
       <module fileurl="file://$PROJECT_DIR$/kongweb/kongweb.iml" filepath="$PROJECT_DIR$/kongweb/kongweb.iml" />
     </modules>

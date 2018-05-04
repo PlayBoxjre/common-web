@@ -44,8 +44,9 @@
         <jackson.version>2.9.4</jackson.version>
         <java.inject.version>1</java.inject.version>
         <c3p0.version>0.9.5.2</c3p0.version>
-
-
+        <hibernate.version>5.2.12.Final</hibernate.version>
+        <hibernate.annotation.version>3.5.6-Final</hibernate.annotation.version>
+        <hibernate.validate.version>5.0.2.Final</hibernate.validate.version>
     </properties>
     <!-- 依赖 -->
     <dependencyManagement>
@@ -60,6 +61,20 @@
             </dependency-->
             <!-- java jsp tag-->
 
+            <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-annotations</artifactId>
+                <version>${hibernate.annotation.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.validate.version}</version>
+            </dependency>
+
 
 
             <!-- ==================== hibernate ====================== -->
@@ -68,7 +83,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
-                <version>5.2.12.Final</version>
+                <version>${hibernate.version}</version>
             </dependency>
 
             <!-- ==================== java ext package ====================== -->
