@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list id="f48355ba-1ac6-403e-8734-22387a8ac343" name="feat : 加密工具增加 RSA" comment="" />
     <list default="true" id="e86307f4-61d8-4b15-900f-fac7684897e9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/kong-datas/doc/hibernate_error.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/ConfigurationKongSupport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/Identity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/resources/regex_expression.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/RegexTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kongweb/src/test/com/kong/web/HomeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/ClassFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/DataParserException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/DecodingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/EncodingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/SocketConnectionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Cryptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataFormatter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataInteractionLifeCycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Decoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Encoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/ProtocolDefine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/SocketSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AESCryptorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AbstractDataInteractionLifeCycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/DESCryptorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/JsonDataInteractionLifeCycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/StringDataInteractionLifeCycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/StringTool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/DataInteractionLifeCycleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/UserBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/项目进程RUP/kong_db.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/项目进程RUP/kong_db.mwb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kong-datas/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kong-datas/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kongsupports/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/Configuration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/AbstractResourceBundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/ResourceBundle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/ResourceBundle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/ResourceBundleImp.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/RegexTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/RegexTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/ScanTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/ScanTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/main/resources/kong_support_config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ResourceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ResourceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/CryptoToolTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/CryptoToolTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongweb/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kongweb/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/controllers/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kongweb/src/main/resources/spring/application-web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kongweb/src/main/resources/spring/application-web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kongsupports/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kongsupports/src/main/resources/logback.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
+    <list id="f48355ba-1ac6-403e-8734-22387a8ac343" name="feat : 加密工具增加 RSA" comment="" />
     <ignored path="$PROJECT_DIR$/kongweb/target/" />
     <ignored path="$PROJECT_DIR$/kongsupports/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -63,14 +67,118 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Identity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/Identity.java">
+      <file leaf-file-name="DataInteractionLifeCycle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataInteractionLifeCycle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="219" column="23" selection-start-line="219" selection-start-column="23" selection-end-line="219" selection-end-column="23" />
+            <state relative-caret-position="137">
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractDataInteractionLifeCycle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AbstractDataInteractionLifeCycle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2959#2960#0" expanded="true" />
+                <element signature="e#2989#2990#0" expanded="true" />
+                <element signature="e#3036#3037#0" expanded="true" />
+                <element signature="e#3074#3075#0" expanded="true" />
+                <element signature="e#3109#3110#0" expanded="true" />
+                <element signature="e#3139#3140#0" expanded="true" />
+                <element signature="e#3186#3187#0" expanded="true" />
+                <element signature="e#3224#3225#0" expanded="true" />
+                <element signature="e#3259#3260#0" expanded="true" />
+                <element signature="e#3289#3290#0" expanded="true" />
+                <element signature="e#3336#3337#0" expanded="true" />
+                <element signature="e#3374#3375#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringTool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/StringTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="303">
+              <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+              <folding>
+                <element signature="e#483#484#0" expanded="true" />
+                <element signature="e#517#518#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonDataInteractionLifeCycle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/JsonDataInteractionLifeCycle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="21" column="62" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataInteractionLifeCycleTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/DataInteractionLifeCycleTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="348">
+              <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DESCryptorImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/DESCryptorImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logback.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/resources/logback.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CryptoTool.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="176" column="46" selection-start-line="176" selection-start-column="46" selection-end-line="176" selection-end-column="46" />
+              <folding>
+                <element signature="e#8743#8744#0" expanded="true" />
+                <element signature="e#8773#8774#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kongsupports/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -80,10 +188,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="package-info" />
         <option value="Interface" />
         <option value="Jsp File" />
         <option value="AnnotationType" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
@@ -113,38 +221,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/DefaultRealByteLoader.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/FileRealByteLoader.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/resources/config.properties" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/CryptoExceptions.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/ReflectTool.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ClassTest.java" />
-        <option value="$PROJECT_DIR$/kongweb/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/config/RootConfig.java" />
-        <option value="$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/config/MyWebInitializer.java" />
-        <option value="$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/config/ApplicationConfig.java" />
-        <option value="$PROJECT_DIR$/kongweb/src/main/webapp/WEB-INF/jsp/home.jsp" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/ClassNotFoundException.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/annotations/UnThreadSafe.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/ResourceAccessException.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/imps/ScanToolImp.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/lifecycle/BeanInitializeLifcycle.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/AnnotationTest.java" />
-        <option value="$PROJECT_DIR$/kong-datas/src/main/resources/hibernates/hibernate_config.xml" />
-        <option value="$PROJECT_DIR$/kong-datas/src/main/resources/spring/application-datas.xml" />
-        <option value="$PROJECT_DIR$/kong-datas/src/main/java/com/kong/datas/impls/jdbc/UserHibernateDaoImpl.java" />
-        <option value="$PROJECT_DIR$/kong-datas/src/main/resources/hibernates/hibernate.cfg.xml" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/c251f1e6-7c53-48a0-b85f-62780dad955e/console.sql" />
-        <option value="$PROJECT_DIR$/kong-datas/src/main/resources/hibernate.cfg.xml" />
-        <option value="$PROJECT_DIR$/kong-datas/src/main/java/com/kong/datas/models/UserEntity.java" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/a9def567-9fb9-45fe-8a6f-7cf0a5cec11a/console.sql" />
         <option value="$PROJECT_DIR$/kong-datas/src/test/com/kong/datas/jdbc/UserHibernateDaoTest.java" />
         <option value="$PROJECT_DIR$/kong-datas/src/main/resources/hibernates/mappings/UserEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/kong-datas/doc/hibernate_error.md" />
         <option value="$PROJECT_DIR$/kongweb/src/main/resources/spring/application-web.xml" />
         <option value="$PROJECT_DIR$/kongweb/src/test/com/kong/web/HomeTest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/kongsupports/pom.xml" />
         <option value="$PROJECT_DIR$/kong-datas/pom.xml" />
         <option value="$PROJECT_DIR$/kongweb/pom.xml" />
         <option value="$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/controllers/HomeController.java" />
@@ -152,18 +233,45 @@
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/StreamTool.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/Configuration.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/ResourceBundle.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/AbstractResourceBundle.java" />
-        <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ResourceTest.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/CryptoToolTest.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/Configuration.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/RegexTest.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/ResourceBundle.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/ConfigurationKongSupport.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/resources/regex_expression.properties" />
-        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/RegexTool.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/ScanTool.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ResourceTest.java" />
         <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/Identity.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/RegexTool.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/package-info.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/DateParserException.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/ClassFormatException.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/EncodingException.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/DecodingException.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataParser.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DateFormatter.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataFormatter.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Cryptor.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Decoder.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Encoder.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/SocketSession.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/SocketConnectionException.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/ProtocolDefine.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataInteractionLifeCycle.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/StringDataInteractionLifeCycle.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/kongsupports/pom.xml" />
+        <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/UserBean.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/CryptorImpl.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/resources/logback.xml" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/JsonDataInteractionLifeCycle.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/StringTool.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AbstractDataInteractionLifeCycle.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AESCryptorImpl.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/DESCryptorImpl.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/DataInteractionLifeCycleTest.java" />
+        <option value="$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java" />
       </list>
     </option>
   </component>
@@ -216,61 +324,6 @@
             <path>
               <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="datas" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="datas" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
-              <item name="kong-datas" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="jdbc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="common-web" type="462c0819:PsiDirectoryNode" />
               <item name="kongsupports" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -311,7 +364,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="support" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="socket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
@@ -321,8 +374,20 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="support" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="defines" type="462c0819:PsiDirectoryNode" />
+              <item name="socket" type="462c0819:PsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="common-web" type="462c0819:PsiDirectoryNode" />
+              <item name="kongsupports" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="support" type="462c0819:PsiDirectoryNode" />
+              <item name="socket" type="462c0819:PsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
+              <item name="imps" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="common-web" type="b2602c69:ProjectViewProjectNode" />
@@ -404,15 +469,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.testRunning" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/kong-datas/src/main/resources/hibernates/mappings" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.kong.support.exceptions.socket" />
+      <recent name="com.kong.support.socket.helper" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/kong-datas/src/main/resources" />
     </key>
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="com.kong.datas.models" />
       <recent name="com.kong.datas" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kong-datas/src/main/resources/hibernates/mappings" />
       <recent name="$PROJECT_DIR$/kong-datas/src/main/resources" />
     </key>
   </component>
@@ -428,7 +497,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Identity">
+  <component name="RunManager" selected="JUnit.DataInteractionLifeCycleTest.gsonTest">
     <configuration name="Identity" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.kong.support.toolboxes.Identity" />
       <module name="kong-supports" />
@@ -443,20 +512,20 @@
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="HomeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kong-web" />
+    <configuration name="DataInteractionLifeCycleTest.gsonTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kong-supports" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.kong.web.*" />
+          <option name="PATTERN" value="com.kong.support.toolbox.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.kong.web" />
-      <option name="MAIN_CLASS_NAME" value="com.kong.web.HomeTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.kong.support.toolbox" />
+      <option name="MAIN_CLASS_NAME" value="com.kong.support.toolbox.DataInteractionLifeCycleTest" />
+      <option name="METHOD_NAME" value="gsonTest" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -466,20 +535,20 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="RegexTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DataInteractionLifeCycleTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kong-supports" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.kong.support.*" />
+          <option name="PATTERN" value="com.kong.support.toolbox.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.kong.support" />
-      <option name="MAIN_CLASS_NAME" value="com.kong.support.RegexTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.kong.support.toolbox" />
+      <option name="MAIN_CLASS_NAME" value="com.kong.support.toolbox.DataInteractionLifeCycleTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -625,19 +694,19 @@
     <list>
       <item itemvalue="Maven.jetty" />
       <item itemvalue="Maven.compile" />
-      <item itemvalue="JUnit.HomeTest" />
-      <item itemvalue="JUnit.RegexTest" />
       <item itemvalue="JUnit.RegexTest.regHtmlTest" />
       <item itemvalue="JUnit.ResourceTest.resourceBundleTest" />
       <item itemvalue="Application.Identity" />
+      <item itemvalue="JUnit.DataInteractionLifeCycleTest.test" />
+      <item itemvalue="JUnit.DataInteractionLifeCycleTest.gsonTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DataInteractionLifeCycleTest.gsonTest" />
+        <item itemvalue="JUnit.DataInteractionLifeCycleTest.test" />
         <item itemvalue="Application.Identity" />
         <item itemvalue="JUnit.ResourceTest.resourceBundleTest" />
         <item itemvalue="JUnit.RegexTest.regHtmlTest" />
-        <item itemvalue="JUnit.RegexTest" />
-        <item itemvalue="JUnit.HomeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -663,7 +732,7 @@
       <workItem from="1524807037074" duration="49870000" />
       <workItem from="1525931626360" duration="6042000" />
       <workItem from="1526001553728" duration="17831000" />
-      <workItem from="1526262843896" duration="3629000" />
+      <workItem from="1526262843896" duration="18718000" />
     </task>
     <task id="LOCAL-00001" summary="feat : 增加了网络资源的能力&#10;&#10;网络资源使用默认的http获取。">
       <created>1523521003516</created>
@@ -725,39 +794,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 19m 09s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 17h 40m 09s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 19m 32s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 17h 40m 34s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 23m 24s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 17h 57m 16s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 24m 03s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 17h 58m 34s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 24m 16s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 18h 02m 26s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 24m 41s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 18h 03m 11s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 26m 16s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 18h 03m 58s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 33m 55s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 18h 06m 07s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RegexTest_regHtmlTest - 2018.05.11 at 16h 59m 01s.xml">
-      <configuration name="RegexTest.regHtmlTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 18h 07m 24s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ResourceTest_resourceBundleTest - 2018.05.11 at 17h 56m 50s.xml">
-      <configuration name="ResourceTest.resourceBundleTest" configurationId="JUnit" />
+    <history-entry file="DataInteractionLifeCycleTest_gsonTest - 2018.05.14 at 18h 12m 34s.xml">
+      <configuration name="DataInteractionLifeCycleTest.gsonTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136743000" />
+    <option name="totallyTimeSpent" value="151832000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -769,12 +838,13 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.16165951" />
-      <window_info id="Structure" order="1" sideWeight="0.42144638" side_tool="true" visible="true" weight="0.23748212" />
+      <window_info anchor="right" id="Database" order="3" weight="0.16165951" />
+      <window_info id="Structure" order="1" sideWeight="0.4219949" side_tool="true" visible="true" weight="0.23748212" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5124688" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.5124688" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32917705" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
@@ -784,12 +854,11 @@
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32917705" />
       <window_info id="Persistence" order="3" sideWeight="0.42207792" side_tool="true" weight="0.23748212" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5785536" visible="true" weight="0.23748212" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57800514" visible="true" weight="0.23748212" />
       <window_info anchor="right" id="Bean Validation" order="4" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32917705" />
       <window_info anchor="bottom" id="Thumbnails" order="9" weight="0.32917705" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Database Console" order="9" weight="0.32917705" />
@@ -844,216 +913,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="25" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java</url>
+          <line>243</line>
+          <properties />
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="27" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/resources/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/c251f1e6-7c53-48a0-b85f-62780dad955e/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/java/com/kong/datas/models/UserEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="7" column="50" lean-forward="true" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/resources/config/db.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://a9def567-9fb9-45fe-8a6f-7cf0a5cec11a/schema/kong/table/user.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a9def567-9fb9-45fe-8a6f-7cf0a5cec11a/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/test/com/kong/datas/jdbc/UserHibernateDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/java/com/kong/datas/impls/jdbc/UserHibernateDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/doc/hibernate_error.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="370">
-            <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/resources/hibernates/mappings/UserEntity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="76" lean-forward="true" selection-start-line="6" selection-start-column="76" selection-end-line="6" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/resources/hibernate.cfg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="9" column="148" selection-start-line="9" selection-start-column="148" selection-end-line="9" selection-end-column="148" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/java/com/kong/datas/impls/jdbc/UserDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/src/main/resources/spring/application-datas.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="51" selection-start-line="51" selection-end-line="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongweb/src/main/resources/spring/application-web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5852">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1197">
-          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kong-datas/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1400">
-          <caret line="88" column="21" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongweb/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2052">
-          <caret line="108" column="38" selection-start-line="108" selection-start-column="38" selection-end-line="108" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongweb/src/main/java/com/kong/web/controllers/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongweb/src/main/webapp/WEB-INF/jsp/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="35" column="15" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongweb/src/test/com/kong/web/HomeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-534">
-          <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/ByteLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" selection-start-line="4" selection-end-line="12" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/LoadSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="266" column="33" selection-start-line="266" selection-start-column="33" selection-end-line="266" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/Codable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/Cryptoable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/DefaultRealByteLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="21" column="34" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/imps/DefaultHttpReadByteLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/Resource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-74">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/resources/defines/RealByteLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1101,16 +972,6 @@
             <element signature="e#3211#3212#0" expanded="true" />
             <element signature="e#3272#3273#0" expanded="true" />
             <element signature="e#3316#3317#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ResourceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1225,19 +1086,332 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/RegexTool.java">
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/Identity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="19" column="56" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+        <state relative-caret-position="230">
+          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/Identity.java">
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/ResourceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="219" column="23" selection-start-line="219" selection-start-column="23" selection-end-line="219" selection-end-column="23" />
+        <state relative-caret-position="208">
+          <caret line="61" column="7" selection-start-line="61" selection-start-column="7" selection-end-line="61" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/RegexTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/ReflectTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/DataParserException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/ClassFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+          <folding>
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#165#166#0" expanded="true" />
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#262#263#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/EncodingException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+          <folding>
+            <element signature="e#190#191#0" expanded="true" />
+            <element signature="e#217#218#0" expanded="true" />
+            <element signature="e#275#276#0" expanded="true" />
+            <element signature="e#311#312#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/rt.jar!/com/sun/xml/internal/org/jvnet/mimepull/DecodingException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/DecodingException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+          <folding>
+            <element signature="e#190#191#0" expanded="true" />
+            <element signature="e#217#218#0" expanded="true" />
+            <element signature="e#275#276#0" expanded="true" />
+            <element signature="e#311#312#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Decoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Encoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="5" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/src.zip!/com/sun/corba/se/spi/transport/SocketInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/SocketSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+          <folding>
+            <element signature="e#436#437#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#547#548#0" expanded="true" />
+            <element signature="e#182#183#0" expanded="true" />
+            <element signature="e#211#212#0" expanded="true" />
+            <element signature="e#255#256#0" expanded="true" />
+            <element signature="e#291#292#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/exceptions/socket/SocketConnectionException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+          <folding>
+            <element signature="e#206#207#0" expanded="true" />
+            <element signature="e#233#234#0" expanded="true" />
+            <element signature="e#299#300#0" expanded="true" />
+            <element signature="e#335#336#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/ProtocolDefine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/StringDataInteractionLifeCycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/UserBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-44">
+          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
+          <folding>
+            <element signature="e#245#246#0" expanded="true" />
+            <element signature="e#272#273#0" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#344#345#0" expanded="true" />
+            <element signature="e#371#372#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#432#433#0" expanded="true" />
+            <element signature="e#462#463#0" expanded="true" />
+            <element signature="e#493#494#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+            <element signature="e#558#559#0" expanded="true" />
+            <element signature="e#588#589#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#650#651#0" expanded="true" />
+            <element signature="e#694#695#0" expanded="true" />
+            <element signature="e#730#731#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#790#791#0" expanded="true" />
+            <element signature="e#832#833#0" expanded="true" />
+            <element signature="e#866#867#0" expanded="true" />
+            <element signature="e#899#900#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#972#973#0" expanded="true" />
+            <element signature="e#1008#1009#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/Cryptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/DataInteractionLifeCycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/resources/logback.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/StringTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+          <folding>
+            <element signature="e#483#484#0" expanded="true" />
+            <element signature="e#517#518#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/JsonDataInteractionLifeCycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="21" column="62" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AbstractDataInteractionLifeCycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2959#2960#0" expanded="true" />
+            <element signature="e#2989#2990#0" expanded="true" />
+            <element signature="e#3036#3037#0" expanded="true" />
+            <element signature="e#3074#3075#0" expanded="true" />
+            <element signature="e#3109#3110#0" expanded="true" />
+            <element signature="e#3139#3140#0" expanded="true" />
+            <element signature="e#3186#3187#0" expanded="true" />
+            <element signature="e#3224#3225#0" expanded="true" />
+            <element signature="e#3259#3260#0" expanded="true" />
+            <element signature="e#3289#3290#0" expanded="true" />
+            <element signature="e#3336#3337#0" expanded="true" />
+            <element signature="e#3374#3375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/AESCryptorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/test/java/com/kong/support/toolbox/DataInteractionLifeCycleTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/socket/helper/imps/DESCryptorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kongsupports/src/main/java/com/kong/support/toolboxes/CryptoTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="176" column="46" selection-start-line="176" selection-start-column="46" selection-end-line="176" selection-end-column="46" />
+          <folding>
+            <element signature="e#8743#8744#0" expanded="true" />
+            <element signature="e#8773#8774#0" expanded="true" />
           </folding>
         </state>
       </provider>

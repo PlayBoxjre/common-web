@@ -170,7 +170,11 @@ public class CryptoTool {
 
         Objects.requireNonNull(key,"参数不能为null");
         if ("DES".equals(algorithm)) {
-            DESKeySpec dks = new DESKeySpec(key);
+            byte[] bs = key;
+            if (bs.length != 16) {
+                bs = Arrays.copyOf(bs, 16);// 处理数组长度为16
+            }
+            DESKeySpec dks = new DESKeySpec(bs);
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(algorithm);
             secretKeySpec = keyFactory.generateSecret(dks);
         }else  if ("AES".equals(algorithm)){
@@ -252,16 +256,7 @@ public class CryptoTool {
     }
 
     private static String hex(byte[] bytes){
-        StringBuffer stringBuffer = new StringBuffer();
-        for (byte b:
-                bytes) {
-            int i =  b&0xff;
-            if (i<0xf){
-                stringBuffer.append("0");
-            }
-            stringBuffer.append(Integer.toHexString(i));
-        }
-        return stringBuffer.toString();
+      return StringTool.hex(bytes);
     }
     /** AES密钥 */
     private static SecretKeySpec aesKey(byte[] key) {

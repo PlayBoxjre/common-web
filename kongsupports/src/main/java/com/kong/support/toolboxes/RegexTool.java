@@ -5,9 +5,16 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 正则工具
+ * <pre>
+ *
+ *
+ * </pre>
+ */
 public class RegexTool {
-    private String regexRecord;
-    private Pattern regexPatterRecord;
+    private volatile String regexRecord;
+    private volatile Pattern regexPatterRecord;
     private  Properties regexConfig;
 
     public RegexTool(){}
@@ -67,7 +74,7 @@ public class RegexTool {
     };
 
 
-    public boolean checkRegex(String regex,String content,int flag){
+    public synchronized boolean checkRegex(String regex,String content,int flag){
         Pattern compile = null;
         if (regexRecord!=null && regexRecord.equals(regex))
             compile = regexPatterRecord;
