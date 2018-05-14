@@ -1,10 +1,10 @@
 package com.kong.web.controllers;
 
+import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.net.URL;
@@ -23,7 +23,7 @@ public class HomeController {
 
         model.addAttribute("path3",path3);
 
-        String path1 = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
+        String path1 = "";//Thread.currentThread().getContextClassLoader().getResource("/").getPath();
         model.addAttribute("classpath1",path1);
         String  path2 = new File(".").getPath();
         model.addAttribute("classpath2",path2);
@@ -38,6 +38,21 @@ public class HomeController {
         return "home";
     }
 
+
+    @PostMapping("/login")
+
+    public @ResponseBody String login(
+            @RequestParam String name,
+            @RequestParam  String age,
+             @RequestParam  String gender){
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code","0");
+        jsonObject.put("name",name);
+        jsonObject.put("age",age);
+        jsonObject.put("gender",gender);
+        return jsonObject.toString();
+    }
 
 
 }

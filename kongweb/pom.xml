@@ -102,6 +102,12 @@
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.kong</groupId>
+            <artifactId>kong-supports</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

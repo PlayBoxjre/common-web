@@ -429,7 +429,7 @@ public class CryptoTool {
      * @return
      * @throws Exception
      */
-    public byte[] decryptBypublicKey(String data,
+    public byte[] decryptByPublicKey(String data,
                                      String   key) throws Exception {
        PublicKey publicKey =   getPublicKey(key);
         try {

@@ -1,15 +1,38 @@
-package com.kong.support.resources.defines;
+package com.kong.support.resources.imps;
 
 import com.kong.support.exceptions.ResourceAccessException;
-import com.kong.support.resources.imps.ByteResource;
-import com.kong.support.resources.imps.DefaultByteLoader;
-import com.kong.support.resources.imps.DefaultLoadSelector;
+import com.kong.support.resources.defines.ByteLoader;
+import com.kong.support.resources.defines.LoadSelector;
+import com.kong.support.resources.defines.RealByteLoader;
+import com.kong.support.resources.defines.Resource;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.Properties;
 
-public class AbstractResourceBundle implements ResourceBundle {
+public class ResourceBundle   {
+
+    private  Properties schemaLoaderMapper;
+
+    private static ResourceBundle instance;
+
+    private ResourceBundle(){
+         schemaLoaderMapper = new Properties();
+        try {
+            schemaLoaderMapper.load(ClassLoader.getSystemResourceAsStream("kong_support_config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ResourceBundle getInstance(){
+        synchronized (ResourceBundle.class) {
+            if (instance == null) {
+                instance = new ResourceBundle();
+            }
+        }
+        return instance;
+    }
 
 
     private boolean lazyLoad;
@@ -21,17 +44,15 @@ public class AbstractResourceBundle implements ResourceBundle {
     private ByteLoader<URI> byteLoader;
 
 
-    @Override
+
     public Resource getResource(String path) throws ResourceAccessException {
         return getResource(path,null);
     }
 
-    @Override
     public Resource getResource(URI uri) throws ResourceAccessException {
         return getResource(uri,null);
     }
 
-    @Override
     public Resource getResource(URI uri, Resource.OnResourceAccessListener listener) throws ResourceAccessException {
         byteLoader = configByteLoader();
         Resource resource  = new ByteResource(uri,byteLoader,listener);
@@ -40,17 +61,14 @@ public class AbstractResourceBundle implements ResourceBundle {
         return resource;
     }
 
-    @Override
     public Resource getResource(String path, Resource.OnResourceAccessListener listener) throws ResourceAccessException {
         return getResource(URI.create(path),listener);
     }
 
-    @Override
     public void asyncGetResource(String path, Resource.OnResourceAccessListener onResourceAccessListener) {
         throw new UnsupportedOperationException("不支持的操作");
     }
 
-    @Override
     public void asyncGetResource(URI uri, Resource.OnResourceAccessListener listener) {
         throw new UnsupportedOperationException("不支持的操作");
     }
@@ -65,12 +83,7 @@ public class AbstractResourceBundle implements ResourceBundle {
             return byteLoader;
 
         if (this.getLoadSelector()==null){
-            Properties schemaLoaderMapper = new Properties();
-            try {
-                schemaLoaderMapper.load(ClassLoader.getSystemResourceAsStream("config.properties"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
             loadSelector =new DefaultLoadSelector(schemaLoaderMapper);
         }
         loader = new DefaultByteLoader(loadSelector);

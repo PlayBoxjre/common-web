@@ -3,9 +3,8 @@ package com.kong.support;
 import com.kong.support.exceptions.ClassNotFoundException;
 import com.kong.support.exceptions.ResourceAccessException;
 import com.kong.support.resources.defines.Resource;
-import com.kong.support.resources.defines.ResourceBundle;
+import com.kong.support.resources.imps.ResourceBundle;
 import com.kong.support.resources.imps.ByteResource;
-import com.kong.support.resources.imps.ResourceBundleImp;
 import com.kong.support.toolboxes.ScanTool;
 import com.kong.support.toolboxes.imps.ScanToolImp;
 import org.junit.Test;
@@ -53,7 +52,7 @@ public class ResourceTest {
     public void resourceBundleTest() throws ResourceAccessException {
         String path = "src/main/resources/log4j.properties";
         String path1 = "http://www.konvigne.com";
-        ResourceBundle resourceBundle = new ResourceBundleImp();
+        ResourceBundle resourceBundle = ResourceBundle.getInstance();
         Resource resource = resourceBundle.getResource(path);
         byte[] bytes = resource.getBytes();
         if (bytes!=null) {
