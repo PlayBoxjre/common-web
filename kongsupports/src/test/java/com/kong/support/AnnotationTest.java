@@ -21,6 +21,11 @@ import java.util.Objects;
  * DESCRIPTION :
  */
 public class AnnotationTest {
+
+    @Test
+    public void test(){
+
+    }
     Logger logger = LoggerFactory.getLogger(AnnotationTest.class);
     @Test
     public void testInher() throws IllegalAccessException, InvocationTargetException {

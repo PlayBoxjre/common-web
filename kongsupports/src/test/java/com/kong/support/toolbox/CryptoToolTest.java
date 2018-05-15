@@ -114,7 +114,7 @@ public class CryptoToolTest {
             // 私钥加密 公钥解密
             String privateEn = rsa.encryptByPrivateKey(data,privateKey);
             logger.info("en pri {}",privateEn);
-            byte[] bypublicKey = rsa.decryptBypublicKey(privateEn, publicKey);
+            byte[] bypublicKey = rsa.decryptByPublicKey(privateEn, publicKey);
 
             Assert.assertEquals(new String(bypublicKey),data);
 
