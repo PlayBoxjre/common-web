@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/cache
+            http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName">
+    <!-- *
+    * 内容协商使用详解
+    * https://blog.csdn.net/u013475704/article/details/76419365
+    -->
+
+
+    <!--
+    * 内容协商manager
+    1、检查扩展名（如my.pdf）；2、检查Parameter（如my?format=pdf）；3、检查Accept Header-->
+    <bean id="contentNegotiatingManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <!--  扩展名至mimeType的映射,即 /user.json => application/json -->
+        <property name="favorPathExtension" value="true"/>
+
+        <!-- 支持路径获取请求类型 配合parameterName 设置类型字段名 -->
+        <!-- 用于开启 /userinfo/123?format=json 的支持 -->
+        <property name="favorParameter" value="true"/>
+        <property name="parameterName" value="format"/>
+
+        <!-- 是否忽略Accept Header -->
+        <property name= "ignoreAcceptHeader" value= "false"/>
+
+        <!--扩展名到MIME的映射；favorPathExtension, favorParameter是true时起作用  -->
+        <property name= "mediaTypes">
+           <!-- <value>
+                json=application/json
+                xml=application/xml
+                html=text/html
+            </value>-->
+            <map>
+                <entry key="xml" value="application/xml"/>
+                <entry key="json" value="application/json"/>
+                <entry key="html" value="text/html"/>
+            </map>
+        </property>
+        <property name="defaultContentTypes">
+            <list>
+                <value>TEXT/HTML</value>
+            </list>
+        </property>
+        <property name="servletContext" ref="servletContext"/>
+
+        <property name="ignoreUnknownPathExtensions" value="true"/>
+
+        <property name="useRegisteredExtensionsOnly" value="false"/>
+        <!--
+        <property name="defaultContentTypeStrategy" value=""/-->
+
+    </bean>
+
+
+    <!-- 根据客户端的不同的请求决定不同的view进行响应, 如 /blog/1.json /blog/1.xml -->
+    <bean id="contentNegotiatingViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <!-- 设置为true以忽略对Accept Header的支持 -->
+        <property name="order" value="0"/>
+        <property name="contentNegotiationManager" ref="contentNegotiatingManager" />
+        <!-- 配置协商视图查找器 -->
+        <property name="viewResolvers">
+            <list>
+                <!-- 内部视图查找 -->
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="prefix" value="/WEB-INF/jsp/"/>
+                    <property name="suffix" value=".jsp"/>
+                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="contentType" value="text/html;charset=utf-8"/>
+                    <property name="exposeContextBeansAsAttributes" value="true"/>
+                    <property name="exposedContextBeanNames">
+                        <list>
+                            <value>context</value>
+                            <value>ctx</value>
+                        </list>
+                    </property>
+                    <property name="exposePathVariables" value="true"/>
+                    <!-- 在jsp中暴露 请求上下文 变量 rc -->
+                    <property name="requestContextAttribute" value="rc" />
+                </bean>
+            </list>
+        </property>
+        <!-- 如果没有找到对应的view 返回 错误码 not acceptable 406-->
+        <property name="useNotAcceptableStatusCode" value="false"/>
+
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+                    <!-- 美化json -->
+                    <property name="prettyPrint" value="true"/>
+                    <property name="contentType" value="application/json;charset=utf-8"/>
+                    <property name="updateContentLength" value="true"/>
+                    <property name="encoding" value="UTF8"/>
+                    <property name="prefixJson" value="false"/>
+                    <property name="objectMapper" ref="objectMapper"/>
+                </bean>
+<!--
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <property name="marshaller">
+                        <bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+                            <property name="packagesToScan" value="com.kong.web"/>
+                             <property name="supportJaxbElementClass" value="true"/>
+                            <property name="mtomEnabled" value="true"/>
+                        </bean>
+                    </property>
+                </bean>-->
+                 <!--<bean class="org.springframework.web.servlet.view.xml.MappingJackson2XmlView">
+                     <property name="prettyPrint" value="true"/>
+                     <property name="contentType" value="application/xml;charset=utf-8"/>
+                     <property name="objectMapper" ref="objectMapper"/>
+                     <property name="updateContentLength" value="true"/>
+                      <property name="encoding" value="UTF8"/>
+                 </bean>-->
+
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <property name="marshaller" ref="xStreamMarshaller"/>
+                    <property name="contentType" value="application/xml;charset=utf8"/>
+                </bean>
+            </list>
+        </property>
+
+    </bean>
+
+
+</beans>

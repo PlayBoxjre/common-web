@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>kong-datas</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

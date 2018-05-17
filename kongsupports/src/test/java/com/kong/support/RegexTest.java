@@ -14,6 +14,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class RegexTest {
     Logger logger = LoggerFactory.getLogger(RegexTest.class);
     Pattern pattern;

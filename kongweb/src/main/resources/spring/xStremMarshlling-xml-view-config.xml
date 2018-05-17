@@ -22,41 +22,33 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
+    <!--- Xstream 注解使用详解-->
+    <!--
+         <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+        </dependency>
+    -->
+    <!-- url :https://blog.csdn.net/yangshangwei/article/details/78733369-->
 
-    <context:component-scan base-package="com.kong.web"/>
-    <context:property-placeholder file-encoding="utf-8" ignore-resource-not-found="true"
-                                  location="classpath*:**/*config.properties"/>
-    <context:annotation-config />
+            <bean id="xStreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+                <property name="autodetectAnnotations" value="true"/>
+                <property name="aliases">
+                   <map >
+
+                   </map>
+                </property>
+                <property name="encoding" value="UTF-8"/>
+                <property name="converters">
+                    <list>
+                        <bean class="com.thoughtworks.xstream.converters.basic.DateConverter">
+                            <constructor-arg  index="0" name="defaultFormat" type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            <constructor-arg index="1" name="acceptableFormats"><null/></constructor-arg>
+                            <constructor-arg index="2" name="lenient" value="false"></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+             </bean>
 
 
-    <!--- MVC -->
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiatingManager" >
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <constructor-arg value="UTF-8" />
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-    <mvc:default-servlet-handler />
-    <mvc:resources mapping="/static/**" location="**/resource/"/>
-
-    <mvc:view-controller path="controller" status-code="200" view-name="home"/>
-
-    <!-- Helper Beans-->
-    <!-- Common Object Mapper -->
-    <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
-        <property name="dateFormat">
-            <bean class="java.text.SimpleDateFormat">
-                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-            </bean>
-        </property>
-    </bean>
-
-    <!-- xml view    XStream -->
-    <import resource="xStremMarshlling-xml-view-config.xml"/>
-    <!-- 内容协商配置 -->
-    <import resource="contentNegotiation-config.xml"/>
-
-    
-    
 </beans>

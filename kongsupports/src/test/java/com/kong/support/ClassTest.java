@@ -3,6 +3,8 @@ package com.kong.support;
 import com.kong.support.exceptions.BaseException;
 import com.kong.support.exceptions.CryptoExceptions;
 import com.kong.support.network.defines.NetWork;
+import com.kong.support.resources.defines.Codable;
+import com.kong.support.toolbox.UserBeanSubClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +12,8 @@ import sun.tools.java.ClassPath;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
+import java.lang.reflect.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ClassTest {
@@ -164,4 +164,94 @@ public class ClassTest {
            logger.info("position: {} - value : {}", i,Array.get(array,i).toString());
         }
     }
+
+
+    @Test
+    public void detailClassTest(){
+        Class claz = UserBeanSubClass.class;
+        Class[] interfaces = claz.getInterfaces();
+
+        print(interfaces);
+        Type[] genericInterfaces =  claz.getGenericInterfaces();
+
+        for (Type c: genericInterfaces)
+        {
+
+                    logger.info("type :{}", ((ParameterizedType)c).getActualTypeArguments());
+
+        }
+        print(genericInterfaces);
+        for (Class cl: interfaces){
+            boolean anonymousClass = cl.isAnonymousClass();//匿名类
+            boolean anInterface = cl.isInterface();         // 接口类
+            boolean localClass = cl.isLocalClass();         //
+            boolean memberClass = cl.isMemberClass();       // 成员类
+            boolean primitive = cl.isPrimitive();
+            int modifiers = cl.getModifiers();
+            int r = Modifier.interfaceModifiers();
+            int i = Modifier.classModifiers();
+
+            logger.info("interface modifiers {}",Integer.toBinaryString(r) );
+            logger.info("class modifiers {}",Integer.toBinaryString(i) );
+
+            boolean synthetic = cl.isSynthetic();
+            logger.info(" {} {} {} {} {} {} " +
+                    "{}",anonymousClass,anInterface,localClass,memberClass,primitive,synthetic);
+        }
+
+
+    }
+
+
+
+    @Test
+    public void testClass(){
+        Class<UserBeanSubClass> userBeanSubClassClass = UserBeanSubClass.class;
+
+        Class<Class> classClass = Class.class;
+
+        Method[] declaredMethods = classClass.getDeclaredMethods();
+        for (Method m :
+                declaredMethods) {
+            TypeVariable<Method>[] typeParameters = m.getTypeParameters();
+            Class<?>[] parameterTypes = m.getParameterTypes();
+            print(parameterTypes);
+            print(typeParameters);
+            logger.info("Method  -->  【{}】 ", m.getName());
+            if (parameterTypes!=null&& parameterTypes.length == 0) {
+                try {
+                    Object invoke = m.invoke(userBeanSubClassClass);
+                    logger.info("\t invoke --> {}",invoke==null?null:invoke.getClass());
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+
+    @Test
+    public void testSimple(){
+        URL resource = Class.class.getResource("http://www.baidu.com");
+
+
+        //Class<?> proxyClass = Proxy.getProxyClass(ClassLoader.getSystemClassLoader(), Codable.class);
+
+        //byte[] bytes = ProxyGenerator.generateProxyClass("com.kong.support.generate.$Proxy1", new Class[]{Codable.class});
+
+        Codable o = (Codable) Proxy.newProxyInstance(Class.class.getClassLoader(),
+                new Class[]{Codable.class}, new InvocationHandler() {
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        return null;
+                    }
+                });
+
+
+
+    }
+
 }

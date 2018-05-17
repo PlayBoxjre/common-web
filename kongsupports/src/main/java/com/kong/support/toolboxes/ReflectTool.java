@@ -7,11 +7,30 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 
 /**
+ *
  * PROJECT     :   commonweb
  * AUTHOR      :   Kong Xiang&Aaron
  * CREATEDAT   :   2018/4/11 0:08 星期三
  * EMAIL       :   playboxjre@Gmail.com
  * DESCRIPTION :
+ * /**
+ *  * <pre>
+ *  *     Class类之主要方法简介
+ *  *  Class<?> cls = String.class;
+ *  * 一）类自身的信息
+ *  * 1. 包路径    cls.getPackage();
+ *  * 2. 类名      cls.getName();cls.getSimpleName();
+ *  * 3. 类修饰符  cls.getModifiers();
+ *  * 4. 类属性    cls.getFields();cls.getDeclaredFields();
+ *  * 5. 类方法    cls.getMethods();cls.getDeclaredMethods();
+ *  * 6. 类构造器  cls.getConstructors();
+ *  * 7. 标注信息  cls.getAnnotations();
+ *  * 8. 是否为基本类型数据 cls.isPrimitive();
+ *  * 9. 获得系统类的 getClassLoader();   这个也较为常用，加载类的时候
+ *  *
+ *  *
+ *  * </pre>
+ *
  *
  * @see com.sun.deploy.util.ReflectionUtil
  */
@@ -100,6 +119,7 @@ public class ReflectTool {
     public static Object createInstance(String classpath, ClassLoader classLoader) throws Exception {
         return createInstance(classpath, new Class[0], new Object[0], classLoader);
     }
+
 
 
 }

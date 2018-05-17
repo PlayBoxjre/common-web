@@ -1,9 +1,7 @@
 package com.kong.web.config;
 
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -14,6 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(value = "com.kong.web",excludeFilters = {
         @ComponentScan.Filter({EnableWebMvc.class})
 })
+@ImportResource("classpath:spring/application-*.xml")
 public class ApplicationConfig {
 
 
