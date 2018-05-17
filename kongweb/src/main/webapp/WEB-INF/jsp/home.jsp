@@ -8,32 +8,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>home</title>
-<style>
-    *{  padding:0px;
-        margin: 0px;
-        border-spacing: 0px;
-    }
-    table{
-        border: 1px solid #000000;
-        border-spacing: 2px;
-        padding: 1px;
-    }
-    tr,td{
-        border: 1px solid red;
-        border-spacing: 2px;
-        padding: 2px;
-    }
-</style>
-</head>
+    <link rel="stylesheet" href="<spring:theme code="style"/>" type="text/css"/>  </head>
 
 <body>
+    ${time}
     <h1>${classpath}</h1>
 <h1>${classpath1}</h1>
 <h1>${classpath2}</h1>
     <h1>${path3}</h1>
+
 
 
 <table>

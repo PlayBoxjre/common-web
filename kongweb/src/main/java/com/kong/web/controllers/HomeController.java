@@ -1,19 +1,22 @@
 package com.kong.web.controllers;
 
+import com.kong.web.model.Account;
 import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(Model model){
         String path = getClass().getResource("/").getPath();
         model.addAttribute("classpath",path);
@@ -35,6 +38,9 @@ public class HomeController {
 
         model.addAttribute("files",files);
         }
+        model.addAttribute("time",new Date());
+
+
         return "home";
     }
 
@@ -52,6 +58,18 @@ public class HomeController {
         jsonObject.put("age",age);
         jsonObject.put("gender",gender);
         return jsonObject.toString();
+    }
+
+
+    @GetMapping("userinfo")
+    public ModelAndView info (Account account){
+        ModelAndView modelAndView = new ModelAndView("user");
+        account.setName("效力");
+        account.setAge(100);
+        account.setBirthDay(new Date());
+
+        modelAndView.addObject(account);
+        return modelAndView;
     }
 
 

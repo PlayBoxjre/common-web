@@ -1,0 +1,18 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+div {
+    background-color: white;
+}
+
+p {
+    background-color: gray;
+}
+
+h1,h2,h3,h4,h5,h6{
+    background-color: gold;
+}

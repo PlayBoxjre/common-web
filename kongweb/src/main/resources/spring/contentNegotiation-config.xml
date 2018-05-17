@@ -26,7 +26,6 @@
     * https://blog.csdn.net/u013475704/article/details/76419365
     -->
 
-
     <!--
     * 内容协商manager
     1、检查扩展名（如my.pdf）；2、检查Parameter（如my?format=pdf）；3、检查Accept Header-->
@@ -37,7 +36,7 @@
         <!-- 支持路径获取请求类型 配合parameterName 设置类型字段名 -->
         <!-- 用于开启 /userinfo/123?format=json 的支持 -->
         <property name="favorParameter" value="true"/>
-        <property name="parameterName" value="format"/>
+        <property name="parameterName" value="${contentNegotiatingManager.parameterName}"/>
 
         <!-- 是否忽略Accept Header -->
         <property name= "ignoreAcceptHeader" value= "false"/>
@@ -49,11 +48,7 @@
                 xml=application/xml
                 html=text/html
             </value>-->
-            <map>
-                <entry key="xml" value="application/xml"/>
-                <entry key="json" value="application/json"/>
-                <entry key="html" value="text/html"/>
-            </map>
+            <bean parent="mediatypes"/>
         </property>
         <property name="defaultContentTypes">
             <list>
@@ -64,7 +59,7 @@
 
         <property name="ignoreUnknownPathExtensions" value="true"/>
 
-        <property name="useRegisteredExtensionsOnly" value="false"/>
+        <property name="useRegisteredExtensionsOnly" value="true"/>
         <!--
         <property name="defaultContentTypeStrategy" value=""/-->
 
@@ -122,7 +117,7 @@
                         </bean>
                     </property>
                 </bean>-->
-                 <!--<bean class="org.springframework.web.servlet.view.xml.MappingJackson2XmlView">
+                 <!-- <bean class="org.springframework.web.servlet.view.xml.MappingJackson2XmlView">
                      <property name="prettyPrint" value="true"/>
                      <property name="contentType" value="application/xml;charset=utf-8"/>
                      <property name="objectMapper" ref="objectMapper"/>
