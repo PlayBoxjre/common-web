@@ -17,6 +17,7 @@
 <h1>${classpath1}</h1>
 <h1>${classpath2}</h1>
     <h1>${path3}</h1>
+    ${welcome}
     <s:message code="welcome"/>
 
 
