@@ -58,6 +58,26 @@
     <mvc:default-servlet-handler />
     <mvc:resources mapping="/static/**" location="/WEB-INF/resource/"/>
 
+    <!-- 全局配置跨域访问支持
+        也可以使用注解@CrossOrigins 配置controller的类或方法
+        https://docs.spring.io/spring/docs/5.1.0.BUILD-SNAPSHOT/spring-framework-reference/web.html#mvc-cors-global
+    -->
+    <mvc:cors>
+        <mvc:mapping path="/api/**"
+                     allowed-origins="*"
+                     allowed-methods="GET, POST"
+                     allowed-headers="*"
+                     exposed-headers="*" allow-credentials="true"
+                     max-age="3600000" />
+
+        <mvc:mapping path="/resources/**"
+                     allowed-origins="http://xxx.com" />
+    </mvc:cors>
+
+
+
+
+
     <bean id="messageResource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="alwaysUseMessageFormat" value="true"/>
@@ -71,7 +91,13 @@
     </bean>
 
 
+    <bean id="cookieLocaleResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieMaxAge" value="#{1000 * 3600 * 24 * 30}"/>
+    </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" >
+        <property name="resolveLazily" value="true"/>
+    </bean>
 
     <!-- 国际化配置 -->
 
