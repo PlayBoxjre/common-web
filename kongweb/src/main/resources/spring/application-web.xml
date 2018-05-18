@@ -45,7 +45,8 @@
     </bean>
 
     <!--- MVC -->
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiatingManager" >
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiatingManager"
+                           enable-matrix-variables="true" >
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8" />
@@ -67,7 +68,7 @@
                      allowed-origins="*"
                      allowed-methods="GET, POST"
                      allowed-headers="*"
-                     exposed-headers="*" allow-credentials="true"
+                     allow-credentials="true"
                      max-age="3600000" />
 
         <mvc:mapping path="/resources/**"
@@ -76,9 +77,22 @@
 
 
 
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+    </mvc:interceptors>
 
 
-    <bean id="messageResource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <!-- Message ReloadableResourceBundleMessageSource
+    https://blog.csdn.net/qyf_5445/article/details/8124431
+    1.如果你使用eclipse创建的工程是class和src分开的，那么资源属性文件一定要放在src目录以内
+    2.属性文件名的写法：
+    messages_zh_CN.properties  (中文)（也可以省略_zh_CH后缀，写成messages.properties）
+    messages_en_US.properties  （英文）
+    3.bean的id一定是messageSource不是messageResource ,这是Spring规定的。
+    4.因为Spring从classpath根路径下加载这些资源文件，所以这些文件应该放在根路径下。如果资源文件messages.properties不是在根路径下而在包com.test.msgs下的话，value标签的值就应该是这样的：
+    <value>com.test.msgs.messages</value>
+-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="alwaysUseMessageFormat" value="true"/>
         <property name="basenames">
@@ -88,6 +102,7 @@
         </property>
         <property name="useCodeAsDefaultMessage" value="true"/>
         <property name="concurrentRefresh" value="true"/>
+        <property name="cacheMillis" value="#{1000 * 3600 * 10 }"/>
     </bean>
 
 
@@ -95,9 +110,6 @@
         <property name="cookieMaxAge" value="#{1000 * 3600 * 24 * 30}"/>
     </bean>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" >
-        <property name="resolveLazily" value="true"/>
-    </bean>
 
     <!-- 国际化配置 -->
 
