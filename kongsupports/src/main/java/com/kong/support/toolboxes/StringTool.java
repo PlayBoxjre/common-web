@@ -118,4 +118,15 @@ public class StringTool {
         String substring1 = src.substring(srcIndex);
         return contact(substring,joinString,substring1);
     }
+
+
+    public static String isNullSetBlank(String message ) {
+        return message == null ? "" : message;
+    }
+
+    public static String isNullSetDefault(String message,String defaultValue) {
+        return message == null ? defaultValue : message;
+    }
+
+
 }
