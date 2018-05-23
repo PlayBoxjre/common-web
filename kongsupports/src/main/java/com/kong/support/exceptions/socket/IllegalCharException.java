@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper;
+package com.kong.support.exceptions.socket;
+
+import com.kong.support.exceptions.BaseException;
 
 /**
- * 协议定义
- * 定义如何解析传输的数据流
+ * File Name IllegalCharException
+ * Author    aaron (EN) & 孔翔kongxiang(CN)
+ * DATE      2018-05-21
+ * EMAIL     playboxjre@Gmail.com
  */
-public interface ProtocolDefine {
+public class IllegalCharException extends BaseException {
 
+    public IllegalCharException(int code) {
+        super(code);
+    }
 
-
+    public IllegalCharException(int code, String message) {
+        super(code, message);
+    }
 }

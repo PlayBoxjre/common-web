@@ -240,7 +240,7 @@ public class ClassTest {
 
         //Class<?> proxyClass = Proxy.getProxyClass(ClassLoader.getSystemClassLoader(), Codable.class);
 
-        //byte[] bytes = ProxyGenerator.generateProxyClass("com.kong.support.generate.$Proxy1", new Class[]{Codable.class});
+        //byte[] bytes = ProxyGenerator.generateProxyClass("com.kong.supports.generate.$Proxy1", new Class[]{Codable.class});
 
         Codable o = (Codable) Proxy.newProxyInstance(Class.class.getClassLoader(),
                 new Class[]{Codable.class}, new InvocationHandler() {

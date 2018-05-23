@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
- * kong's support package configuration class
+ * kong's supports package configuration class
  */
 public class ConfigurationKongSupport {
 

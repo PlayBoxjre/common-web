@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper;
+package com.kong.support.socket.helper.imps;
 
 /**
- * 协议定义
- * 定义如何解析传输的数据流
+ * File Name DataParserImpl
+ * Author    lantoev & kong xiang
+ * DATE      2018-05-21
+ * EMAIL     playboxjre@Gmail.com
  */
-public interface ProtocolDefine {
-
-
-
+public class DataParserImpl {
 }

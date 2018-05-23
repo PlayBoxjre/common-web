@@ -132,7 +132,7 @@ public class ResourceTest {
     public void testScanClasses() throws ClassNotFoundException {
         ScanTool scanTool = new ScanToolImp();
 
-        List<Class> classes = scanTool.scanAllClassesOfPackage("com.kong.support");
+        List<Class> classes = scanTool.scanAllClassesOfPackage("com.kong.supports");
         printObjects(classes);
     }
 

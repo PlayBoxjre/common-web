@@ -14,14 +14,26 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper;
+package com.kong.support.toolboxes.BufferTool;
+
+import java.nio.CharBuffer;
 
 /**
- * 协议定义
- * 定义如何解析传输的数据流
+ * File Name BufferTool
+ * Author    aaron (EN) & 孔翔kongxiang(CN)
+ * DATE      2018-05-21
+ * EMAIL     playboxjre@Gmail.com
  */
-public interface ProtocolDefine {
+public class BufferTool {
 
-
-
+    public static String getString(CharBuffer dataBuffer){
+        if (dataBuffer.hasArray()) {
+            char[] array = dataBuffer.array();
+           return new String(array);
+        }else {
+            char[] chars = new char[dataBuffer.length()];
+            dataBuffer.get(chars);
+            return new String(chars);
+        }
+    }
 }

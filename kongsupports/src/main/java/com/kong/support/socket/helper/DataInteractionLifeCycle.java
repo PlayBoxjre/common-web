@@ -6,15 +6,17 @@ import com.kong.support.exceptions.socket.DataParserException;
 import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;
 import com.kong.support.exceptions.socket.SocketConnectionException;
+import com.kong.support.socket.helper.accept.SocketSession;
 
 import java.net.SocketException;
 import java.nio.charset.Charset;
+import java.util.zip.DataFormatException;
 
 /**
  * 数据交互周期
  * 用来定义数据在客户端和服务端的数据传输（交互）流程
  */
-public interface DataInteractionLifeCycle<I>  {
+public interface DataInteractionLifeCycle  {
 
     /**
      * 将数据对象格式化字符串
@@ -22,7 +24,7 @@ public interface DataInteractionLifeCycle<I>  {
 
      * @return
      */
-    public  String  format(I dataObject, Charset charset)throws ClassFormatException;
+    public <I> byte[]  format(I dataObject, Charset charset) throws ClassFormatException, DataFormatException;
 
     /**
      * 将字符串解析成指定对象
@@ -32,7 +34,7 @@ public interface DataInteractionLifeCycle<I>  {
 
      * @return
      */
-    public I parse(Class<I> t,byte[] text,Charset charset) throws DataParserException;
+    public <I> I parse(Class<I> t,byte[] text,Charset charset) throws DataParserException;
 
     /**
      * 加密数据
@@ -72,7 +74,7 @@ public interface DataInteractionLifeCycle<I>  {
      * @param datas
      * @param charset
      */
-    public byte[] buildResponseObject( SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException;
+    public <I> byte[] buildResponseObject(SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException;
 
     /**
      * 接收远程的数据
@@ -80,6 +82,6 @@ public interface DataInteractionLifeCycle<I>  {
      * @param charset
      * @return
      */
-    public I accept(Class<I>  t, SocketSession socketSession, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException;
+    public <I> I accept(Class<I>  t, SocketSession socketSession, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException;
 
 }

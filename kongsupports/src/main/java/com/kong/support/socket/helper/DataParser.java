@@ -3,6 +3,8 @@ package com.kong.support.socket.helper;
 import com.kong.support.exceptions.BaseException;
 import com.kong.support.exceptions.socket.DataParserException;
 
+import java.nio.charset.Charset;
+
 /**
  * 数据解析器
  */
@@ -18,7 +20,7 @@ public interface DataParser {
      * @return
      * @throws DataParserException
      */
-    public byte[] parser(String text) throws DataParserException;
+    public <T> T parser(Class<T> tClass, byte[] text, Charset charset) throws DataParserException;
 
     /**
      * 完成解析
@@ -26,5 +28,5 @@ public interface DataParser {
      * @param ex
      * @return
      */
-    public byte[] afterParse(byte[] parseByte, BaseException ex);
+    public <T> T afterParse(T parseByte, BaseException ex);
 }

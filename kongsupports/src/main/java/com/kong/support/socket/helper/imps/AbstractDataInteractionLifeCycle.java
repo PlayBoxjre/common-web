@@ -7,29 +7,53 @@ import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;
 import com.kong.support.exceptions.socket.SocketConnectionException;
 import com.kong.support.socket.helper.*;
+import com.kong.support.socket.helper.accept.SocketSession;
 import com.kong.support.toolboxes.StringTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.SocketException;
 import java.nio.charset.Charset;
+import java.util.Objects;
+import java.util.zip.DataFormatException;
 
 /**
- * 抽象类
+ * 抽象类客户端与数据端交互周期定义实现
  */
-public abstract class AbstractDataInteractionLifeCycle<I> implements DataInteractionLifeCycle<I>   {
+public abstract class AbstractDataInteractionLifeCycle implements DataInteractionLifeCycle   {
     Logger logger  = LoggerFactory.getLogger(AbstractDataInteractionLifeCycle.class);
     private Encoder encoder;
     private Decoder decoder;
     private Cryptor cryptor;
+    private DataFormatter dataFormatter;
+    private DataParser dataParser;
 
     public AbstractDataInteractionLifeCycle() {
     }
 
-    public AbstractDataInteractionLifeCycle(Encoder encoder, Decoder decoder, Cryptor cryptor) {
+    @Override
+    public <I> I parse(Class<I> t, byte[] text, Charset charset) throws DataParserException {
+        Objects.requireNonNull(dataParser,"[ SOCKET ] SocketLifeCircle object need dataParser ");
+        dataParser.preParse();
+        I parser = dataParser.parser(t,text , charset);
+        return dataParser.afterParse(parser,null);
+    }
+
+    @Override
+    public <I> byte[] format(I dataObject, Charset charset) throws DataFormatException {
+        if (dataFormatter == null)
+            throw new NullPointerException("[ SOCKET ] SocketLifeCircle object need dataFormatter ");
+        dataFormatter.preFormat();
+        byte[] format = dataFormatter.format(dataObject, charset);
+        return dataFormatter.afterFormat(format);
+    }
+
+    public AbstractDataInteractionLifeCycle(Encoder encoder, Decoder decoder, Cryptor cryptor, DataFormatter  dataFormatter, DataParser  dataParser) {
         this.encoder = encoder;
         this.decoder = decoder;
         this.cryptor = cryptor;
+        this.dataFormatter = dataFormatter;
+        this.dataParser = dataParser;
     }
 
     @Override
@@ -61,10 +85,10 @@ public abstract class AbstractDataInteractionLifeCycle<I> implements DataInterac
     }
 
     @Override
-    public  byte[] buildResponseObject(SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException {
-        String format = format(datas, charset);
+    public  <I> byte[] buildResponseObject(SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException {
+        byte[] format = format(datas, charset);
         logger.debug("format --> {}",format);
-        byte[] encoding = encoding(format.getBytes(charset));
+        byte[] encoding = encoding(format);
         logger.debug("encoding --> {}",StringTool.toString(encoding));
         byte[] bytes = enCrypto(encoding);
         logger.debug("enCrypto --> {}",StringTool.hex(bytes));
@@ -72,7 +96,7 @@ public abstract class AbstractDataInteractionLifeCycle<I> implements DataInterac
     }
 
     @Override
-    public  I accept(Class<I> tClass,SocketSession socketSession, byte[] datas,Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException {
+    public  <I> I accept(Class<I> tClass,SocketSession socketSession, byte[] datas,Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException {
         //放到外部，构建socketsession的地方
 //        String ex = null;
 //        if (socket == null) {
@@ -120,5 +144,21 @@ public abstract class AbstractDataInteractionLifeCycle<I> implements DataInterac
 
     public void setCryptor(Cryptor cryptor) {
         this.cryptor = cryptor;
+    }
+
+    public DataFormatter  getDataFormatter() {
+        return dataFormatter;
+    }
+
+    public void setDataFormatter(DataFormatter  dataFormatter) {
+        this.dataFormatter = dataFormatter;
+    }
+
+    public DataParser getDataParser() {
+        return dataParser;
+    }
+
+    public void setDataParser(DataParser dataParser) {
+        this.dataParser = dataParser;
     }
 }

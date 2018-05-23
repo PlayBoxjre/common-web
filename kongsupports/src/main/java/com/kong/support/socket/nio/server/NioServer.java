@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper;
+package com.kong.support.socket.nio.server;
+
+import com.kong.support.socket.SocketConfiguration;
 
 /**
- * 协议定义
- * 定义如何解析传输的数据流
+ * File Name NioServer
+ * Author    aaron (EN) & 孔翔kongxiang(CN)
+ * DATE      2018-05-22
+ * EMAIL     playboxjre@Gmail.com
+ * 服务接口定义
  */
-public interface ProtocolDefine {
+public interface NioServer extends Runnable{
+    /**
+     * 配置server 所需项
+     * @param configuration
+     */
+    public void configure(SocketConfiguration configuration);
 
-
+    public boolean start();
 
 }
