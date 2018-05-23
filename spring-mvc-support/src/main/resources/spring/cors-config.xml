@@ -22,14 +22,19 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
-        <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
-            <property name="dateFormat">
-                <bean class="java.text.SimpleDateFormat">
-                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-                </bean>
-            </property>
-        </bean>
+    <!-- 全局配置跨域访问支持
+           也可以使用注解@CrossOrigins 配置controller的类或方法
+           https://docs.spring.io/spring/docs/5.1.0.BUILD-SNAPSHOT/spring-framework-reference/web.html#mvc-cors-global
+       -->
+    <mvc:cors>
+        <mvc:mapping path="/api/**"
+                     allowed-origins="*"
+                     allowed-methods="GET, POST"
+                     allowed-headers="*"
+                     allow-credentials="true"
+                     max-age="3600000" />
 
-
-
+        <mvc:mapping path="/resources/**"
+                     allowed-origins="http://xxx.com" />
+    </mvc:cors>
 </beans>

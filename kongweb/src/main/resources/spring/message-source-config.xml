@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/cache
+            http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName">
+
+    <!-- Message ReloadableResourceBundleMessageSource
+          配置文件只能放在根目录下
+          https://blog.csdn.net/qyf_5445/article/details/8124431
+          1.如果你使用eclipse创建的工程是class和src分开的，那么资源属性文件一定要放在src目录以内
+          2.属性文件名的写法：
+          messages_zh_CN.properties  (中文)（也可以省略_zh_CH后缀，写成messages.properties）
+          messages_en_US.properties  （英文）
+          3.bean的id一定是messageSource不是messageResource ,这是Spring规定的。
+          4.因为Spring从classpath根路径下加载这些资源文件，所以这些文件应该放在根路径下。如果资源文件messages.properties不是在根路径下而在包com.test.msgs下的话，value标签的值就应该是这样的：
+          <value>com.test.msgs.messages</value>
+
+          java resource 查找，只需写名字就可以，不需要写路径全名
+      -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:message</value>
+                <value>classpath:validatorMessage</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+        <property name="alwaysUseMessageFormat" value="true"/>
+        <property name="cacheSeconds" value="10"/>
+    </bean>
+
+</beans>

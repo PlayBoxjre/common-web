@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -72,5 +74,20 @@ public class HomeController {
         return modelAndView;
     }
 
+
+
+    @GetMapping("/regiester")
+    public String form(){
+        throw new IllegalArgumentException("hhhh");
+    }
+
+    @PostMapping("/register")
+    public String form(@Validated Account account, BindingResult errorResult, Model model){
+        if (errorResult.hasErrors()){
+            return "base/error";
+        }
+
+        return "";
+    }
 
 }

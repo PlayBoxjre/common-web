@@ -2,6 +2,8 @@ package com.kong.web.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAliasType;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,8 +17,10 @@ import java.util.Date;
 @XmlRootElement(name = "Account")
 public class Account {
     @XStreamAlias("accountName")
+    @NotEmpty(message = "{account.name.empty}")
     private String name;
     @XStreamAlias("accountAge")
+    @Range(max = 130,min = 0,message = "{account.age.range}")
     private int age;
     @XStreamAlias("accountBirthDay")
     private Date birthDay;

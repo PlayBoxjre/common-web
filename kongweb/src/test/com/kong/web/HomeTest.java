@@ -1,7 +1,5 @@
 package com.kong.web;
 
-import com.kong.web.config.ApplicationConfig;
-import com.kong.web.config.RootConfig;
 import com.kong.web.controllers.HomeController;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,12 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {
-        ApplicationConfig.class
-        ,
-        RootConfig.class
-})
-@WebAppConfiguration
+@ContextConfiguration(locations = {"classpath:spring/dispatcher-servlet.xml"})
+@WebAppConfiguration("src/main/webapp")
 public class HomeTest {
     Logger logger = LoggerFactory.getLogger(HomeTest.class);
     MockMvc mockMvc;
@@ -55,12 +49,19 @@ public class HomeTest {
 
     @Test
     public void test() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/home.json?format=json")
+                .contentType("application/json")
+                .characterEncoding("UTF-8")
+
 
         )
                 .andDo(print())
 
                 .andExpect(status().isOk()).andReturn();
+
+        String contentAsString1 = mvcResult.getResponse().getContentAsString();
+        logger.info("content :{}",contentAsString1);
+
         ModelAndView modelAndView = mvcResult.getModelAndView();
         Map<String, Object> model = modelAndView.getModel();
         String viewName = modelAndView.getViewName();
@@ -80,6 +81,12 @@ public class HomeTest {
         for (HandlerInterceptor interceptor : interceptors) {
             logger.info("{}",interceptor.getClass());
         }
+    }
+
+
+    @Test
+    public void testAccount(){
+
     }
 
 

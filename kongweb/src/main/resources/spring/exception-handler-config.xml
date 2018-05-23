@@ -22,13 +22,11 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
-        <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
-            <property name="dateFormat">
-                <bean class="java.text.SimpleDateFormat">
-                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-                </bean>
-            </property>
-        </bean>
+    <bean id="exceptionResolver" class="com.kong.web.supports.MyGlobalExceptionResolver"
+          p:order="1"/>
+    <bean id="defaultExceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver">
+        <property name="order" value="1"/>
+    </bean>
 
 
 
