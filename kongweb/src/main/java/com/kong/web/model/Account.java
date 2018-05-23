@@ -15,7 +15,7 @@ import java.util.Date;
 @XmlType(name = "AccountType")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlRootElement(name = "Account")
-public class Account {
+public class     Account {
     @XStreamAlias("accountName")
     @NotEmpty(message = "{account.name.empty}")
     private String name;

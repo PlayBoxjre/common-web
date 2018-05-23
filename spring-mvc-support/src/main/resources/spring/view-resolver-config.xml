@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright [2018] [ kong&xiang ]
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
@@ -22,13 +38,25 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
-        <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
-            <property name="dateFormat">
-                <bean class="java.text.SimpleDateFormat">
-                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-                </bean>
-            </property>
-        </bean>
+    <bean id="internalViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:order="1"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp"
+          p:contentType="text/html;charset=utf-8"
+          p:viewClass="org.springframework.web.servlet.view.JstlView"
+          p:exposeContextBeansAsAttributes="true"
+          p:exposedContextBeanNames="rc"
+    />
+
+    <!--<bean id="beanViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"-->
+          <!--p:order="2"-->
+    <!--/>-->
+
+    <!--<bean id="resourceBundleViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver"-->
+          <!--p:order="3"-->
+          <!--p:basename="views.properties"-->
+          <!--p:localesToInitialize="zh_CN"-->
+    <!--/>-->
 
 
 

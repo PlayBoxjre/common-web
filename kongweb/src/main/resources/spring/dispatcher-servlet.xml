@@ -27,34 +27,41 @@
     <context:annotation-config />
     <context:property-placeholder file-encoding="utf-8" ignore-resource-not-found="true"
                                   location="classpath*:**/*config.properties"/>
+    <!-- Media Types 表-->
+    <util:properties id="mediatypes" location="classpath:properties/mediatype.properties"/>
 
     <!--- MVC -->
     <!-- ========================================================================= -->
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiatingManager"
-                           enable-matrix-variables="true"
-                            validator="validator"
+    <mvc:annotation-driven
+            enable-matrix-variables="true"
+            validator="validator"
     >
-        <mvc:message-converters>
+        <mvc:message-converters register-defaults="true">
+
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8" />
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper"/>
+                <property name="defaultCharset" value="UTF-8"/>
+                <property name="prettyPrint" value="true"/>
+                <property name="jsonPrefix" value=""/>
+                <property name="prefixJson" value="false"/>
+                <property name="supportedMediaTypes">
+                    <value>
+                        application/json
+                    </value>
+                </property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
     <mvc:default-servlet-handler />
-
-
     <!-- 定义无Controller的path<->view直接映射 -->
-    <mvc:view-controller path="/" view-name="home"/>
+    <mvc:view-controller path="/" view-name="redirect:/home"/>
     <mvc:resources mapping="/static/**" location="/WEB-INF/resource/"/>
 
 
-
-
-
     <!-- ========================================================================= -->
-
-    <!-- Media Types 表-->
-    <util:properties id="mediatypes" location="classpath:properties/mediatype.properties"/>
 
     <!-- Helper Beans-->
     <!-- Common Object Mapper
@@ -62,7 +69,6 @@
         这里是将对象中的Date日期转换成指定的 格式
     -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-
     </bean>
 
     <!-- 国际化配置 在 mvc:interceptors 中配置locale改变拦截器 -->
@@ -86,16 +92,13 @@
 
     <!-- Config -->
     <!-- 配置异常处理器链 -->
-    <import resource="exception-handler-config.xml"/>
-    <!-- 配置messageSource -->
-    <import resource="message-source-config.xml"/>
-    <!-- 全局配置跨域访问支持 -->
-    <import resource="cors-config.xml"/>
-    <!-- 配置数据验证器 validator -->
-    <import resource="validator-config.xml"/>
+    <import resource="view-resolver-config.xml"/>
     <!-- xml view    XStream -->
     <import resource="xStremMarshlling-xml-view-config.xml"/>
-    <!-- 内容协商配置 -->
+    <!-- 内容协商配置
+        问题：无法对controller的请求参数做处理 如 json.xml..
+        还是用messageConverter 消息转换器
     <import resource="contentNegotiation-config.xml"/>
+    -->
 
 </beans>

@@ -36,6 +36,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
         <java.version>1.8</java.version>
         <java.inject.version>1</java.inject.version>
         <jackson.version>2.9.4</jackson.version>
@@ -101,6 +102,11 @@
                 <version>${hibernate.validate.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation.version}</version>
+            </dependency>
 
 
             <!-- ==================== hibernate ====================== -->
@@ -365,7 +371,43 @@
     </dependencies>
 
     <build>
-        <!-- 强制设置JDK编译版本为1.8 -->
+        <defaultGoal>clean compile</defaultGoal>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/.svn/</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+             </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/.svn/</exclude>
+                </excludes>
+                <filtering>false</filtering>
+             </testResource>
+        </testResources>
+
+       <!-- 强制设置JDK编译版本为1.8 -->
         <pluginManagement>
             <plugins>
                 <!-- jetty server -->
@@ -378,7 +420,6 @@
                         <!-- 指定关闭端口 --> <!--<stopPort>65535</stopPort>--> <!--<stopKey>stop-jetty-for-it</stopKey>-->
                         <webApp>
                             <contextPath>/</contextPath>
-                            <!-- 更改jetty默认webdefault.xml文件，主要修改了useFileMappedBuffer属性为false，使其不锁定静态文件 --> <!-- 此文件在C盘\用户目录\.m2\repository\org\eclipse\jetty\jetty-webapp\xxxVersion\找到jar包，打开jar包目录org\eclipse\jetty\webapp\目录中 --> <!--<defaultsDescriptor>webdefault.xml</defaultsDescriptor>-->
                         </webApp>
                     </configuration>
                 </plugin>
@@ -417,6 +458,26 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                             <includeScope>system</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
     </build>

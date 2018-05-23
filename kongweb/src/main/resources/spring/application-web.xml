@@ -22,7 +22,7 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
-        <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
+    <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
             <property name="dateFormat">
                 <bean class="java.text.SimpleDateFormat">
                     <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
@@ -30,6 +30,13 @@
             </property>
         </bean>
 
+    <!-- 配置数据验证器 validator -->
+    <!-- 配置messageSource -->
+    <import resource="message-source-config.xml"/>
+    <import resource="validator-config.xml"/>
+    <import resource="exception-handler-config.xml"/>
 
 
+    <!-- 全局配置跨域访问支持 -->
+    <import resource="cors-config.xml"/>
 </beans>

@@ -19,9 +19,13 @@ package com.kong.web.supports;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kong.support.exceptions.BaseException;
 import com.kong.support.toolboxes.StringTool;
+import com.kong.web.supports.model.RestResultSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
@@ -29,8 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Author    lantoev & kong xiang
@@ -50,24 +53,36 @@ public class MyGlobalExceptionResolver extends SimpleMappingExceptionResolver {
 //        objectMapper = (ObjectMapper)webApplicationContext.getBean("objectMapper");
         String viewName = determineViewName(ex, request);
         if (viewName == null  ){
+            RestResultSet<String> error = new RestResultSet<>();
             Writer writer = null;
+            String code = "1";
+            String message;
             try {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.setHeader("Cache-Control", "no-cache");
+                if(ex instanceof MethodArgumentNotValidException){//valid 参数不正确
+                    MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) ex;
+                    BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
+                    List<ObjectError> globalErrors = bindingResult.getGlobalErrors();
+                    int globalErrorCount = bindingResult.getGlobalErrorCount();
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < globalErrorCount; i++) {
+                        sb.append(globalErrors.get(i)).append('\n');
+                    }
+                    message = sb.toString();
 
-                Map<String, Object> hashMap = new HashMap<String, Object>();
-                hashMap.put("success", false);
-                if ((ex instanceof BaseException)){
+                }else if ((ex instanceof BaseException)){
                     BaseException ex1 = (BaseException) ex;
-                    hashMap.put("code",ex1.getCode());
-                    hashMap.put("message",StringTool.isNullSetBlank(ex1.getMessage()));
-                } else {
-                    hashMap.put("code",1);
-                    hashMap.put("message",StringTool.isNullSetDefault(ex.getMessage(),"系统异常"));
+                    code = ""+ex1.getCode();
+                    message = ex1.getMessage();
+                   } else {
+                    message = StringTool.isNullSetDefault(ex.getMessage(),"系统异常");
                 }
                 writer = response.getWriter();
-                String result = this.objectMapper.writeValueAsString(hashMap);
+                error.setCode(code);
+                error.setMessage(message);
+                String result = this.objectMapper.writeValueAsString(error);
                 writer.write(result);
             } catch (IOException e) {
                 e.printStackTrace();

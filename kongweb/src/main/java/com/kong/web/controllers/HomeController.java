@@ -1,8 +1,9 @@
 package com.kong.web.controllers;
 
 import com.kong.web.model.Account;
-import org.json.JSONObject;
+import com.kong.web.supports.model.RestResultSet;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.net.URL;
 import java.util.Date;
@@ -48,18 +50,14 @@ public class HomeController {
 
 
     @PostMapping("/login")
+    public @ResponseBody RestResultSet<Account> login(
+          @Valid @RequestBody Account account){
 
-    public @ResponseBody String login(
-            @RequestParam String name,
-            @RequestParam  String age,
-             @RequestParam  String gender){
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code","0");
-        jsonObject.put("name",name);
-        jsonObject.put("age",age);
-        jsonObject.put("gender",gender);
-        return jsonObject.toString();
+            RestResultSet<Account> restResultSet = new RestResultSet<>();
+            restResultSet.setCode(HttpStatus.OK.toString());
+            restResultSet.setDatas(account);
+            restResultSet.setMessage(HttpStatus.OK.getReasonPhrase());
+            return restResultSet;
     }
 
 
