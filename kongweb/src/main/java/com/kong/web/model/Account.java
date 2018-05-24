@@ -11,18 +11,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
-@XStreamAliasType("account")
-@XmlType(name = "AccountType")
-@XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlRootElement(name = "Account")
+
 public class     Account {
-    @XStreamAlias("accountName")
     @NotEmpty(message = "{account.name.empty}")
     private String name;
-    @XStreamAlias("accountAge")
-    @Range(max = 130,min = 0,message = "{account.age.range}")
+    @Range(min=0,max=130,message = "{account.age.range}")
     private int age;
-    @XStreamAlias("accountBirthDay")
+
     private Date birthDay;
 
     public String getName() {

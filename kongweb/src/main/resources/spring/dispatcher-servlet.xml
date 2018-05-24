@@ -100,5 +100,14 @@
         还是用messageConverter 消息转换器
     <import resource="contentNegotiation-config.xml"/>
     -->
+    <!-- 配置数据验证器 validator -->
+    <!-- 配置messageSource -->
+    <import resource="message-source-config.xml"/>
+    <import resource="validator-config.xml"/>
+    <import resource="exception-handler-config.xml"/>
+
+
+    <!-- 全局配置跨域访问支持 -->
+    <import resource="cors-config.xml"/>
 
 </beans>

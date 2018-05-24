@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,11 +65,22 @@ public class MyGlobalExceptionResolver extends SimpleMappingExceptionResolver {
                 if(ex instanceof MethodArgumentNotValidException){//valid 参数不正确
                     MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) ex;
                     BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
-                    List<ObjectError> globalErrors = bindingResult.getGlobalErrors();
-                    int globalErrorCount = bindingResult.getGlobalErrorCount();
+                    List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+                    int fieldErrorCount = bindingResult.getFieldErrorCount();
                     StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < globalErrorCount; i++) {
-                        sb.append(globalErrors.get(i)).append('\n');
+                    ObjectError globalError = bindingResult.getGlobalError();
+                    Object[] arguments = globalError.getArguments();
+                    String[] codes = globalError.getCodes();
+
+
+                    for (int i = 0; i < fieldErrorCount; i++) {
+                        FieldError obj = fieldErrors.get(i);
+                        Object rejectedValue = obj.getRejectedValue();
+
+                        sb.append(i).append(':').append(obj.getObjectName()).append(':')
+                                .append(obj.getField()).append(':')
+                                .append(obj.getDefaultMessage()).append('\n')
+                        ;
                     }
                     message = sb.toString();
 
@@ -95,7 +107,6 @@ public class MyGlobalExceptionResolver extends SimpleMappingExceptionResolver {
                     }
                 }
             }
-            return new ModelAndView();
         } else {
             // Apply HTTP status code for error views, if specified.
             // Only apply it if we're processing a top-level request.

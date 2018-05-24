@@ -51,7 +51,7 @@ public class HomeController {
 
     @PostMapping("/login")
     public @ResponseBody RestResultSet<Account> login(
-          @Valid @RequestBody Account account){
+          @Validated @RequestBody Account account){
 
             RestResultSet<Account> restResultSet = new RestResultSet<>();
             restResultSet.setCode(HttpStatus.OK.toString());

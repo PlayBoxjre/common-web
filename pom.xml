@@ -55,7 +55,7 @@
         <!-- orm -->
         <hibernate.version>5.2.12.Final</hibernate.version>
         <hibernate.annotation.version>3.5.6-Final</hibernate.annotation.version>
-        <hibernate.validate.version>5.0.2.Final</hibernate.validate.version>
+        <hibernate.validate.version>5.2.1.Final</hibernate.validate.version>
         <!-- Test -->
         <mockito.version>2.0.2-beta</mockito.version>
         <jayway.jsonpath.version>2.4.0</jayway.jsonpath.version>
