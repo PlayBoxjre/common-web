@@ -85,7 +85,6 @@ public class Identity {
             Date date= df.parse(dateStr);
             return (date!=null);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             return false;
         }
     }
@@ -168,7 +167,6 @@ public class Identity {
 
     //产生随机的出生日期
     private static String getRandomDate(Random ran, boolean idNewID) {
-        // TODO Auto-generated method stub
         if(ran==null){
             return "";
         }
@@ -196,7 +194,6 @@ public class Identity {
 
     //产生随机的序列号
     private static String getIDOrder(Random ran) {
-        // TODO Auto-generated method stub
         NumberFormat nf = NumberFormat.getIntegerInstance();
         nf.setMaximumIntegerDigits(3);
         nf.setMinimumIntegerDigits(3);
@@ -215,7 +212,6 @@ public class Identity {
      * @param args
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
 
         String randomID=Identity.getRandomIDCard(false);
         System.out.println("随机身份证："+randomID);

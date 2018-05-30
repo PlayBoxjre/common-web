@@ -16,19 +16,12 @@
 
 package com.kong.support.socket.nio.callbacks;
 
-import com.kong.support.socket.helper.accept.SocketSession;
-
-import java.io.IOException;
-import java.net.Socket;
-
 /**
- * File Name OnSocketConnectionListener
+ * File Name OnEventDispatcherListener
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-22
+ * DATE      2018-05-30
  * EMAIL     playboxjre@Gmail.com
- * socket 连接监听
  */
-public interface OnSocketConnectionListener {
-
-    public void onSocketConnected(SocketSession socket) ;
+public interface OnEventDispatcherListener {
+    public void onEventDispatch(int eventId, String eventUUID);
 }

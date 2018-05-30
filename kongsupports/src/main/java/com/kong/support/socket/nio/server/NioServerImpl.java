@@ -20,7 +20,10 @@ import com.kong.support.socket.SocketConfiguration;
 import com.kong.support.socket.helper.accept.SocketSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -39,16 +42,26 @@ import java.util.Set;
  * DATE      2018-05-22
  * EMAIL     playboxjre@Gmail.com
  */
-public class NioServerImpl implements NioServer {
+public final class NioServerImpl implements NioServer {
     Logger logger = LoggerFactory.getLogger(NioServerImpl.class);
 
     private long count = 0;
 
     private SocketConfiguration configuration;
 
+    private EventDispatcher eventDispatcher;
+
+    private SocketContext socketContext ;
+
+    private boolean readAsync;
+
+    private boolean writeAsync;
+
     @Override
     public void configure(SocketConfiguration configuration) {
+        socketContext = new SocketContext();
         this.configuration = configuration;
+
     }
 
 
@@ -57,10 +70,7 @@ public class NioServerImpl implements NioServer {
     public boolean start() {
         final boolean isBlocking = configuration.isBlocking();
         final int port = configuration.getPort();
-        final int registerKey = SelectionKey.OP_ACCEPT & SelectionKey.OP_READ &
-                SelectionKey.OP_WRITE;
-
-
+        final int registerKey = SelectionKey.OP_ACCEPT ;
 
         try {
             logger.debug("start build provider ...");
@@ -77,6 +87,8 @@ public class NioServerImpl implements NioServer {
             serverSocketChannel.configureBlocking(isBlocking);
             logger.debug("configurate register key : accept , write ,connect , read");
             serverSocketChannel.register(selector,registerKey);
+
+
             logger.debug("start server listener ...");
 
             while (!Thread.currentThread().isInterrupted()){
@@ -91,55 +103,22 @@ public class NioServerImpl implements NioServer {
                             while (iterator.hasNext()) {
                                 count++;//次数
                                 SelectionKey next = iterator.next();
-                                if (next.isAcceptable()) {
-                                    ServerSocketChannel channel = (ServerSocketChannel) next.channel();
-                                    SocketChannel accept = channel.accept();
-                                    boolean connected = accept.isConnected();
-                                    if(connected){
-                                        logger.debug(" socket [{}] is build connected ",accept.getRemoteAddress());
+                                iterator.remove();
+                                try {
+                                    Event<SelectionKey> event = new Event<>();
+                                    this.eventDispatcher.dispatchEvent(this.socketContext,event);
+                                }catch (Exception ex){
+                                    if (next!=null) {
+                                        next.cancel();
+                                        next.channel().close();
                                     }
-                                    if (next.attachment() == null){
-                                        next.attach(new SocketSession());
-                                    }
-                                    SocketSession attachment = (SocketSession) next.attachment();
-                                    Socket socket = accept.socket();
-                                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 8);
-
-                                    int read = accept.read(byteBuffer);
-
-                                    byte[] bytes = new byte[read];
-                                    byteBuffer.get(bytes,0,read);
-
-                                    logger.info(" get client : {} accetp info :{}",accept.getRemoteAddress(),new
-                                    String(bytes));
-
-
-                                    attachment.setSocket(socket);
-                                    attachment.setSocketChannel(accept);
-                                    attachment.setSocketStatus(SocketSession.SOCKET_STATUS.SOCKET_CONNECTED);
-                                    attachment.setClose(false);
-
-                                    if (configuration.getSocketConnectionListener()!=null){
-                                        configuration.getSocketConnectionListener().onSocketConnected(attachment);
-                                    }
-
-
-                                }else if( next.isReadable()){
-                                }else if(next.isWritable()){
-
-                                }else {
-
                                 }
-
-
-
-
                         }
+                            logger.info("clear : key count must be  0 ;Now == {}",selectionKeys.size());
                     }catch (Exception ex){
                         //系统异常
+                        ex.printStackTrace();
                     }
-
-
             }
 
         } catch (IOException e) {
@@ -154,4 +133,5 @@ public class NioServerImpl implements NioServer {
     public void run() {
         start();
     }
+
 }

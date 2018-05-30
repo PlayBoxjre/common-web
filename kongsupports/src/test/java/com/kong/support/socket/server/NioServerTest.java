@@ -24,9 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 
 /**
@@ -63,17 +63,32 @@ public class NioServerTest {
 
 
     @Test
-    public void clientTest() throws IOException {
-        SocketChannel socketChannel = SocketChannel.open();
-        socketChannel.configureBlocking(false);
-        Inet4Address inet4Address = (Inet4Address) Inet4Address.getLoopbackAddress();
-        socketChannel.connect(new InetSocketAddress(inet4Address,9999));
-        socketChannel.write(ByteBuffer.wrap("hello".getBytes()));
+    public void clientTest() throws IOException, InterruptedException {
+        try {
+            // 获得一个Socket通道
+            SocketChannel channel = SocketChannel.open();
+            // 设置通道为非阻塞
+            channel.configureBlocking(false);
+            // 获得一个通道管理器
+            Selector selector = Selector.open();
 
-        while(! socketChannel.finishConnect() ){
-            //wait, or do something else...
+            // 客户端连接服务器,其实方法执行并没有实现连接，需要在listen（）方法中调
+            //用channel.finishConnect();才能完成连接
+            channel.connect(new InetSocketAddress("127.0.0.1", 9999));
+            //将通道管理器和该通道绑定，并为该通道注册SelectionKey.OP_CONNECT事件。
+            channel.register(selector, SelectionKey.OP_CONNECT);
+            // 启动读取线程
+            new TCPClientReadThread(selector, "222");
+        } catch (Exception e) {
 
+         }
+
+        while (true){
+            Thread.sleep(100);
         }
 
-    }
+
+
+
+}
 }

@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.nio.callbacks;
+package com.kong.support.socket.nio.server;
 
-import com.kong.support.socket.helper.accept.SocketSession;
+import com.kong.support.exceptions.socket.SocketSessionException;
 
 import java.io.IOException;
-import java.net.Socket;
+import java.nio.channels.SelectionKey;
 
 /**
- * File Name OnSocketConnectionListener
+ * File Name EventDispatcher
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-22
+ * DATE      2018-05-30
  * EMAIL     playboxjre@Gmail.com
- * socket 连接监听
+ * @see
  */
-public interface OnSocketConnectionListener {
+public interface EventDispatcher {
 
-    public void onSocketConnected(SocketSession socket) ;
+    public void dispatchEvent(SocketContext socketContext,Event<SelectionKey> event) throws SocketSessionException, IOException;
 }
