@@ -1,7 +1,7 @@
 package com.kong.support.toolbox;
 
-import com.kong.support.exceptions.ClassFormatException;
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.ClassFormatException;
+import com.kong.support.exceptions.common.CryptoExceptions;
 import com.kong.support.exceptions.socket.DataParserException;
 import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;

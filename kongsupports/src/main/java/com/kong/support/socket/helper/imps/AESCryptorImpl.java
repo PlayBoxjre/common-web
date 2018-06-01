@@ -1,6 +1,6 @@
 package com.kong.support.socket.helper.imps;
 
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.CryptoExceptions;
 import com.kong.support.socket.helper.Cryptor;
 import com.kong.support.toolboxes.CryptoTool;
 

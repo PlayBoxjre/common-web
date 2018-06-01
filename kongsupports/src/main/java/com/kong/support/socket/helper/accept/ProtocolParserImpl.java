@@ -19,6 +19,7 @@ package com.kong.support.socket.helper.accept;
 import com.kong.support.exceptions.socket.IllegalCharException;
 import com.kong.support.exceptions.socket.SocketAcceptException;
 import com.kong.support.exceptions.socket.SocketSessionException;
+import com.kong.support.socket.nio.server.SocketSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +69,7 @@ public class ProtocolParserImpl implements ProtocolParser {
     }
 
     @Override
-    public boolean onceAccept(SocketSession session,byte[] datas) throws SocketAcceptException, SocketSessionException, IllegalCharException {
+    public boolean onceAccept(SocketSession session, byte[] datas) throws SocketAcceptException, SocketSessionException, IllegalCharException {
         if (session == null ){
             throw  new NullPointerException("session is not null !!");
         }
@@ -200,7 +201,7 @@ public class ProtocolParserImpl implements ProtocolParser {
 
     private void resetSessionParseTag(SocketSession session, int flag) {
         if (flag == -1){
-            session.errorCount ++;
+            session.errorCount.incrementAndGet();
         }
         session.parsePositionFlag = flag == 1?-1:flag;
     }

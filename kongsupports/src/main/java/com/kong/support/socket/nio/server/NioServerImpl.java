@@ -16,22 +16,19 @@
 
 package com.kong.support.socket.nio.server;
 
+import com.kong.support.exceptions.BaseException;
+import com.kong.support.exceptions.ExceptionHandler;
+import com.kong.support.exceptions.socket.SocketBaseException;
 import com.kong.support.socket.SocketConfiguration;
-import com.kong.support.socket.helper.accept.SocketSession;
+import com.kong.support.socket.SocketContext;
+import com.kong.support.socket.helper.accept.ProtocolParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.Iterator;
 import java.util.Set;
@@ -53,6 +50,8 @@ public final class NioServerImpl implements NioServer {
 
     private SocketContext socketContext ;
 
+    private ExceptionHandler exceptionHandler;
+
     private boolean readAsync;
 
     private boolean writeAsync;
@@ -61,7 +60,16 @@ public final class NioServerImpl implements NioServer {
     public void configure(SocketConfiguration configuration) {
         socketContext = new SocketContext();
         this.configuration = configuration;
-
+        socketContext.setAlwaysReturnMessage(configuration.isAlwaysReturnMessage());
+        socketContext.setGolabeCharsetName(configuration.getDefaultGolabeCharsetName());
+        socketContext.setPrefixChar(configuration.getPrefixChar());
+        socketContext.setLimitsOfErrorCount(configuration.getLimitsOfErrorCount());
+        socketContext.setOnEventDispatcherListener(configuration.getOnEventDispatcherListener());
+        socketContext.setOnSocketConnectionListener(configuration.getSocketConnectionListener());
+        this.eventDispatcher = configuration.getEventDispatcher();
+        this.exceptionHandler = configuration.getExceptionHandler();
+        this.readAsync = configuration.isReadAsync();
+        this.writeAsync = configuration.isWriteAsync();
     }
 
 
@@ -79,53 +87,75 @@ public final class NioServerImpl implements NioServer {
             logger.debug("open selector ...");
             Selector selector = provider.openSelector();
             logger.debug("open selector successful");
-            logger.debug("bind server to port {} ...",port);
+            logger.debug("bind server to port {} ...", port);
             ServerSocketChannel serverSocketChannel = provider.openServerSocketChannel();
             serverSocketChannel.bind(new InetSocketAddress(port));
             logger.debug("bind server successful");
             logger.debug("configurate non-blocking mode ...");
             serverSocketChannel.configureBlocking(isBlocking);
             logger.debug("configurate register key : accept , write ,connect , read");
-            serverSocketChannel.register(selector,registerKey);
+            serverSocketChannel.register(selector, registerKey);
 
 
             logger.debug("start server listener ...");
 
-            while (!Thread.currentThread().isInterrupted()){
-                    try {
-                        int select = selector.select();
-                        if(select == 0) continue;
-                        logger.debug("select ready channel num {} start ...",select);
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    int select = selector.select();
+                    if (select == 0) continue;
+                    logger.debug("select ready channel num {} start ...", select);
 
-                        Set<SelectionKey> selectionKeys = selector.selectedKeys();
-                            Iterator<SelectionKey> iterator = selectionKeys.iterator();
-                            logger.debug("");
-                            while (iterator.hasNext()) {
-                                count++;//次数
-                                SelectionKey next = iterator.next();
-                                iterator.remove();
-                                try {
-                                    Event<SelectionKey> event = new Event<>();
-                                    this.eventDispatcher.dispatchEvent(this.socketContext,event);
-                                }catch (Exception ex){
-                                    if (next!=null) {
-                                        next.cancel();
-                                        next.channel().close();
-                                    }
+                    Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                    Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                    logger.debug("");
+                    while (iterator.hasNext()) {
+                        count++;//次数
+                        logger.debug("This is 【{}】 Event", count);
+                        SelectionKey next = iterator.next();
+                        iterator.remove();
+                        try {
+                            Event<SelectionKey> event = new Event<>();
+                            event.setData(next);
+                            logger.debug("Dispatcher Event {} - {}", event.getEventId(), event.getEventUUID());
+                            this.eventDispatcher.dispatchEvent(this.socketContext, event);
+                        } catch (Exception ex) {
+                            //runExceptionProcess(ex);
+                            // once key event read / write /accept ex
+                            if (ex instanceof SocketBaseException
+                                    ) {
+                                SocketBaseException ex1 = (SocketBaseException) ex;
+                                SocketSession socketSession = ex1.getSocketSession();
+                                //socketSession.getSocketChannel()
+                                if (socketSession != null) {
+                                    socketSession.setSocketStatus(SocketSession.SOCKET_STATUS.SOCKET_EXCEPTION_CLOSE);
+                                    socketSession.close();
                                 }
+                                next.attach(null);
+                                if (next.channel() != null) {
+                                    next.channel().close();
+                                }
+                            } else if (ex instanceof RuntimeException) {
+                                next.attach(null);
+                                if (next.channel() != null) {
+                                    next.channel().close();
+                                }
+                            } else if (ex instanceof BaseException) {
+
+                            } else {
+                                throw ex;
+                            }
+                            ex.printStackTrace();
                         }
-                            logger.info("clear : key count must be  0 ;Now == {}",selectionKeys.size());
-                    }catch (Exception ex){
-                        //系统异常
-                        ex.printStackTrace();
+
                     }
+                    logger.info("clear : key count must be  0 ;Now == {}", selectionKeys.size());
+                } catch (Exception e) {
+                    //selector once
+                }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch (Exception e){
+            // sys server ex
         }
-
-
         return false;
     }
 
@@ -134,4 +164,9 @@ public final class NioServerImpl implements NioServer {
         start();
     }
 
+
+    private final void runExceptionProcess(Exception e){
+        if (exceptionHandler!=null)
+            exceptionHandler.exceptionHandler(e);
+    }
 }

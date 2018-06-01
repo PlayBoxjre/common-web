@@ -1,7 +1,7 @@
 package com.kong.support.toolbox;
 
 
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.CryptoExceptions;
 import com.kong.support.toolboxes.CryptoTool;
 import org.junit.Assert;
 import org.junit.Test;

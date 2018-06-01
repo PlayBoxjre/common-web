@@ -1,7 +1,10 @@
 package com.kong.support.lifecycle;
 
+import com.kong.support.annotations.NoUse;
+
 import java.util.Map;
 
+@NoUse
 public interface BeanInitializeLifcycle {
     /**
      * 扫描获取类

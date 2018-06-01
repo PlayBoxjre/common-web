@@ -14,22 +14,36 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
+package com.kong.support.socket.nio.server;
 
-import com.kong.support.exceptions.BaseException;
+import com.kong.support.socket.SocketContext;
+
+import java.nio.channels.SelectionKey;
 
 /**
- * File Name SocketSessionException
+ * File Name RequestContext
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
+public class RequestContext {
+    private SocketSession socketSession;
+    private SocketContext socketContext;
+
+    public SocketSession getSocketSession() {
+        return socketSession;
     }
 
-    public SocketSessionException(int code, String message) {
-        super(code, message);
+    public void setSocketSession(SocketSession socketSession) {
+        this.socketSession = socketSession;
     }
+
+    public SocketContext getSocketContext() {
+        return socketContext;
+    }
+
+    public void setSocketContext(SocketContext socketContext) {
+        this.socketContext = socketContext;
+    }
+
 }

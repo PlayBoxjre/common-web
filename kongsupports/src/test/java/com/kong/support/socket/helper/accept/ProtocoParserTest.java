@@ -19,6 +19,7 @@ package com.kong.support.socket.helper.accept;
 import com.kong.support.exceptions.socket.IllegalCharException;
 import com.kong.support.exceptions.socket.SocketAcceptException;
 import com.kong.support.exceptions.socket.SocketSessionException;
+import com.kong.support.socket.nio.server.SocketSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

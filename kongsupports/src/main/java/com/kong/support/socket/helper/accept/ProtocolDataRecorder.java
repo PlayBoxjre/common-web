@@ -14,22 +14,34 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
-
-import com.kong.support.exceptions.BaseException;
+package com.kong.support.socket.helper.accept;
 
 /**
- * File Name SocketSessionException
+ * File Name ProtocolDataRecorder
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-05-31
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
+public class ProtocolDataRecorder {
+
+    /**
+     * 临时存储一条数据的容器
+     */
+    private StringBuilder dataBuffer;
+    /**
+     * 解析数据的需要的位置
+     * 0 start 1 end
+     */
+    protected int parsePositionFlag = -1;
+
+    protected int errorCount;
+
+    public StringBuilder getDataBuffer() {
+        return dataBuffer;
     }
 
-    public SocketSessionException(int code, String message) {
-        super(code, message);
+    public void setDataBuffer(StringBuilder dataBuffer) {
+        this.dataBuffer = dataBuffer;
     }
+
 }

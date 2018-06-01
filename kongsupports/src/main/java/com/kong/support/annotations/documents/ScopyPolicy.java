@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
-
-import com.kong.support.exceptions.BaseException;
+package com.kong.support.annotations.documents;
 
 /**
- * File Name SocketSessionException
+ * File Name ScopyPolicy
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-05-31
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
-    }
-
-    public SocketSessionException(int code, String message) {
-        super(code, message);
-    }
+public enum  ScopyPolicy {
+    APPLICATION,SESSION,REQUEST,SINGLETON
 }

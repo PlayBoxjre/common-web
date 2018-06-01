@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
+package com.kong.support.exceptions.common;
 
 import com.kong.support.exceptions.BaseException;
 
-/**
- * File Name SocketSessionException
- * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
- * EMAIL     playboxjre@Gmail.com
- */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
+public class ObjectConvertException extends BaseException {
+
+    public ObjectConvertException(int code) {
         super(code);
     }
 
-    public SocketSessionException(int code, String message) {
+    public ObjectConvertException(int code, String message) {
         super(code, message);
     }
 }

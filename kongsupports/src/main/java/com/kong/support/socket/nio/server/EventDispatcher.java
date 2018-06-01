@@ -16,7 +16,10 @@
 
 package com.kong.support.socket.nio.server;
 
+import com.kong.support.exceptions.socket.SocketBaseException;
+import com.kong.support.exceptions.socket.SocketDisconnectionException;
 import com.kong.support.exceptions.socket.SocketSessionException;
+import com.kong.support.socket.SocketContext;
 
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
@@ -30,5 +33,5 @@ import java.nio.channels.SelectionKey;
  */
 public interface EventDispatcher {
 
-    public void dispatchEvent(SocketContext socketContext,Event<SelectionKey> event) throws SocketSessionException, IOException;
+    public void dispatchEvent(SocketContext socketContext, Event<SelectionKey> event) throws  SocketBaseException;
 }

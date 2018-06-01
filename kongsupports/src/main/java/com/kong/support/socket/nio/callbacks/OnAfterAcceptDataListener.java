@@ -14,22 +14,25 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
+package com.kong.support.socket.nio.callbacks;
 
-import com.kong.support.exceptions.BaseException;
+import com.kong.support.socket.helper.send.SocketResponse;
+import com.kong.support.socket.nio.server.SocketSession;
 
 /**
- * File Name SocketSessionException
+ * File Name OnAfterAcceptDataListener
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
+ * 在服务端接收到一段数据之后调用
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
-    }
-
-    public SocketSessionException(int code, String message) {
-        super(code, message);
-    }
+public interface OnAfterAcceptDataListener {
+    /**
+     * 处理从客户端获取的二进制数据
+     * @param socketSession
+     * @param bytes
+     * @param charset
+     * @return
+     */
+    public SocketResponse onAfterAcceptData(SocketSession socketSession, byte[] bytes, String charset);
 }

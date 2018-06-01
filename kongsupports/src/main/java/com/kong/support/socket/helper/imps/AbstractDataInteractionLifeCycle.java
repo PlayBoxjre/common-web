@@ -1,13 +1,13 @@
 package com.kong.support.socket.helper.imps;
 
-import com.kong.support.exceptions.ClassFormatException;
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.ClassFormatException;
+import com.kong.support.exceptions.common.CryptoExceptions;
 import com.kong.support.exceptions.socket.DataParserException;
 import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;
 import com.kong.support.exceptions.socket.SocketConnectionException;
 import com.kong.support.socket.helper.*;
-import com.kong.support.socket.helper.accept.SocketSession;
+import com.kong.support.socket.nio.server.SocketSession;
 import com.kong.support.toolboxes.StringTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

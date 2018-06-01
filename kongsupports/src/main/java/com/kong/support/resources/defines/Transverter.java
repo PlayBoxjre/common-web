@@ -1,6 +1,6 @@
 package com.kong.support.resources.defines;
 
-import com.kong.support.exceptions.ObjectConvertException;
+import com.kong.support.exceptions.common.ObjectConvertException;
 
 /**
  * 转换器

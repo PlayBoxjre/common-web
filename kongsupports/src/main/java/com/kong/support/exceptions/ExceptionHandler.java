@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
+package com.kong.support.exceptions;
 
-import com.kong.support.exceptions.BaseException;
+import java.util.Map;
 
 /**
- * File Name SocketSessionException
+ * File Name ExceptionHandler
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
-    }
+public interface ExceptionHandler {
 
-    public SocketSessionException(int code, String message) {
-        super(code, message);
-    }
+    public Map<Class<?>,OnExceptionHandleProcesser> getExceptionMap();
+
+    public boolean onPreHandler(Exception ex);
+
+    public boolean exceptionHandler(Exception ex);
+
 }

@@ -1,7 +1,7 @@
 package com.kong.support.toolboxes;
 
-import com.kong.support.exceptions.ClassNotFoundException;
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ClassNotFoundException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 
 import java.io.File;
 import java.util.List;

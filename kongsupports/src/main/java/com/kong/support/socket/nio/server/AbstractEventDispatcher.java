@@ -16,11 +16,18 @@
 
 package com.kong.support.socket.nio.server;
 
+import com.kong.support.ExceptionCodeTable;
+import com.kong.support.exceptions.socket.SocketBaseException;
+import com.kong.support.exceptions.socket.SocketDisconnectionException;
 import com.kong.support.exceptions.socket.SocketSessionException;
-import com.kong.support.socket.helper.accept.SocketSession;
+import com.kong.support.socket.SocketContext;
+import com.kong.support.socket.helper.send.SocketResponse;
 import com.kong.support.socket.nio.callbacks.OnEventDispatcherListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
@@ -33,47 +40,97 @@ import java.nio.channels.SocketChannel;
  * EMAIL     playboxjre@Gmail.com
  */
 public abstract class AbstractEventDispatcher implements EventDispatcher {
+    private Logger logger = LoggerFactory.getLogger(AbstractEventDispatcher.class);
     @Override
-    public void dispatchEvent(SocketContext socketContext, Event<SelectionKey> event) throws SocketSessionException, IOException {
+    public final void dispatchEvent(SocketContext socketContext, Event<SelectionKey> event) throws   SocketBaseException {
         SelectionKey key = event.getData();
         OnEventDispatcherListener onEventDispatcherListener = socketContext.getOnEventDispatcherListener();
         if (onEventDispatcherListener != null)
-            onEventDispatcherListener.onEventDispatch(event.getEventId(),event.getEventUUID());
-        if (key!=null){
-            if (key.isAcceptable()){
-                SocketSession socketSession = accept((ServerSocketChannel) key.channel());
-                if (socketContext.getOnSocketConnectionListener()!=null)
-                    socketContext.getOnSocketConnectionListener().onSocketConnected(socketSession);
-            }else if(key.isReadable()){
-                Object attachment = key.attachment();
-                if (attachment!=null){
-                    SocketSession session = (SocketSession) attachment;
-                    SocketChannel channel = (SocketChannel) key.channel();
-                    readFromChannel(session,channel);
-                }else{
-                    String ex = "[read] socket accept failed";
-                    throw new SocketSessionException(ex.hashCode(),ex);
-                }
-            }else if(key.isWritable()){
-                Object attachment = key.attachment();
-                if (attachment!=null){
-                    SocketSession session = (SocketSession) attachment;
-                    SocketChannel channel = (SocketChannel) key.channel();
-                    writeToChannel(session,channel);
-                }else {
-                    String ex = "[write] socket accept failed";
-                    throw new SocketSessionException(ex.hashCode(), ex);
-                }
-            }
+            onEventDispatcherListener.onEventDispatch(event.getEventId(), event.getEventUUID());
+            if (key != null) {
+                if (key.isAcceptable()) {
+                    try {
+                        ServerSocketChannel channel = (ServerSocketChannel) key.channel();
+                        SocketChannel accept = channel.accept();
+                        SocketSession socketSession = new SocketSession();
+                        socketSession.setSocket(accept.socket());
+                        socketSession.setRemoteAddress(accept.getRemoteAddress());
+                        socketSession.setLocalAddress(accept.getLocalAddress());
+                        socketSession.setSocketStatus(SocketSession.SOCKET_STATUS.SOCKET_CONNECTED);
+                        socketSession.setClose(false);
+                        socketSession.setSocketChannel(accept);
+                        socketSession.setSelector(key.selector());
+                        logger.debug("Accept Client 【{}】connect",accept.getRemoteAddress());
+                        accept.configureBlocking(false);
+                        key.attach(socketSession);
+                        accept.register(key.selector(), SelectionKey.OP_READ,socketSession);
+                        if (socketContext.getOnSocketConnectionListener() != null)
+                            socketContext.getOnSocketConnectionListener().onSocketConnected(socketSession);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        throw new SocketBaseException(ExceptionCodeTable.EX_SOCKET_ACCEPT_IO_EXCEPTION.CODE
+                                , ExceptionCodeTable.EX_SOCKET_ACCEPT_IO_EXCEPTION.MESSAGE, null);
+                    }
 
-        }else{
-            throw new NullPointerException("Select key is not null ");
-        }
+                }
+                if (key.isReadable()) {
+                    Object attachment = key.attachment();
+                    SocketSession session = null;
+                    if (attachment != null) {
+                         session = (SocketSession) attachment;
+                    } else {
+                        String ex = "[read] socket accept failed";
+                        throw new SocketSessionException(ex.hashCode(), ex);
+                    }
+                    RequestContext requestContext = new RequestContext();
+                    requestContext.setSocketContext(socketContext);
+                    requestContext.setSocketSession(session);
+                    // 恶意攻击防御
+                    if (session.errorCount.get() >= socketContext.getLimitsOfErrorCount()) {
+                        String exm = "read illegal data count than " + session.errorCount.get();
+                        throw new SocketBaseException(ExceptionCodeTable.EX_READ_CLIENT_ERROR_LIMIT.CODE, ExceptionCodeTable.EX_READ_CLIENT_ERROR_LIMIT.MESSAGE, session);
+                    }
+                    try {
+                        SocketChannel channel = (SocketChannel) key.channel();
+                        SocketResponse socketResponse = readFromChannel(requestContext,  channel);
+                        if (socketResponse==null)
+                            return;
+                        channel.register(key.selector(),SelectionKey.OP_WRITE,socketResponse);
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        throw new SocketBaseException(ExceptionCodeTable.EX_SOCKET_READ_IO_EXCEPTION.CODE
+                                , ExceptionCodeTable.EX_SOCKET_READ_IO_EXCEPTION.MESSAGE, null);
+                    }
+                }
+                if (key.isWritable()) {
+                        Object attachment = key.attachment();
+                        SocketResponse response = null;
+                        if (attachment != null) {
+                            response = (SocketResponse) attachment;
+                        } else {
+                             String ex = "[write] socket accept failed";
+                             throw new SocketSessionException(ex.hashCode(), ex);
+                        }
+                    try {
+                        SocketChannel channel = (SocketChannel) key.channel();
+                        writeToChannel(response, channel);
+                        //取消写监听
+                        key.interestOps(key.interestOps() & ~SelectionKey.OP_WRITE);
+                        key.attach(response.getSession());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        throw new SocketBaseException(ExceptionCodeTable.EX_SOCKET_WRITE_IO_EXCEPTION.CODE
+                                , ExceptionCodeTable.EX_SOCKET_WRITE_IO_EXCEPTION.MESSAGE,response.getSession() );
+                    }
+                }
+            }else{
+                throw new NullPointerException("Select key is not null ");
+            }
     }
 
-    protected abstract void writeToChannel(SocketSession session, SocketChannel channel) throws IOException;
+    protected abstract void writeToChannel(SocketResponse response, SocketChannel channel) throws IOException;
 
-    protected abstract void readFromChannel(SocketSession session, SocketChannel channel) throws IOException;
-
-    protected abstract SocketSession accept(ServerSocketChannel channel);
-}
+    protected abstract SocketResponse readFromChannel(RequestContext socketContext,SocketChannel channel) throws IOException, SocketDisconnectionException;
+ }

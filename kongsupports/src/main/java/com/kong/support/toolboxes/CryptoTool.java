@@ -1,6 +1,6 @@
 package com.kong.support.toolboxes;
 
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.CryptoExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;

@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
+package com.kong.support.annotations;
 
-import com.kong.support.exceptions.BaseException;
+import java.lang.annotation.*;
 
 /**
- * File Name SocketSessionException
+ * File Name NoUse
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
-    }
-
-    public SocketSessionException(int code, String message) {
-        super(code, message);
-    }
+@Target({ElementType.ANNOTATION_TYPE,ElementType.CONSTRUCTOR,ElementType.FIELD,ElementType.LOCAL_VARIABLE,
+ElementType.METHOD,ElementType.TYPE,ElementType.PARAMETER,ElementType.PACKAGE,ElementType.TYPE_PARAMETER})
+@Retention(RetentionPolicy.SOURCE)
+@Documented
+public @interface NoUse {
+    String value() default "";
 }

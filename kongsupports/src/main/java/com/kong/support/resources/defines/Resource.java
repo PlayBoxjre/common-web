@@ -1,7 +1,7 @@
 package com.kong.support.resources.defines;
 
 import com.kong.support.exceptions.BaseException;
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 
 import java.io.Closeable;
 import java.io.InputStream;

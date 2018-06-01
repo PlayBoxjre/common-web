@@ -17,19 +17,37 @@
 package com.kong.support.exceptions.socket;
 
 import com.kong.support.exceptions.BaseException;
+import com.kong.support.socket.nio.server.SocketSession;
 
 /**
- * File Name SocketSessionException
+ * File Name SocketBaseException
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
+public class SocketBaseException extends BaseException {
+
+    private SocketSession socketSession;
+
+    public SocketBaseException(int code) {
         super(code);
     }
 
-    public SocketSessionException(int code, String message) {
+    public SocketBaseException(int code, String message) {
         super(code, message);
+    }
+
+
+    public SocketBaseException(int code, String message, SocketSession socketSession) {
+        super(code, message);
+        this.socketSession = socketSession;
+    }
+
+    public SocketSession getSocketSession() {
+        return socketSession;
+    }
+
+    public void setSocketSession(SocketSession socketSession) {
+        this.socketSession = socketSession;
     }
 }

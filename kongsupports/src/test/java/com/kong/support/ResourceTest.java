@@ -1,7 +1,7 @@
 package com.kong.support;
 
-import com.kong.support.exceptions.ClassNotFoundException;
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ClassNotFoundException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 import com.kong.support.resources.defines.Resource;
 import com.kong.support.resources.imps.ResourceBundle;
 import com.kong.support.resources.imps.ByteResource;

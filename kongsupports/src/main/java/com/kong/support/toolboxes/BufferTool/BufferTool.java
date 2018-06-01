@@ -16,7 +16,13 @@
 
 package com.kong.support.toolboxes.BufferTool;
 
+import com.kong.support.exceptions.socket.SocketDisconnectionException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.channels.SocketChannel;
 
 /**
  * File Name BufferTool
@@ -35,5 +41,18 @@ public class BufferTool {
             dataBuffer.get(chars);
             return new String(chars);
         }
+    }
+
+    public static byte[] getBytes(SocketChannel channel,int buffSize) throws IOException {
+        byte[] buffer = new byte[buffSize];
+        ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
+        byteBuffer.clear();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        int len = 0;
+        while (byteBuffer.hasRemaining() && (len = channel.read(byteBuffer))>0){
+            byteArrayOutputStream.write(buffer,0,len);
+            byteBuffer.clear();
+        }
+        return byteArrayOutputStream.toByteArray();
     }
 }

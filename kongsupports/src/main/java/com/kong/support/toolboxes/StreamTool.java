@@ -49,4 +49,25 @@ public class StreamTool {
         }
         return null;
     }
+
+
+    public static byte[] readByteFromInputStreamSocket(InputStream inputStream,Consumer<byte[]> consumer) {
+        Objects.requireNonNull(inputStream, "StreamTool (readByteFromInputStream) paramster is not null  ");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        try {
+            while ((len = inputStream.read(bytes)) != -1) {
+                baos.write(bytes, 0, len);
+                if (consumer!=null)
+                    consumer.accept(baos.toByteArray());
+                baos.reset();
+            }
+            return baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
-
-import com.kong.support.exceptions.BaseException;
+package com.kong.support.socket.nio.server;
 
 /**
- * File Name SocketSessionException
+ * File Name SocketRequestMode
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
+ * socket 连接的模式
+ * -1。 连接一次成功返回断开 （http-mode)
+ * -2. 一次长连接，可返回大数据 (socket-mode)
+ * -3. 一次长连接，但每次返回数据限制大小 (socket-limit-mode)
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
-    }
-
-    public SocketSessionException(int code, String message) {
-        super(code, message);
-    }
+public enum  SocketRequestMode  {
+    HTTP_MODE,
+    SOCKET_LIMIT_MODE,
+    SOCKET_UNLIMIT_MODE
 }

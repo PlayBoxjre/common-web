@@ -17,19 +17,24 @@
 package com.kong.support.exceptions.socket;
 
 import com.kong.support.exceptions.BaseException;
+import com.kong.support.socket.nio.server.SocketSession;
+
+import java.net.Socket;
 
 /**
- * File Name SocketSessionException
+ * File Name SocketDisconnectionException
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-06-01
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
+public class SocketDisconnectionException extends SocketBaseException {
+
+
+    public SocketDisconnectionException(int code) {
         super(code);
     }
 
-    public SocketSessionException(int code, String message) {
-        super(code, message);
+    public SocketDisconnectionException(int code, String message, SocketSession socketSession) {
+        super(code, message, socketSession);
     }
 }

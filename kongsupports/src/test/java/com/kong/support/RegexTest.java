@@ -1,6 +1,6 @@
 package com.kong.support;
 
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 import com.kong.support.resources.defines.Resource;
 import com.kong.support.resources.imps.ResourceBundle;
 import org.junit.Before;

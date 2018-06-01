@@ -1,6 +1,6 @@
 package com.kong.support.resources.defines;
 
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 
 /**
  * 字节加载器

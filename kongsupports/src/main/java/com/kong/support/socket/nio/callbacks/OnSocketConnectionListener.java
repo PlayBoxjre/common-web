@@ -16,19 +16,18 @@
 
 package com.kong.support.socket.nio.callbacks;
 
-import com.kong.support.socket.helper.accept.SocketSession;
+import com.kong.support.socket.nio.server.SocketSession;
 
 import java.io.IOException;
-import java.net.Socket;
 
 /**
  * File Name OnSocketConnectionListener
  * Author    aaron (EN) & 孔翔kongxiang(CN)
  * DATE      2018-05-22
  * EMAIL     playboxjre@Gmail.com
- * socket 连接监听
+ * socket 当服务端socket accept新客户端连接之后监听
  */
 public interface OnSocketConnectionListener {
 
-    public void onSocketConnected(SocketSession socket) ;
+    public void onSocketConnected(SocketSession socketSession) throws IOException;
 }

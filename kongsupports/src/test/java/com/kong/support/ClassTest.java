@@ -1,7 +1,7 @@
 package com.kong.support;
 
 import com.kong.support.exceptions.BaseException;
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.CryptoExceptions;
 import com.kong.support.network.defines.NetWork;
 import com.kong.support.resources.defines.Codable;
 import com.kong.support.toolbox.UserBeanSubClass;

@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package com.kong.support.exceptions.socket;
+package com.kong.support.annotations;
 
-import com.kong.support.exceptions.BaseException;
+import com.kong.support.annotations.documents.ScopyPolicy;
+
+import java.lang.annotation.*;
 
 /**
- * File Name SocketSessionException
+ * File Name Scope
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-05-21
+ * DATE      2018-05-31
  * EMAIL     playboxjre@Gmail.com
  */
-public class SocketSessionException extends SocketBaseException {
-    public SocketSessionException(int code) {
-        super(code);
-    }
-
-    public SocketSessionException(int code, String message) {
-        super(code, message);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@Target(ElementType.TYPE)
+public @interface Scope {
+    ScopyPolicy value() default ScopyPolicy.SINGLETON;
 }

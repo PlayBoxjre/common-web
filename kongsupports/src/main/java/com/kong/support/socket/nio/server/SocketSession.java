@@ -14,20 +14,30 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper.accept;
+package com.kong.support.socket.nio.server;
+
+import com.kong.support.annotations.Scope;
+import com.kong.support.annotations.documents.ScopyPolicy;
 
 import java.io.Reader;
 import java.io.Writer;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 保存socket会话信息
  * this is a session ， keep socket object save util it's close or disconnect .
  * this is
  */
+@Scope(ScopyPolicy.SESSION)
 public class SocketSession {
 
+
+
+    private Object attach;
     /**
      * session 是否关闭或者断开，一旦断开将不会在使用。gc清楚
      */
@@ -51,13 +61,16 @@ public class SocketSession {
      */
     private StringBuilder dataBuffer;
     /**
-     * 解析数据的需要的位置
+     * 解析数据的起始和结束的位置
      * 0 start 1 end
      */
-    protected int parsePositionFlag = -1;
+    public int parsePositionFlag = -1;
 
-    protected int errorCount;
+    public AtomicInteger errorCount = new AtomicInteger();
     private SocketChannel socketChannel;
+    private SocketAddress remoteAddress;
+    private SocketAddress localAddress;
+    private Selector selector;
 
     public void setSocketChannel(SocketChannel socketChannel) {
         this.socketChannel = socketChannel;
@@ -65,6 +78,43 @@ public class SocketSession {
 
     public SocketChannel getSocketChannel() {
         return socketChannel;
+    }
+
+    public void setRemoteAddress(SocketAddress remoteAddress) {
+        this.remoteAddress = remoteAddress;
+    }
+
+    public SocketAddress getRemoteAddress() {
+        return remoteAddress;
+    }
+
+    public void setLocalAddress(SocketAddress localAddress) {
+        this.localAddress = localAddress;
+    }
+
+    public SocketAddress getLocalAddress() {
+        return localAddress;
+    }
+
+    public void setSelector(Selector selector) {
+        this.selector = selector;
+    }
+
+    public Selector getSelector() {
+        return selector;
+    }
+
+    public void close(){
+        localAddress = null;
+        remoteAddress = null;
+        errorCount = null;
+        parsePositionFlag = -1;
+        socketChannel = null;
+        reader = null;
+        writer = null;
+        attach = null;
+        socket = null;
+        isClose = true;
     }
 
 
@@ -119,5 +169,13 @@ public class SocketSession {
 
     protected void setWriter(Writer writer) {
         this.writer = writer;
+    }
+
+    public void attch(Object attach){
+        this.attach = attach;
+    }
+
+    public Object attachment(){
+        return this.attach;
     }
 }

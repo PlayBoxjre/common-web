@@ -1,7 +1,7 @@
 package com.kong.support.toolboxes.imps;
 
-import com.kong.support.exceptions.ClassNotFoundException;
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ClassNotFoundException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 import com.kong.support.toolboxes.ScanTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

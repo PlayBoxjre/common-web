@@ -1,6 +1,6 @@
 package com.kong.support.socket.helper;
 
-import com.kong.support.exceptions.CryptoExceptions;
+import com.kong.support.exceptions.common.CryptoExceptions;
 
 /**
  * 加解密接口。用来对接收的数据和发送的数据进行加解密的处理

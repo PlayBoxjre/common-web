@@ -1,6 +1,6 @@
 package com.kong.support.resources.imps;
 
-import com.kong.support.exceptions.ResourceAccessException;
+import com.kong.support.exceptions.common.ResourceAccessException;
 import com.kong.support.resources.defines.RealByteLoader;
 import com.kong.support.resources.defines.Resource;
 
