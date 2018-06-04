@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper.accept;
+package com.kong.support.socket.nio.protocols;
 
 import com.kong.support.exceptions.socket.IllegalCharException;
 import com.kong.support.exceptions.socket.SocketAcceptException;
@@ -37,42 +37,42 @@ public interface ProtocolParser {
      * 定义原始流数据的起始分割标记
      * @return
      */
-    public char defineStartSeparator();
+    char defineStartSeparator();
 
     /**
      * 定义原始流数据的结束分割标记
      * @return
      */
-    public char defineEndSeparator();
+    char defineEndSeparator();
 
     /**
      * 每次接收最大的字节长度
      * 起始-结束的总长度
      * @return
      */
-    public long maxAcceptLength();
+    long maxAcceptLength();
 
     /**
      * 接收数据
      * @param session
      * @return  一条记录是否接收完整
      */
-    public boolean onceAccept(SocketSession session, byte[] datas) throws SocketAcceptException, SocketSessionException, IllegalCharException;
+    boolean onceAccept(SocketSession session, byte[] datas) throws SocketAcceptException, SocketSessionException, IllegalCharException;
 
     /**
      * h获取解析成功的数据行
      * @return
      */
-    public String[] getLines();
+    String[] getLines();
 
     /**
      * 若存在开始标签，那么下一个还是开始标签将忽略。默认报错
      * @return
      */
-    public START_TAG_STRAGETY startTagStragety(START_TAG_STRAGETY s);
+    START_TAG_STRAGETY startTagStragety(START_TAG_STRAGETY s);
 
 
-    public boolean isContinueAtSuccessParse();
+    boolean isContinueAtSuccessParse();
 
     public enum START_TAG_STRAGETY{
         /**

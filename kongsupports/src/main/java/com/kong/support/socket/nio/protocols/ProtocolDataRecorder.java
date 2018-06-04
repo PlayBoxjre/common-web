@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper.accept;
+package com.kong.support.socket.nio.protocols;
 
 /**
  * File Name ProtocolDataRecorder

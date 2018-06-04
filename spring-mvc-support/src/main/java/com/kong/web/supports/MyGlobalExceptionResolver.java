@@ -50,7 +50,7 @@ public class MyGlobalExceptionResolver extends SimpleMappingExceptionResolver {
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-//        WebApplicationContext webApplicationContext = RequestContextUtils.findWebApplicationContext(request, request.getServletContext());
+//        WebApplicationContext webApplicationContext = RequestContextUtils.findWebApplicationContext(Request, Request.getServletContext());
 //        objectMapper = (ObjectMapper)webApplicationContext.getBean("objectMapper");
         String viewName = determineViewName(ex, request);
         if (viewName == null  ){
@@ -109,7 +109,7 @@ public class MyGlobalExceptionResolver extends SimpleMappingExceptionResolver {
             }
         } else {
             // Apply HTTP status code for error views, if specified.
-            // Only apply it if we're processing a top-level request.
+            // Only apply it if we're processing a top-level Request.
             Integer statusCode = determineStatusCode(request, viewName);
             if (statusCode != null) {
                 applyStatusCodeIfPossible(request, response, statusCode);

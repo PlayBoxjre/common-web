@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper.accept;
+package com.kong.support.socket.nio.protocols;
 
 import com.kong.support.exceptions.socket.IllegalCharException;
 import com.kong.support.exceptions.socket.SocketAcceptException;

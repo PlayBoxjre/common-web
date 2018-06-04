@@ -8,6 +8,7 @@ import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;
 import com.kong.support.exceptions.socket.SocketConnectionException;
 import com.kong.support.socket.helper.DataInteractionLifeCycle;
+import com.kong.support.socket.nio.server.RequestContext;
 import com.kong.support.socket.nio.server.SocketSession;
 
 import java.net.SocketException;
@@ -39,44 +40,42 @@ public class UserBeanSubClass<T> extends UserBean implements DataInteractionLife
 
 
     @Override
-    public <I> byte[] format(I dataObject, Charset charset) throws ClassFormatException, DataFormatException {
+    public byte[] format(Object dataObject, Charset charset) throws ClassFormatException, DataFormatException {
         return new byte[0];
     }
 
     @Override
-    public <I> I parse(Class<I> t, byte[] text, Charset charset) throws DataParserException {
+    public Object parse(byte[] text, Charset charset) throws DataParserException {
         return null;
     }
 
     @Override
-    public byte[] enCrypto(byte[] data) throws CryptoExceptions {
+    public byte[] enCrypto(int cryptoAlgo, String key, byte[] data) throws CryptoExceptions {
         return new byte[0];
     }
 
     @Override
-    public byte[] deCrypto(byte[] data) throws CryptoExceptions {
+    public byte[] deCrypto(int cryptoAlgo, String key, byte[] data) throws CryptoExceptions {
         return new byte[0];
     }
 
     @Override
-    public byte[] encoding(byte[] data) throws EncodingException {
+    public byte[] encoding(int encodeAlgo, String key, byte[] data) throws EncodingException {
         return new byte[0];
     }
 
     @Override
-    public byte[] decoding(byte[] data) throws DecodingException {
+    public byte[] decoding(int decodeAlgo, String key, byte[] data) throws DecodingException {
         return new byte[0];
     }
 
     @Override
-    public <I> byte[] buildResponseObject(SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException {
+    public byte[] receiveOriginAndResponse(RequestContext requestContext, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException, ClassFormatException, EncodingException, DataFormatException {
         return new byte[0];
     }
 
     @Override
-    public <I> I accept(Class<I> t, SocketSession socketSession, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException {
-        return null;
+    public byte[] buildResponseObject(SocketSession socketSession, Object datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException {
+        return new byte[0];
     }
-
-
 }

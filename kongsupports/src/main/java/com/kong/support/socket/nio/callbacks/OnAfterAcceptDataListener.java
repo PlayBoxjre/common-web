@@ -16,8 +16,12 @@
 
 package com.kong.support.socket.nio.callbacks;
 
+import com.kong.support.exceptions.socket.SocketConnectionException;
+import com.kong.support.exceptions.socket.SocketSessionException;
 import com.kong.support.socket.helper.send.SocketResponse;
-import com.kong.support.socket.nio.server.SocketSession;
+import com.kong.support.socket.nio.server.RequestContext;
+
+import java.net.SocketException;
 
 /**
  * File Name OnAfterAcceptDataListener
@@ -29,10 +33,10 @@ import com.kong.support.socket.nio.server.SocketSession;
 public interface OnAfterAcceptDataListener {
     /**
      * 处理从客户端获取的二进制数据
-     * @param socketSession
+     * @param requestContext
      * @param bytes
      * @param charset
      * @return
      */
-    public SocketResponse onAfterAcceptData(SocketSession socketSession, byte[] bytes, String charset);
+    public SocketResponse onAfterAcceptData(RequestContext requestContext, byte[] bytes, String charset) throws SocketSessionException, SocketConnectionException, SocketException;
 }

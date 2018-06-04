@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kong.support.socket.helper.accept;
+package com.kong.support.socket.nio.protocols;
 
 import com.kong.support.exceptions.socket.IllegalCharException;
 import com.kong.support.exceptions.socket.SocketAcceptException;
@@ -27,6 +27,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.kong.support.socket.nio.protocols.ProtocolParser.START_TAG_STRAGETY.*;
 
 /**
  * File Name ProtocolParserImpl
@@ -101,7 +103,7 @@ public class ProtocolParserImpl implements ProtocolParser {
                 logger.debug("== start get startTag");
                 while (charBuffer.hasRemaining()){
                     char c = charBuffer.get();
-                    logger.debug("--> start find start char or end char : {}",(int)c);
+                    logger.debug("--> start find start char or end char :{} need {} but {}",startChar == (int)c,startChar,(int)c);
                     if (c == startChar){
                         logger.debug("-->  find start char {} ",c);
                         if (flag == 0)

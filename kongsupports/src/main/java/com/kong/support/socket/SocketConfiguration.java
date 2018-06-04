@@ -18,11 +18,12 @@ package com.kong.support.socket;
 
 import com.kong.support.annotations.NoUse;
 import com.kong.support.exceptions.ExceptionHandler;
+import com.kong.support.socket.helper.*;
 import com.kong.support.socket.nio.callbacks.OnAfterAcceptDataListener;
 import com.kong.support.socket.nio.callbacks.OnEventDispatcherListener;
 import com.kong.support.socket.nio.callbacks.OnPreResonpseListener;
 import com.kong.support.socket.nio.callbacks.OnSocketConnectionListener;
-import com.kong.support.socket.nio.server.EventDispatcher;
+import com.kong.support.socket.nio.protocols.ProtocolParser;
 import com.kong.support.socket.nio.server.SocketRequestMode;
 
 /**
@@ -38,6 +39,10 @@ public class SocketConfiguration {
     private boolean blocking;
     private int port;
 
+    private DataInteractionLifeCycle dataInteractionLifeCycle ;
+
+    private ProtocolParser protocolParser;
+
     private SocketRequestMode requestMode;
      /**
      * 事件分发监听
@@ -49,7 +54,6 @@ public class SocketConfiguration {
      */
     private OnSocketConnectionListener socketConnectionListener;
 
-    private EventDispatcher eventDispatcher;
 
     private ExceptionHandler exceptionHandler;
 
@@ -65,6 +69,12 @@ public class SocketConfiguration {
     private char prefixChar ='\uEEFE';
     private char suffixChar = '\uEEFF';
     private int limitsOfErrorCount;// 每个连接读取空字符错误次数限制
+    private DataParser dataParser;
+    private DataFormatter formatter;
+    private Cryptor cryptor;
+    private Decoder decoder;
+    private Encoder encoder;
+    private Class<String> requestTypeClass;
 
 
     public SocketRequestMode getRequestMode() {
@@ -84,14 +94,6 @@ public class SocketConfiguration {
         return this;
     }
 
-    public EventDispatcher getEventDispatcher() {
-        return eventDispatcher;
-    }
-
-    public SocketConfiguration setEventDispatcher(EventDispatcher eventDispatcher) {
-        this.eventDispatcher = eventDispatcher;
-        return this;
-    }
 
     public ExceptionHandler getExceptionHandler() {
         return exceptionHandler;
@@ -208,5 +210,78 @@ public class SocketConfiguration {
     public SocketConfiguration setOnEventDispatcherListener(OnEventDispatcherListener onEventDispatcherListener) {
         this.onEventDispatcherListener = onEventDispatcherListener;
         return this;
+    }
+
+
+    public DataInteractionLifeCycle getDataInteractionLifeCycle() {
+        return dataInteractionLifeCycle;
+    }
+
+    public SocketConfiguration setDataInteractionLifeCycle(DataInteractionLifeCycle dataInteractionLifeCycle) {
+        this.dataInteractionLifeCycle = dataInteractionLifeCycle;
+        return this;
+    }
+
+    public ProtocolParser getProtocolParser() {
+        return protocolParser;
+    }
+
+    public SocketConfiguration setProtocolParser(ProtocolParser protocolParser) {
+        this.protocolParser = protocolParser;
+        return this;
+    }
+
+    public SocketConfiguration setDataParser(DataParser dataParser) {
+        this.dataParser = dataParser;
+        return this;
+    }
+
+    public DataParser getDataParser() {
+        return dataParser;
+    }
+
+    public DataFormatter getFormatter() {
+        return formatter;
+    }
+
+    public SocketConfiguration setFormatter(DataFormatter formatter) {
+        this.formatter = formatter;
+        return this;
+    }
+
+    public Cryptor getCryptor() {
+        return cryptor;
+    }
+
+    public SocketConfiguration setCryptor(Cryptor cryptor) {
+        this.cryptor = cryptor;
+        return this;
+    }
+
+    public Decoder getDecoder() {
+        return decoder;
+    }
+
+    public SocketConfiguration setDecoder(Decoder decoder) {
+        this.decoder = decoder;
+        return this;
+    }
+
+    public Encoder getEncoder() {
+        return encoder;
+    }
+
+    public SocketConfiguration setEncoder(Encoder encoder) {
+        this.encoder = encoder;
+        return this;
+    }
+
+    public SocketConfiguration setRequestTypeClass(Class<String> requestTypeClass) {
+        this.requestTypeClass = requestTypeClass;
+        return this;
+    }
+
+    public Class<String> getRequestTypeClass() {
+        return requestTypeClass;
     }
 }

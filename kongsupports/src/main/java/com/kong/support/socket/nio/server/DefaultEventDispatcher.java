@@ -16,11 +16,14 @@
 
 package com.kong.support.socket.nio.server;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kong.support.ExceptionCodeTable;
 import com.kong.support.annotations.NoUse;
+import com.kong.support.exceptions.socket.SocketConnectionException;
 import com.kong.support.exceptions.socket.SocketDisconnectionException;
+import com.kong.support.exceptions.socket.SocketSessionException;
 import com.kong.support.socket.SocketContext;
 import com.kong.support.socket.helper.send.SocketResponse;
 import com.kong.support.socket.nio.callbacks.OnAfterAcceptDataListener;
@@ -34,7 +37,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
-import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
 /**
@@ -50,8 +52,7 @@ public class DefaultEventDispatcher extends AbstractEventDispatcher {
     @NoUse("这是一个发送相应结果二进制数据之前的处理器")
     private OnPreResonpseListener onPreResonpseListener;
 
-    @NoUse("这是一个处理接收信息的处理器")
-    private OnAfterAcceptDataListener onAfterAcceptDataListener;
+     private OnAfterAcceptDataListener onAfterAcceptDataListener;
 
 
     @Override
@@ -76,12 +77,19 @@ public class DefaultEventDispatcher extends AbstractEventDispatcher {
     private final byte[] buildResult(SocketResponse response, String charsetName) throws JsonProcessingException {
         if (onPreResonpseListener!=null)
             return onPreResonpseListener.onPreResponse(response,charsetName);
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper(){
+            @Override
+            public ObjectMapper configure(JsonParser.Feature f, boolean state) {
+                setBase64Variant(null);
+                return super.configure(f, state);
+
+            }
+        };
         return objectMapper.writeValueAsBytes(response);
     }
 
     @Override
-    protected SocketResponse readFromChannel(RequestContext requestContext,SocketChannel channel) throws IOException, SocketDisconnectionException {
+    protected SocketResponse readFromChannel(RequestContext requestContext,SocketChannel channel) throws IOException, SocketDisconnectionException, SocketSessionException, SocketConnectionException {
         SocketSession session = requestContext.getSocketSession();
         if (channel.isConnected() && channel.isOpen()){
             int buffSize = 1024;
@@ -107,7 +115,7 @@ public class DefaultEventDispatcher extends AbstractEventDispatcher {
             }
             SocketResponse socketResponse = null;
             if (onAfterAcceptDataListener!=null) {
-                socketResponse = onAfterAcceptDataListener.onAfterAcceptData(session, bytes, requestContext.getSocketContext().getGolabeCharsetName());
+                socketResponse = onAfterAcceptDataListener.onAfterAcceptData(requestContext, bytes, requestContext.getSocketContext().getGolabeCharsetName());
             }else if (requestContext.getSocketContext().isAlwaysReturnMessage()){
                 socketResponse = new SocketResponse();
                 socketResponse.setCode(0);

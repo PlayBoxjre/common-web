@@ -18,6 +18,7 @@ package com.kong.support.socket.nio.server;
 
 import com.kong.support.ExceptionCodeTable;
 import com.kong.support.exceptions.socket.SocketBaseException;
+import com.kong.support.exceptions.socket.SocketConnectionException;
 import com.kong.support.exceptions.socket.SocketDisconnectionException;
 import com.kong.support.exceptions.socket.SocketSessionException;
 import com.kong.support.socket.SocketContext;
@@ -27,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
@@ -42,7 +42,7 @@ import java.nio.channels.SocketChannel;
 public abstract class AbstractEventDispatcher implements EventDispatcher {
     private Logger logger = LoggerFactory.getLogger(AbstractEventDispatcher.class);
     @Override
-    public final void dispatchEvent(SocketContext socketContext, Event<SelectionKey> event) throws   SocketBaseException {
+    public final void dispatchEvent(SocketContext socketContext, Event<SelectionKey> event) throws SocketBaseException, SocketConnectionException {
         SelectionKey key = event.getData();
         OnEventDispatcherListener onEventDispatcherListener = socketContext.getOnEventDispatcherListener();
         if (onEventDispatcherListener != null)
@@ -79,7 +79,7 @@ public abstract class AbstractEventDispatcher implements EventDispatcher {
                     if (attachment != null) {
                          session = (SocketSession) attachment;
                     } else {
-                        String ex = "[read] socket accept failed";
+                        String ex = "[read] socket protocols failed";
                         throw new SocketSessionException(ex.hashCode(), ex);
                     }
                     RequestContext requestContext = new RequestContext();
@@ -109,7 +109,7 @@ public abstract class AbstractEventDispatcher implements EventDispatcher {
                         if (attachment != null) {
                             response = (SocketResponse) attachment;
                         } else {
-                             String ex = "[write] socket accept failed";
+                             String ex = "[write] socket protocols failed";
                              throw new SocketSessionException(ex.hashCode(), ex);
                         }
                     try {
@@ -132,5 +132,5 @@ public abstract class AbstractEventDispatcher implements EventDispatcher {
 
     protected abstract void writeToChannel(SocketResponse response, SocketChannel channel) throws IOException;
 
-    protected abstract SocketResponse readFromChannel(RequestContext socketContext,SocketChannel channel) throws IOException, SocketDisconnectionException;
+    protected abstract SocketResponse readFromChannel(RequestContext socketContext,SocketChannel channel) throws IOException, SocketDisconnectionException, SocketSessionException, SocketConnectionException;
  }

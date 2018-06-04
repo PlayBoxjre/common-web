@@ -16,12 +16,16 @@
 
 package com.kong.support.socket.nio.server;
 
+import com.kong.support.annotations.NoUse;
 import com.kong.support.exceptions.BaseException;
 import com.kong.support.exceptions.ExceptionHandler;
 import com.kong.support.exceptions.socket.SocketBaseException;
 import com.kong.support.socket.SocketConfiguration;
 import com.kong.support.socket.SocketContext;
-import com.kong.support.socket.helper.accept.ProtocolParser;
+import com.kong.support.socket.helper.DataInteractionLifeCycle;
+import com.kong.support.socket.helper.imps.AbstractDataInteractionLifeCycle;
+import com.kong.support.socket.nio.protocols.ProtocolDataProcessor;
+import com.kong.support.socket.nio.protocols.ProtocolParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,19 +45,32 @@ import java.util.Set;
  */
 public final class NioServerImpl implements NioServer {
     Logger logger = LoggerFactory.getLogger(NioServerImpl.class);
-
+    /**接收处理key的个数*/
     private long count = 0;
-
+    /**socket 配置项*/
     private SocketConfiguration configuration;
-
+    /**key类型分发器*/
     private EventDispatcher eventDispatcher;
-
+    /**
+     * 上下文信息记录
+     */
     private SocketContext socketContext ;
-
+    /**
+     * 异常处理
+     */
+    @NoUse
     private ExceptionHandler exceptionHandler;
 
-    private boolean readAsync;
+    private DataInteractionLifeCycle dataInteractionLifeCycle ;
 
+    private ProtocolParser protocolParser;
+    /**
+     * 是否以异步读取
+     */
+    private boolean readAsync;
+    /**
+    * 是否是异步写入
+    * */
     private boolean writeAsync;
 
     @Override
@@ -66,10 +83,26 @@ public final class NioServerImpl implements NioServer {
         socketContext.setLimitsOfErrorCount(configuration.getLimitsOfErrorCount());
         socketContext.setOnEventDispatcherListener(configuration.getOnEventDispatcherListener());
         socketContext.setOnSocketConnectionListener(configuration.getSocketConnectionListener());
-        this.eventDispatcher = configuration.getEventDispatcher();
         this.exceptionHandler = configuration.getExceptionHandler();
         this.readAsync = configuration.isReadAsync();
         this.writeAsync = configuration.isWriteAsync();
+        this.protocolParser = configuration.getProtocolParser();
+        AbstractDataInteractionLifeCycle lifeCycle = (AbstractDataInteractionLifeCycle) configuration.getDataInteractionLifeCycle();
+        lifeCycle.setDataParser(configuration.getDataParser());
+        lifeCycle.setDataFormatter(configuration.getFormatter());
+        lifeCycle.setRequestClassType(configuration.getRequestTypeClass());
+        this.dataInteractionLifeCycle = lifeCycle;
+
+        if (this.eventDispatcher == null) {
+            DefaultEventDispatcher dispatcher  = new DefaultEventDispatcher();
+            dispatcher.setOnAfterAcceptDataListener(
+                    new ProtocolDataProcessor(this.protocolParser,this.dataInteractionLifeCycle));
+            dispatcher.setOnPreResonpseListener(null);
+            this.eventDispatcher = dispatcher;
+        }
+
+
+
     }
 
 
@@ -93,7 +126,7 @@ public final class NioServerImpl implements NioServer {
             logger.debug("bind server successful");
             logger.debug("configurate non-blocking mode ...");
             serverSocketChannel.configureBlocking(isBlocking);
-            logger.debug("configurate register key : accept , write ,connect , read");
+            logger.debug("configurate register key : protocols , write ,connect , read");
             serverSocketChannel.register(selector, registerKey);
 
 
@@ -120,7 +153,7 @@ public final class NioServerImpl implements NioServer {
                             this.eventDispatcher.dispatchEvent(this.socketContext, event);
                         } catch (Exception ex) {
                             //runExceptionProcess(ex);
-                            // once key event read / write /accept ex
+                            // once key event read / write /protocols ex
                             if (ex instanceof SocketBaseException
                                     ) {
                                 SocketBaseException ex1 = (SocketBaseException) ex;

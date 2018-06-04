@@ -17,8 +17,8 @@
 package com.kong.support.socket.nio.server;
 
 import com.kong.support.socket.SocketContext;
+import com.kong.support.socket.nio.request.RequestHeader;
 
-import java.nio.channels.SelectionKey;
 
 /**
  * File Name RequestContext
@@ -29,6 +29,8 @@ import java.nio.channels.SelectionKey;
 public class RequestContext {
     private SocketSession socketSession;
     private SocketContext socketContext;
+    private RequestHeader requestHeader;
+
 
     public SocketSession getSocketSession() {
         return socketSession;
@@ -46,4 +48,12 @@ public class RequestContext {
         this.socketContext = socketContext;
     }
 
+
+    public RequestHeader getRequestHeader() {
+        return requestHeader;
+    }
+
+    public void setRequestHeader(RequestHeader requestHeader) {
+        this.requestHeader = requestHeader;
+    }
 }

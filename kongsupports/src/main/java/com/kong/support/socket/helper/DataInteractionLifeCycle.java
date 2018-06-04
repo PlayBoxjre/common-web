@@ -6,6 +6,7 @@ import com.kong.support.exceptions.socket.DataParserException;
 import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;
 import com.kong.support.exceptions.socket.SocketConnectionException;
+import com.kong.support.socket.nio.server.RequestContext;
 import com.kong.support.socket.nio.server.SocketSession;
 
 import java.net.SocketException;
@@ -16,7 +17,7 @@ import java.util.zip.DataFormatException;
  * 数据交互周期
  * 用来定义数据在客户端和服务端的数据传输（交互）流程
  */
-public interface DataInteractionLifeCycle  {
+public interface DataInteractionLifeCycle<I>  {
 
     /**
      * 将数据对象格式化字符串
@@ -24,17 +25,16 @@ public interface DataInteractionLifeCycle  {
 
      * @return
      */
-    public <I> byte[]  format(I dataObject, Charset charset) throws ClassFormatException, DataFormatException;
+    public <T> byte[]  format(T dataObject, Charset charset) throws ClassFormatException, DataFormatException;
 
     /**
      * 将字符串解析成指定对象
-     * @param t
      * @param text
      * @param charset
 
      * @return
      */
-    public <I> I parse(Class<I> t,byte[] text,Charset charset) throws DataParserException;
+    public  I parse(byte[] text,Charset charset) throws DataParserException;
 
     /**
      * 加密数据
@@ -42,7 +42,7 @@ public interface DataInteractionLifeCycle  {
      * @return
      * @throws CryptoExceptions
      */
-    public byte[] enCrypto(byte[] data) throws CryptoExceptions;
+    public byte[] enCrypto(int cryptoAlgo,String key,byte[] data) throws CryptoExceptions;
 
     /**
      * 解密数据
@@ -50,7 +50,7 @@ public interface DataInteractionLifeCycle  {
      * @return
      * @throws CryptoExceptions
      */
-    public byte[] deCrypto(byte[] data)throws CryptoExceptions;
+    public byte[] deCrypto(int cryptoAlgo ,String key,byte[] data)throws CryptoExceptions;
 
     /**
      * 数据编码
@@ -58,7 +58,7 @@ public interface DataInteractionLifeCycle  {
      * @return
      * @throws EncodingException
      */
-    public byte[] encoding(byte[] data) throws EncodingException;
+    public byte[] encoding(int encodeAlgo,String key,byte[] data) throws EncodingException;
 
     /**
      * 数据解码
@@ -66,7 +66,7 @@ public interface DataInteractionLifeCycle  {
      * @return
      * @throws DecodingException
      */
-    public byte[] decoding(byte[] data)throws DecodingException;
+    public byte[] decoding(int decodeAlgo ,String key,byte[] data)throws DecodingException;
 
 
     /**
@@ -74,7 +74,7 @@ public interface DataInteractionLifeCycle  {
      * @param datas
      * @param charset
      */
-    public <I> byte[] buildResponseObject(SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException;
+    public <T>  byte[] buildResponseObject(SocketSession socketSession, T datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException;
 
     /**
      * 接收远程的数据
@@ -82,6 +82,5 @@ public interface DataInteractionLifeCycle  {
      * @param charset
      * @return
      */
-    public <I> I accept(Class<I>  t, SocketSession socketSession, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException;
-
+    public   byte[] receiveOriginAndResponse(RequestContext requestContext, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException, ClassFormatException, EncodingException, DataFormatException;
 }

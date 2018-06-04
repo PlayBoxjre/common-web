@@ -7,6 +7,8 @@ import com.kong.support.exceptions.socket.DecodingException;
 import com.kong.support.exceptions.socket.EncodingException;
 import com.kong.support.exceptions.socket.SocketConnectionException;
 import com.kong.support.socket.helper.*;
+import com.kong.support.socket.nio.request.RequestHeader;
+import com.kong.support.socket.nio.server.RequestContext;
 import com.kong.support.socket.nio.server.SocketSession;
 import com.kong.support.toolboxes.StringTool;
 import org.slf4j.Logger;
@@ -20,27 +22,27 @@ import java.util.zip.DataFormatException;
 /**
  * 抽象类客户端与数据端交互周期定义实现
  */
-public abstract class AbstractDataInteractionLifeCycle implements DataInteractionLifeCycle   {
+public abstract class AbstractDataInteractionLifeCycle<I> implements DataInteractionLifeCycle<I>   {
     Logger logger  = LoggerFactory.getLogger(AbstractDataInteractionLifeCycle.class);
     private Encoder encoder;
     private Decoder decoder;
     private Cryptor cryptor;
     private DataFormatter dataFormatter;
     private DataParser dataParser;
-
+    private Class<I> requestClassType;
     public AbstractDataInteractionLifeCycle() {
     }
 
     @Override
-    public <I> I parse(Class<I> t, byte[] text, Charset charset) throws DataParserException {
+    public final I parse( byte[] text, Charset charset) throws DataParserException {
         Objects.requireNonNull(dataParser,"[ SOCKET ] SocketLifeCircle object need dataParser ");
         dataParser.preParse();
-        I parser = dataParser.parser(t,text , charset);
+        I parser = dataParser.parser(requestClassType,text , charset);
         return dataParser.afterParse(parser,null);
     }
 
     @Override
-    public <I> byte[] format(I dataObject, Charset charset) throws DataFormatException {
+    public  final <T> byte[] format(T dataObject, Charset charset) throws DataFormatException {
         if (dataFormatter == null)
             throw new NullPointerException("[ SOCKET ] SocketLifeCircle object need dataFormatter ");
         dataFormatter.preFormat();
@@ -57,69 +59,81 @@ public abstract class AbstractDataInteractionLifeCycle implements DataInteractio
     }
 
     @Override
-    public byte[] enCrypto(byte[] data) throws CryptoExceptions {
+    public final byte[] enCrypto(int cryptoAlgo ,String key,byte[] data) throws CryptoExceptions {
         if (cryptor == null)
             return data;
         return cryptor.enCrypto(data);
     }
 
     @Override
-    public byte[] deCrypto(byte[] data) throws CryptoExceptions {
+    public final byte[] deCrypto(int cryptoAlgo ,String key,byte[] data) throws CryptoExceptions {
         if (cryptor == null )
             return data;
         return cryptor.deCrypto(data);
     }
 
     @Override
-    public byte[] encoding(byte[] data) throws EncodingException {
+    public final byte[] encoding(int encodeAlgo ,String key,byte[] data) throws EncodingException {
         if (encoder == null)
             return data;
         return encoder.encoding(data);
     }
 
     @Override
-    public byte[] decoding(byte[] data) throws DecodingException {
+    public final byte[] decoding(int decodeAlgo ,String key,byte[] data) throws DecodingException {
         if (decoder == null)
             return data;
         return decoder.decoding(data);
     }
 
     @Override
-    public  <I> byte[] buildResponseObject(SocketSession socketSession, I datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException {
+    public  final <T> byte[] buildResponseObject(SocketSession socketSession, T datas, Charset charset) throws ClassFormatException, CryptoExceptions, EncodingException, DataFormatException {
         byte[] format = format(datas, charset);
+
+        final int crypto = 0;
+        final String cryptoKey = null;
+
+        final int encode = 0;
+        final String  encodeKey  = null;
+
+
         logger.debug("format --> {}",format);
-        byte[] encoding = encoding(format);
+        byte[] encoding = encoding(encode,encodeKey,format);
         logger.debug("encoding --> {}",StringTool.toString(encoding));
-        byte[] bytes = enCrypto(encoding);
+        byte[] bytes = enCrypto(crypto,cryptoKey,encoding);
         logger.debug("enCrypto --> {}",StringTool.hex(bytes));
         return bytes;
     }
 
     @Override
-    public  <I> I accept(Class<I> tClass,SocketSession socketSession, byte[] datas,Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException {
-        //放到外部，构建socketsession的地方
-//        String ex = null;
-//        if (socket == null) {
-//            throw new NullPointerException("socket session is null point ");
-//        }
-//        if (!socket.isConnected()) {
-//            ex = "socket connect status exception";
-//            socketSession.setSocketStatus(SocketSession.SOCKET_STATUS.SOCKET_DISCONNECT);
-//            throw new SocketConnectionException(ex.hashCode(),ex);
-//        }
-//        if (socket.isClosed()){
-//            ex = "socket has closed";
-//            socketSession.setSocketStatus(SocketSession.SOCKET_STATUS.SOCKET_CLOSE);
-//            throw new SocketConnectionException(ex.hashCode(),ex);
-//        }
+    public  final byte[] receiveOriginAndResponse(RequestContext requestContext, byte[] datas, Charset charset) throws SocketException, SocketConnectionException, CryptoExceptions, DecodingException, DataParserException, ClassFormatException, EncodingException, DataFormatException {
         if (datas==null)
             return null;
+        RequestHeader requestHeader = requestContext.getRequestHeader();
+        final int crypto = requestHeader.getCryptoAlgothem();
+        final String cryptoKey = requestHeader.getCryptoAlgothemKey() ;
+        final int decodeAlgo = requestHeader.getDecodeAlgothem();
+        final String decodeKey = requestHeader.getDecodeAlgothemKey();
         // 解密
-        byte[] bytes = deCrypto(datas);
+        byte[] bytes = deCrypto(crypto,cryptoKey,datas);
         logger.debug("deCrypto --> {}",StringTool.toString(bytes));
-        byte[] decoding = decoding(bytes);
+        byte[] decoding = decoding(decodeAlgo,decodeKey,bytes);
         logger.debug("decoding --> {}",StringTool.toString(decoding));
-        return parse(tClass, decoding, charset);
+        I parse = parse(decoding, charset);
+         return buildResponseObject(requestContext.getSocketSession(),onCreateInstance(requestContext,parse),Charset.forName(requestContext.getSocketContext().getGolabeCharsetName()));
+    }
+
+
+    public abstract  Object onCreateInstance(RequestContext requestContext,I dataObject);
+
+
+
+    public Class<I> getRequestClassType() {
+        return requestClassType;
+    }
+
+    public void setRequestClassType(Class<I> requestClassType) {
+        this.requestClassType = requestClassType;
     }
 
     public Encoder getEncoder() {
