@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright [2018] [ kong&xiang ]
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:ws="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+             http://www.springframework.org/schema/websocket
+            http://www.springframework.org/schema/websocket/spring-websocket.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/cache
+            http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName">
+
+    <ws:handlers allowed-origins="*">
+        <ws:mapping path="/spring/websocket" handler="commonWebsockethandler"/>
+        <ws:handshake-interceptors>
+            <ref bean="commonWebsocketHandshakeInterceptor"/>
+        </ws:handshake-interceptors>
+    </ws:handlers>
+    <ws:handlers allowed-origins="*">
+        <ws:mapping path="/spring/socketjs/websocket" handler="commonWebsockethandler"/>
+        <ws:handshake-interceptors>
+            <ref bean="commonWebsocketHandshakeInterceptor"/>
+        </ws:handshake-interceptors>
+        <ws:sockjs websocket-enabled="true" />
+    </ws:handlers>
+
+    <bean id="commonWebsockethandler" class="com.kong.web.supports.websocket.CommonWebSocketHandler"/>
+    <bean id="commonWebsocketHandshakeInterceptor" class="com.kong.web.supports.websocket.CommonWebsocketHandShakeInterceptor" scope="prototype"/>
+
+
+
+</beans>

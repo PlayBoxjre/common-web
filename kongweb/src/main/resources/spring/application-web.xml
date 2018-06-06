@@ -22,6 +22,8 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
+    <import resource="websocket-config.xml"/>
+
     <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
             <property name="dateFormat">
                 <bean class="java.text.SimpleDateFormat">
