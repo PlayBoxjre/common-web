@@ -22,7 +22,12 @@
             http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-autowire="byName">
 
+    <context:property-placeholder file-encoding="utf-8" ignore-resource-not-found="true"
+                                  location="classpath*:**/*config.properties"/>
+
     <import resource="websocket-config.xml"/>
+
+    <import resource="jms-config.xml"/>
 
     <bean id="objectMapper" class="com.kong.web.supports.MyObjectMapper" >
             <property name="dateFormat">

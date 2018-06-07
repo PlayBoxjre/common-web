@@ -15,24 +15,33 @@
  */
 
 package com.kong.web.supports.jms;
-//
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//
-//import javax.jms.Message;
-//import javax.jms.MessageListener;
-//
-///**
-// * File Name TopicMessageListener
-// * Author    aaron (EN) & 孔翔kongxiang(CN)
-// * DATE      2018-06-06
-// * EMAIL     playboxjre@Gmail.com
-// */
-//public class TopicMessageListener implements MessageListener {
-//    Logger logger = LoggerFactory.getLogger(TopicMessageListener.class);
-//
-//    @Override
-//    public void onMessage(Message message) {
-//
-//    }
-//}
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
+/**
+ * File Name TopicMessageListener
+ * Author    aaron (EN) & 孔翔kongxiang(CN)
+ * DATE      2018-06-06
+ * EMAIL     playboxjre@Gmail.com
+ */
+public class TopicMessageListener implements MessageListener {
+    Logger logger = LoggerFactory.getLogger(TopicMessageListener.class);
+
+    @Override
+    public void onMessage(Message message) {
+        if (message instanceof TextMessage) {
+            TextMessage message1 = (TextMessage) message;
+            try {
+                logger.debug(" queue message receive : {}",message1.getText());
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

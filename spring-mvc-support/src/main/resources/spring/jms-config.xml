@@ -25,6 +25,7 @@
        xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:amq="http://activemq.apache.org/schema/core"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context
@@ -36,46 +37,66 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop.xsd
             http://www.springframework.org/schema/jms
-            http://www.springframework.org/schema/jms/spring-jms.xsd 
+            http://www.springframework.org/schema/jms/spring-jms.xsd
+            http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.14.5.xsd
             http://www.springframework.org/schema/util 
             http://www.springframework.org/schema/util/spring-util.xsd"
+
        default-autowire="byName">
 
     <!-- activemq connection factory -->
-    <!--<bean id="activeMQConnectionFactory"  class="org.apache.activemq.ActiveMQConnectionFactory">-->
-        <!--<property name="brokerURL" value="${mq.url}"/>-->
-        <!--<property name="userName" value="${mq.user}"/>-->
-        <!--<property name="password" value="${mq.password}"/>-->
-    <!--</bean>-->
+    <bean id="activeMQConnectionFactory"  class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${mq.url}"/>
+        <property name="userName" value="${mq.user}"/>
+        <property name="password" value="${mq.password}"/>
+    </bean>
+    <!--<amq:connectionFactory id="amqConnectionFactory"-->
+                           <!--maxThreadPoolSize="100"-->
+                           <!--userName=""-->
+                           <!--password=""-->
+                           <!--trustAllPackages="true"-->
+                           <!--brokerURL=""-->
+    <!--/>-->
 
-    <!--&lt;!&ndash; spring proxy jms connection factory SingleConnectionFactory&ndash;&gt;-->
-    <!--&lt;!&ndash; pool &ndash;&gt;-->
-    <!--<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">-->
-        <!--<property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>-->
-    <!--</bean>-->
+    <!-- spring proxy jms connection factory SingleConnectionFactory-->
+    <!-- pool -->
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>
+    </bean>
+
+    <!-- Destination 目的地 -->
+    <!-- queue 队列 -->
+    <bean id="queueDestination" name="queue" class="org.apache.activemq.command.ActiveMQQueue">
+        <property name="physicalName" value="${mq.destination.queue.physicalName}"/>
+    </bean>
+    <!-- pub/sub 发布/订阅 主题目的地-->
+    <bean id="topicDestination" name="topic" class="org.apache.activemq.command.ActiveMQTopic">
+        <property name="physicalName" value="${mq.destination.topic.physicalName}"/>
+     </bean>
 
 
-    <!--&lt;!&ndash; jms message productor &ndash;&gt;-->
-    <!--<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">-->
-        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
-        <!--<property name="defaultDestinationName" value="${mq.destination.queue.physicalName}"/>-->
+    <!-- jms message productor JMS 消息生产者 -->
+    <!-- queue productor -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="defaultDestination" ref="queueDestination"/>
+        <property name="pubSubDomain" value="false"/>
+    </bean>
 
-    <!--</bean>-->
 
 
-    <!--&lt;!&ndash; 异步处理消息 &ndash;&gt;-->
-    <!--<bean id="queueMessageListener" class="com.kong.web.supports.jms.QueueMessageListener"/>-->
-    <!--<bean id="topicMessageListener" class="com.kong.web.supports.jms.TopicMessageListener"/>-->
-    <!--&lt;!&ndash; queue destination consumer &ndash;&gt;-->
-    <!--<jms:listener-container acknowledge="auto" destination-type="queue" cache="auto" receive-timeout="30000" container-type="default">-->
-        <!--<jms:listener destination="${mq.destination.queue.physicalName}" ref="queueMessageListener"/>-->
-    <!--</jms:listener-container>-->
+    <!-- consumer -->
+    <!-- 异步处理消息 -->
+    <bean id="queueMessageListener" class="com.kong.web.supports.jms.QueueMessageListener"/>
+    <bean id="topicMessageListener" class="com.kong.web.supports.jms.TopicMessageListener"/>
+    <!-- queue destination consumer -->
+    <jms:listener-container acknowledge="auto">
+        <jms:listener destination="${mq.destination.queue.physicalName}" ref="queueMessageListener"/>
+        <jms:listener destination="${mq.destination.topic.physicalName}" ref="topicMessageListener"/>
+    </jms:listener-container>
 
-    <!--<jms:listener-container acknowledge="auto" destination-type="topic">-->
-        <!--<jms:listener destination="${mq.destination.topic.physicalName}" ref="topicMessageListener"/>-->
-    <!--</jms:listener-container>-->
-
-    <!--<jms:annotation-driven />-->
+    <jms:annotation-driven />
 
 
 

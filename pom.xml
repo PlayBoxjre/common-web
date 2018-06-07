@@ -50,7 +50,7 @@
         <tomcat.websocket.embed.version>8.5.29</tomcat.websocket.embed.version>
         <!-- jms -->
         <activeMq.version>5.15.4</activeMq.version>
-
+        <javax.jms.version>2.0.1</javax.jms.version>
         <!-- json -->
         <jackson.version>2.9.4</jackson.version>
         <fastjson.version>1.2.47</fastjson.version>
@@ -82,10 +82,20 @@
 
 
         <dependencies>
+
+            <!-- JMS - activeMQ -->
+
             <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-all -->
+            <!-- https://mvnrepository.com/artifact/javax.jms/jms -->
+            <!-- https://mvnrepository.com/artifact/javax.jms/javax.jms-api -->
+            <dependency>
+                <groupId>javax.jms</groupId>
+                <artifactId>javax.jms-api</artifactId>
+                <version>${javax.jms.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-all</artifactId>
+                <artifactId>activemq-spring</artifactId>
                 <version>${activeMq.version}</version>
             </dependency>
 
@@ -225,10 +235,8 @@
                 <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-websocket</artifactId>
                 <version>${tomcat.websocket.embed.version}</version>
+                <scope>provided</scope>
             </dependency>
-
-
-
 
             <!-- ==================== Springframework ======================== -->
             <dependency>

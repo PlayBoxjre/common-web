@@ -25,4 +25,5 @@
 
 ## ActiveMQ详细入门使用教程
 [ActiveMQ详细入门使用教程](https://blog.csdn.net/liuyuanq123/article/details/79109218)
--  Spring JMS - ActiveMQ
+-  Spring JMS - ActiveMQ [Spring JMS ActiveMQ](https://www.cnblogs.com/ll409546297/p/6898155.html)
+

@@ -16,8 +16,11 @@
 
 package com.kong.web.supports.websocket;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.socket.*;
 
 /**
@@ -30,11 +33,22 @@ import org.springframework.web.socket.*;
 public class CommonWebSocketHandler implements WebSocketHandler {
     Logger logger = LoggerFactory.getLogger(CommonWebSocketHandler.class);
 
+
+     private static JmsTemplate jmsTemplate;
+
+     private static ActiveMQQueue destination;
+
+     @Autowired
+    public static void setJmsTemplate(JmsTemplate jmsTemplate) {
+        CommonWebSocketHandler.jmsTemplate = jmsTemplate;
+    }
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         logger.debug("新连接建立");
         TextMessage textMessage = new TextMessage("建立连接");
         session.sendMessage(textMessage);
+         jmsTemplate.convertAndSend(textMessage.getPayload());
     }
 
     @Override
@@ -42,6 +56,7 @@ public class CommonWebSocketHandler implements WebSocketHandler {
         logger.debug("获取消息：{}",message.getPayload());
         TextMessage textMessage = new TextMessage(message.getPayload().toString());
         session.sendMessage(textMessage);
+        jmsTemplate.convertAndSend(message.getPayload());
     }
 
     @Override
@@ -49,6 +64,8 @@ public class CommonWebSocketHandler implements WebSocketHandler {
         logger.debug("发生错误信息");
         TextMessage message = new TextMessage("发生错误信息");
         session.sendMessage(message);
+        jmsTemplate.convertAndSend(message.getPayload());
+
     }
 
     @Override
