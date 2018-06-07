@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright [2018] [ kong&xiang ]
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/jms
+            http://www.springframework.org/schema/jms/spring-jms.xsd 
+            http://www.springframework.org/schema/util 
+            http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName">
+
+    <!-- activemq connection factory -->
+    <!--<bean id="activeMQConnectionFactory"  class="org.apache.activemq.ActiveMQConnectionFactory">-->
+        <!--<property name="brokerURL" value="${mq.url}"/>-->
+        <!--<property name="userName" value="${mq.user}"/>-->
+        <!--<property name="password" value="${mq.password}"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; spring proxy jms connection factory SingleConnectionFactory&ndash;&gt;-->
+    <!--&lt;!&ndash; pool &ndash;&gt;-->
+    <!--<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">-->
+        <!--<property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>-->
+    <!--</bean>-->
+
+
+    <!--&lt;!&ndash; jms message productor &ndash;&gt;-->
+    <!--<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="defaultDestinationName" value="${mq.destination.queue.physicalName}"/>-->
+
+    <!--</bean>-->
+
+
+    <!--&lt;!&ndash; 异步处理消息 &ndash;&gt;-->
+    <!--<bean id="queueMessageListener" class="com.kong.web.supports.jms.QueueMessageListener"/>-->
+    <!--<bean id="topicMessageListener" class="com.kong.web.supports.jms.TopicMessageListener"/>-->
+    <!--&lt;!&ndash; queue destination consumer &ndash;&gt;-->
+    <!--<jms:listener-container acknowledge="auto" destination-type="queue" cache="auto" receive-timeout="30000" container-type="default">-->
+        <!--<jms:listener destination="${mq.destination.queue.physicalName}" ref="queueMessageListener"/>-->
+    <!--</jms:listener-container>-->
+
+    <!--<jms:listener-container acknowledge="auto" destination-type="topic">-->
+        <!--<jms:listener destination="${mq.destination.topic.physicalName}" ref="topicMessageListener"/>-->
+    <!--</jms:listener-container>-->
+
+    <!--<jms:annotation-driven />-->
+
+
+
+
+</beans>

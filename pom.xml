@@ -42,7 +42,12 @@
         <glassfish.jstl-impl.version>1.2</glassfish.jstl-impl.version>
         <javax.servlet-api.version>4.0.0</javax.servlet-api.version>
         <javax.servlet.jsp.api.version>2.3.2-b02</javax.servlet.jsp.api.version>
+        <!-- websocket
+
+        -->
         <javax.websocket.api.version>1.1</javax.websocket.api.version>
+        <!-- 8.5.29 9.0.8-->
+        <tomcat.websocket.embed.version>8.5.29</tomcat.websocket.embed.version>
         <!-- jms -->
         <activeMq.version>5.15.4</activeMq.version>
 
@@ -53,7 +58,7 @@
         <org.json.version>20180130</org.json.version>
 
         <!-- spring version-->
-        <spring.version>5.0.2.RELEASE</spring.version>
+        <spring.version>5.0.6.RELEASE</spring.version>
         <xStream.version>1.4.10</xStream.version>
         <!-- log -->
         <slf4j.version>1.8.0-alpha1</slf4j.version>
@@ -211,9 +216,19 @@
             <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
             <dependency>
                 <groupId>javax.websocket</groupId>
-                <artifactId>javax.websocket-all</artifactId>
+                <artifactId>javax.websocket-api</artifactId>
                 <version>${javax.websocket.api.version}</version>
+                <scope>provided</scope>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-websocket -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.websocket.embed.version}</version>
+            </dependency>
+
+
+
 
             <!-- ==================== Springframework ======================== -->
             <dependency>

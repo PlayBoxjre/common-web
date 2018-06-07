@@ -17,6 +17,20 @@
     </properties>
 
     <dependencies>
+         <!-- web socket -->
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+          </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+         </dependency>
+        <!-- jms vendor -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.activemq</groupId>-->
+            <!--<artifactId>activemq-all</artifactId>-->
+        <!--</dependency>-->
         <!-- =================javax ===================-->
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
