@@ -20,17 +20,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name EventProcesser
+ * File Name EventHandler
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-13
  * EMAIL     playboxjre@Gmail.com
- * 事件类型类型处理程序
  */
-public interface EventProcesser<T> {
-    Logger logger = LoggerFactory.getLogger(EventProcesser.class);
+public interface Handler<T> {
+    Logger logger = LoggerFactory.getLogger(Handler.class);
 
-    public void onPreEventProcess(Event<T> event);
+    public void send(T t);
 
+    public void send(String key,Object value);
 
+    public void send(int arg1,int arg2);
 
+    public T obtain();
+
+    public T obtain(String arg1);
+
+    public T obtain(int arg1);
+
+    public T obtain(int arg1,int arg2);
+
+    public T obtain(String key,Object value);
 }

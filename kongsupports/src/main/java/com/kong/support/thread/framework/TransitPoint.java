@@ -20,13 +20,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name EventDispatcher
+ * File Name TransitPoint
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-12
  * EMAIL     playboxjre@Gmail.com
  */
-public interface EventDispatcher {
+public interface TransitPoint<T> {
 
-    public void dispatcherEvent(Event event);
+    public void put(Event event);
+
+    public void pop();
 
 }

@@ -20,13 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name EventDispatcher
+ * File Name ResultInfo
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-13
  * EMAIL     playboxjre@Gmail.com
  */
-public interface EventDispatcher {
-
-    public void dispatcherEvent(Event event);
+public class ResultInfo {
+    Logger logger = LoggerFactory.getLogger(ResultInfo.class);
 
 }

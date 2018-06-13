@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package com.kong.support.thread.framework;
+package com.kong.support.thread.framework.callback;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.kong.support.thread.framework.Event;
 
 /**
- * File Name EventDispatcher
+ * File Name OnPreEventListener
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-13
  * EMAIL     playboxjre@Gmail.com
  */
-public interface EventDispatcher {
-
-    public void dispatcherEvent(Event event);
-
+public interface OnPreEventListener {
+    public void onPre(Event event);
 }

@@ -19,14 +19,25 @@ package com.kong.support.thread.framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Predicate;
+
 /**
- * File Name EventDispatcher
+ * File Name EventThreadInitializer
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-13
  * EMAIL     playboxjre@Gmail.com
  */
-public interface EventDispatcher {
+public interface EventThreadInitializer {
+    Logger logger = LoggerFactory.getLogger(EventThreadInitializer.class);
 
-    public void dispatcherEvent(Event event);
+    public void init(EventThreadConfiguration configuration);
+
+    public void createFlowLine(String workpieceName, boolean newTrasitPoint, Predicate<Boolean> onCreateSuccess);
+
+
+    public void destroy();
+
+    public void publish(Event event);
+
 
 }

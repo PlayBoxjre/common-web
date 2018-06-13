@@ -16,7 +16,6 @@
 
 package com.kong.support.toolboxes.pdf;
 
-import jdk.internal.util.xml.impl.Input;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;

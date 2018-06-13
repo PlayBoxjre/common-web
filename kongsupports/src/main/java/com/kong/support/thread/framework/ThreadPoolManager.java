@@ -19,14 +19,24 @@ package com.kong.support.thread.framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Predicate;
+
 /**
- * File Name EventDispatcher
+ * File Name ThreadPoolManager
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-13
  * EMAIL     playboxjre@Gmail.com
  */
-public interface EventDispatcher {
+public interface ThreadPoolManager {
+    Logger logger = LoggerFactory.getLogger(ThreadPoolManager.class);
 
-    public void dispatcherEvent(Event event);
+    public EventRunnable createEventThread(String name, Predicate<Boolean> onSuccessCreate);
+
+
+    public void destroy(EventRunnable eventThread);
+
+    public void destroy(String threadName);
+
+
 
 }

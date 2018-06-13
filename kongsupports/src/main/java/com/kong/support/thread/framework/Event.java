@@ -16,8 +16,12 @@
 
 package com.kong.support.thread.framework;
 
+import com.kong.support.thread.framework.callback.OnEventProcessorListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * File Name Event
@@ -25,14 +29,62 @@ import org.slf4j.LoggerFactory;
  * DATE      2018-06-11
  * EMAIL     playboxjre@Gmail.com
  */
-public class Event<T> {
+public class Event {
+    static AtomicInteger atomicInteger = new AtomicInteger();
     Logger logger = LoggerFactory.getLogger(Event.class);
     private int id;
     private String code;
 
+    public Event(String eventType){
+        this.id = atomicInteger.incrementAndGet();
+        this.code = UUID.randomUUID().toString();
+        this.eventType = new EventType();
+        this.eventType.setEventTypePriority(5);
+        this.eventType.setEventTypeName(eventType);
+        this.eventType.setDescription("This is "+ eventType);
+    }
     private EventType eventType;
+    private EventBundle eventBundle;
+    private OnEventProcessorListener onEventProcessorListener;
 
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public EventBundle getEventBundle() {
+        return eventBundle;
+    }
+
+    public void setEventBundle(EventBundle eventBundle) {
+        this.eventBundle = eventBundle;
+    }
+
+    public OnEventProcessorListener getOnEventProcessorListener() {
+        return onEventProcessorListener;
+    }
+
+    public void setOnEventProcessorListener(OnEventProcessorListener onEventProcessorListener) {
+        this.onEventProcessorListener = onEventProcessorListener;
+    }
 }

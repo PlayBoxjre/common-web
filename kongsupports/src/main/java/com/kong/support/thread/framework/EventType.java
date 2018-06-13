@@ -19,6 +19,8 @@ package com.kong.support.thread.framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * File Name EventType
  * Author    aaron (EN) & 孔翔kongxiang(CN)
@@ -30,6 +32,10 @@ import org.slf4j.LoggerFactory;
 
 public class EventType {
     Logger logger = LoggerFactory.getLogger(EventType.class);
+    AtomicInteger atomicInteger = new AtomicInteger();
+    public EventType(){
+        this.code = atomicInteger.incrementAndGet();
+     }
     /**
      * 事件编号
      */
@@ -68,7 +74,7 @@ public class EventType {
         return eventPriority;
     }
 
-    public void setEventPriority(int eventPriority) {
+    public void setEventTypePriority(int eventPriority) {
         this.eventPriority = eventPriority;
     }
 

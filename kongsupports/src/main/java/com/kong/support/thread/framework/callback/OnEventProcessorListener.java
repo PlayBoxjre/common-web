@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-package com.kong.support.thread.framework;
+package com.kong.support.thread.framework.callback;
 
+import com.kong.support.thread.framework.Event;
+import com.kong.support.thread.framework.EventBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name EventDispatcher
+ * File Name OnEventProcessorListener
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-11
+ * DATE      2018-06-13
  * EMAIL     playboxjre@Gmail.com
  */
-public interface EventDispatcher {
+public interface OnEventProcessorListener {
+    Logger logger = LoggerFactory.getLogger(OnEventProcessorListener.class);
 
-    public void dispatcherEvent(Event event);
-
+    /**
+     *
+     * 事件处理
+     * 如果事件设置，则跳过通用的处理
+     * @param event
+      */
+    public EventBundle onEventProcessor(Event event);
 }
