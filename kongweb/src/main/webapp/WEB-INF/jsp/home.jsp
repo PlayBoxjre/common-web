@@ -11,7 +11,20 @@
 <html>
 <head>
     <title>home</title>
+    <style type="text/css">
+        video#bgmov {
+            position: fixed; right: 0; bottom: 0;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto; z-index: -100;
+            background-size: cover;
+        }
+    </style>
+</head>
 <body>
+
+<video  autoplay loop poster="/static/bg.png"  id="bgmov">
+    <source src="http://localhost:8888/static/fire.mp4" type="video/mp4">
+</video>
     ${time}
     <h1>${classpath}</h1>
 <h1>${classpath1}</h1>
@@ -20,6 +33,9 @@
     ${welcome}
     <s:message code="welcome"/>
 
+    <video  autoplay="autoplay" poster="/static/bg.png" loop id="bgmov">
+        <source src="/static/bg.mov" type="video/mov">
+    </video>
 
 
 <table>

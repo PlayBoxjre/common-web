@@ -15,6 +15,12 @@ bin/
 *.aar
 *.zip
 *.tar.gz
+*.dmg
 
 *.war
 
+*.mov
+*.avi
+*.ogg
+*.mp4
+*.mp3

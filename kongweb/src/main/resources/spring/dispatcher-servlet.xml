@@ -58,7 +58,7 @@
     <mvc:default-servlet-handler />
     <!-- 定义无Controller的path<->view直接映射 -->
     <mvc:view-controller path="/" view-name="redirect:/home"/>
-    <mvc:resources mapping="/static/**" location="/WEB-INF/resource/"/>
+    <mvc:resources mapping="/static/**" location="/resource/"/>
 
 
     <!-- ========================================================================= -->
