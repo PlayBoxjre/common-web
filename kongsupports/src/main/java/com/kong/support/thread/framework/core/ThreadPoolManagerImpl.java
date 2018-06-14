@@ -16,12 +16,10 @@
 
 package com.kong.support.thread.framework.core;
 
-import com.kong.support.thread.framework.EventRunnable;
-import com.kong.support.thread.framework.ThreadPoolManager;
-import com.kong.support.thread.framework.TransitPointManager;
-import com.kong.support.thread.framework.callback.OnEventProcessorListener;
-import com.kong.support.thread.framework.callback.OnPostEventListener;
-import com.kong.support.thread.framework.callback.OnPreEventListener;
+import com.kong.support.thread.framework.*;
+import com.kong.support.thread.framework.callback.*;
+import com.kong.support.thread.transitpoint.EventTransitPointManager;
+import com.kong.support.toolboxes.Statistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,12 +37,14 @@ import java.util.function.Predicate;
  */
 public class ThreadPoolManagerImpl implements ThreadPoolManager {
     Logger logger = LoggerFactory.getLogger(ThreadPoolManagerImpl.class);
+    private static final boolean PRINT_STATISTIC = false;
+    private Statistic statistic;
 
     private Map<String,Runnable> threadRecorder= new ConcurrentHashMap<>();
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
-    private TransitPointManager transitPointManager;
+    private EventTransitPointManager transitPointManager;
 
     private OnPreEventListener onPreEventListener;
 
@@ -52,25 +52,65 @@ public class ThreadPoolManagerImpl implements ThreadPoolManager {
 
     private OnEventProcessorListener onEventProcessorListener;
 
+    private OnEventCancelListener onEventCancelListener;
 
 
     @Override
-    public EventRunnable createEventThread(String name, Predicate<Boolean> onSuccessCreate) {
-        if (name == null)
-            throw new NullPointerException("线程名字不能为null");
-        if (checkThreadExist(name)){
-            logger.error("thread has exist :{}",name);
-            throw new IllegalArgumentException("线程 "+ name +" 已经存在");
-        }
+    public EventRunnable createEventThread(String threadName, Predicate<Boolean> onSuccessCreate) {
+        return createEventThread(threadName,null,onSuccessCreate);
+    }
 
-        EventRunnable eventThread = new EventRunnable(name,transitPointManager,onEventProcessorListener);
+    @Override
+    public EventRunnable createEventThread(String threadName, String eventType, Predicate<Boolean> onSuccessCreate) {
+      return createEventThread(threadName,eventType,null,onSuccessCreate);
+    }
+
+    @Override
+    public EventRunnable createEventThread(String ThreadName, String eventType, EventTask eventTask, Predicate<Boolean> onSuccessCreate) {
+        if (ThreadName == null)
+            throw new NullPointerException("线程名字不能为null");
+        if (checkThreadExist(ThreadName)){
+            logger.error("thread has exist :{}",ThreadName);
+            throw new IllegalArgumentException("线程 "+ ThreadName +" 已经存在");
+        }
+        final OnPreEventListener onPreEventListener;
+        final OnEventProcessorListener onEventProcessorListener;
+        final OnPostEventListener onPostEventListener;
+        final OnEventCancelListener onEventCancelListener;
+        if (eventTask==null){
+            onPreEventListener = this.onPreEventListener;
+            onEventCancelListener = this.onEventCancelListener;
+            onPostEventListener = this.onPostEventListener;
+            onEventProcessorListener = this.onEventProcessorListener;
+        }else{
+            onPreEventListener = eventTask;
+            onEventCancelListener = eventTask;
+            onPostEventListener = eventTask;
+            onEventProcessorListener = eventTask;
+        }
+        EventRunnable eventThread = new EventRunnable(ThreadName,transitPointManager,onEventProcessorListener);
         eventThread.setOnPreEventListener(onPreEventListener);
         eventThread.setOnPostEventListener(onPostEventListener);
+        eventThread.setOnEventCancelListener(onEventCancelListener);
         eventThread.setShutDown(false);
         eventThread.setOnCreateSuccess(onSuccessCreate);
+        eventThread.setStatistic(statistic);
+        if (eventType != null)
+            eventThread.setEventType(EventType.createOrGetEventType(eventType));
         executorService.execute(eventThread);
-        this.threadRecorder.put(name,eventThread);
+        this.threadRecorder.put(ThreadName,eventThread);
         return eventThread;
+    }
+
+    @Override
+    public void executeRunnable(Runnable runnable) {
+        executorService.execute(runnable);
+    }
+
+
+    @Override
+    public EventRunnable pickEventThread(String name) {
+        return (EventRunnable) this.threadRecorder.get(name);
     }
 
     private boolean checkThreadExist(String name) {
@@ -79,13 +119,16 @@ public class ThreadPoolManagerImpl implements ThreadPoolManager {
 
     @Override
     public void destroy(EventRunnable eventThread) {
+        //printStatistic();
         eventThread.setShutDown(true);
         eventThread.shutDown();
+        threadRecorder.remove(eventThread.getName());
     }
 
     @Override
     public void destroy(String threadName) {
-        Runnable runnable = threadRecorder.get(threadName);
+        //printStatistic();
+        Runnable runnable = threadRecorder.remove(threadName);
         if (runnable == null)
             throw new NullPointerException(threadName +"线程不存在");
         if (runnable instanceof EventRunnable) {
@@ -111,11 +154,11 @@ public class ThreadPoolManagerImpl implements ThreadPoolManager {
         this.executorService = executorService;
     }
 
-    public TransitPointManager getTransitPointManager() {
+    public EventTransitPointManager getTransitPointManager() {
         return transitPointManager;
     }
 
-    public void setTransitPointManager(TransitPointManager transitPointManager) {
+    public void setTransitPointManager(EventTransitPointManager transitPointManager) {
         this.transitPointManager = transitPointManager;
     }
 
@@ -141,5 +184,21 @@ public class ThreadPoolManagerImpl implements ThreadPoolManager {
 
     public void setOnEventProcessorListener(OnEventProcessorListener onEventProcessorListener) {
         this.onEventProcessorListener = onEventProcessorListener;
+    }
+
+    public Statistic getStatistic() {
+        return statistic;
+    }
+
+    public void setStatistic(Statistic statistic) {
+        this.statistic = statistic;
+    }
+
+    public OnEventCancelListener getOnEventCancelListener() {
+        return onEventCancelListener;
+    }
+
+    public void setOnEventCancelListener(OnEventCancelListener onEventCancelListener) {
+        this.onEventCancelListener = onEventCancelListener;
     }
 }

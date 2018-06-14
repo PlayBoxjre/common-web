@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package com.kong.support.thread.framework.callback;
+package com.kong.support.annotations;
 
-import com.kong.support.thread.framework.Event;
-import com.kong.support.thread.framework.EventBundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.lang.annotation.*;
 
 /**
- * File Name OnEventProcessorListener
+ * File Name ThreadSafe
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-13
+ * DATE      2018-06-14
  * EMAIL     playboxjre@Gmail.com
  */
-public interface OnEventProcessorListener {
-
-    /**
-     *
-     * 事件处理
-     * 如果事件设置，则跳过通用的处理
-     * @param event
-      */
-    public EventBundle onEventProcessor(Event event);
+@Documented
+@Retention(RetentionPolicy.SOURCE)
+@Target({ElementType.TYPE,ElementType.METHOD,ElementType.FIELD})
+public @interface ThreadSafe {
+    String value() default "";
 }

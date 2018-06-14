@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package com.kong.support.thread.framework.callback;
+package com.kong.support.exceptions;
 
-import com.kong.support.thread.framework.Event;
-import com.kong.support.thread.framework.EventBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name OnEventProcessorListener
+ * File Name SystemException
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-13
+ * DATE      2018-06-14
  * EMAIL     playboxjre@Gmail.com
+ * 系统级异常 该异常表示是系统级别的异常，整个系统程序中断
  */
-public interface OnEventProcessorListener {
+public class SystemException extends BaseException {
+    Logger logger = LoggerFactory.getLogger(SystemException.class);
 
-    /**
-     *
-     * 事件处理
-     * 如果事件设置，则跳过通用的处理
-     * @param event
-      */
-    public EventBundle onEventProcessor(Event event);
+    public SystemException(int code) {
+        super(code);
+    }
+
+    public SystemException(int code, String message) {
+        super(code, message);
+    }
 }

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.kong.support.thread.framework;
+package com.kong.support.thread.transitpoint;
 
+import com.kong.support.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +25,22 @@ import org.slf4j.LoggerFactory;
  * Author    aaron (EN) & 孔翔kongxiang(CN)
  * DATE      2018-06-12
  * EMAIL     playboxjre@Gmail.com
+ * 线程安全的类，用于多线程模型中
+ * 传输点
+ * 对物件的流水线传输
  */
-public interface TransitPoint<T> {
+@ThreadSafe
+public interface TransitPoint<T,R> {
+    /**
+     * 将加工物料 放到传输点
+     * @param thing
+     */
+    public void consume(T thing) throws InterruptedException;
 
-    public void put(Event event);
-
-    public void pop();
+    /**
+     * 获取到产品
+     * @return
+     */
+    public R product() throws InterruptedException;
 
 }

@@ -14,26 +14,20 @@
  * limitations under the License.
  */
 
-package com.kong.support.thread.framework.callback;
+package com.kong.support.thread.transitpoint;
 
-import com.kong.support.thread.framework.Event;
-import com.kong.support.thread.framework.EventBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name OnEventProcessorListener
+ * File Name TransitPointPicker
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-13
+ * DATE      2018-06-14
  * EMAIL     playboxjre@Gmail.com
+ * 选择线程
  */
-public interface OnEventProcessorListener {
+public class TransitPointPicker {
+    Logger logger = LoggerFactory.getLogger(TransitPointPicker.class);
 
-    /**
-     *
-     * 事件处理
-     * 如果事件设置，则跳过通用的处理
-     * @param event
-      */
-    public EventBundle onEventProcessor(Event event);
+
 }

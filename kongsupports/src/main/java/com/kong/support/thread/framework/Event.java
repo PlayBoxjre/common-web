@@ -16,6 +16,7 @@
 
 package com.kong.support.thread.framework;
 
+import com.kong.support.thread.framework.callback.EventTask;
 import com.kong.support.thread.framework.callback.OnEventProcessorListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,18 +35,16 @@ public class Event {
     Logger logger = LoggerFactory.getLogger(Event.class);
     private int id;
     private String code;
+    private boolean cancel;
 
     public Event(String eventType){
         this.id = atomicInteger.incrementAndGet();
         this.code = UUID.randomUUID().toString();
-        this.eventType = new EventType();
-        this.eventType.setEventTypePriority(5);
-        this.eventType.setEventTypeName(eventType);
-        this.eventType.setDescription("This is "+ eventType);
+        this.eventType = EventType.createOrGetEventType(eventType);
     }
     private EventType eventType;
     private EventBundle eventBundle;
-    private OnEventProcessorListener onEventProcessorListener;
+    private EventTask eventTask;
 
 
     public int getId() {
@@ -80,11 +79,19 @@ public class Event {
         this.eventBundle = eventBundle;
     }
 
-    public OnEventProcessorListener getOnEventProcessorListener() {
-        return onEventProcessorListener;
+    public EventTask getEventTask() {
+        return eventTask;
     }
 
-    public void setOnEventProcessorListener(OnEventProcessorListener onEventProcessorListener) {
-        this.onEventProcessorListener = onEventProcessorListener;
+    public void setEventTask(EventTask eventTask) {
+        this.eventTask = eventTask;
+    }
+
+    public boolean isCancel() {
+        return cancel;
+    }
+
+    public void setCancel(boolean cancel) {
+        this.cancel = cancel;
     }
 }

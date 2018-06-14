@@ -41,6 +41,10 @@ public class EventThreadConfiguration {
 
     private int initialTransitPointCount = initialThreadCount;
 
+    private int initTransitPointCapacity = 128;
+
+
+
     public int getMaxThreadCount() {
         return maxThreadCount;
     }

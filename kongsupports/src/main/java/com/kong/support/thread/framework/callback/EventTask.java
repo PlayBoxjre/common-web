@@ -22,18 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * File Name OnEventProcessorListener
+ * File Name EventTask
  * Author    aaron (EN) & 孔翔kongxiang(CN)
- * DATE      2018-06-13
+ * DATE      2018-06-14
  * EMAIL     playboxjre@Gmail.com
  */
-public interface OnEventProcessorListener {
-
-    /**
-     *
-     * 事件处理
-     * 如果事件设置，则跳过通用的处理
-     * @param event
-      */
-    public EventBundle onEventProcessor(Event event);
-}
+public abstract class EventTask implements OnPreEventListener,OnPostEventListener,OnEventProcessorListener,OnEventCancelListener{
+ }

@@ -19,6 +19,8 @@ package com.kong.support.thread.framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -33,9 +35,35 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class EventType {
     Logger logger = LoggerFactory.getLogger(EventType.class);
     AtomicInteger atomicInteger = new AtomicInteger();
-    public EventType(){
+
+    private static Map<String,EventType> map =new HashMap<>();
+    public  static EventType createOrGetEventType(String eventTypeName,int eventPriority,String description){
+        assert eventTypeName != null;
+        synchronized (EventType.class){
+            EventType eventType = map.get(eventTypeName);
+            if (eventType == null) {
+                eventType = new EventType(eventTypeName,eventPriority,description);
+                map.put(eventTypeName,eventType);
+            }
+            return eventType;
+        }
+    }
+
+    public  static EventType createOrGetEventType(String eventTypeName,String description){
+       return createOrGetEventType(eventTypeName,5,description);
+    }
+
+    public  static EventType createOrGetEventType(String eventTypeName){
+        return createOrGetEventType(eventTypeName,5,eventTypeName);
+    }
+
+    public EventType(  String eventTypeName, int eventPriority, String description) {
         this.code = atomicInteger.incrementAndGet();
-     }
+        this.eventTypeName = eventTypeName;
+        this.eventPriority = eventPriority;
+        this.description = description;
+    }
+
     /**
      * 事件编号
      */
@@ -58,31 +86,15 @@ public class EventType {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public String getEventTypeName() {
         return eventTypeName;
-    }
-
-    public void setEventTypeName(String eventTypeName) {
-        this.eventTypeName = eventTypeName;
     }
 
     public int getEventPriority() {
         return eventPriority;
     }
 
-    public void setEventTypePriority(int eventPriority) {
-        this.eventPriority = eventPriority;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

@@ -17,9 +17,7 @@
 package com.kong.support.thread.framework.callback;
 
 import com.kong.support.thread.framework.EventBundle;
-import com.kong.support.thread.framework.ResultInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 /**
  * File Name OnPostEventListener
@@ -28,7 +26,6 @@ import org.slf4j.LoggerFactory;
  * EMAIL     playboxjre@Gmail.com
  */
 public interface OnPostEventListener {
-    Logger logger = LoggerFactory.getLogger(OnPostEventListener.class);
 
     public void onPost(EventBundle t);
 
